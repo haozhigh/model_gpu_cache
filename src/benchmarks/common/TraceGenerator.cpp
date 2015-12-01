@@ -120,7 +120,31 @@ void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
 }
 
 void TraceGenerator::event(const trace::TraceEvent & event) {
+    unsigned int block_id;
+    unsigned int block_dim;
 
+    //  Compute block_id and block_dim
+    block_id = event.blockId.x * event.gridDim.y * event.gridDim.z + event.blockId.y * event.gridDim.z + event.blockId.z;
+    block_dim = event.blockDim.x * event.blockDim.y * event.blockDim.z;
+
+    //  Only handles global load instructions or Tex instructions
+    if ((event.instruction->isLoad() && event.instruction->addressSpace == ir::PTXInstruction::Global) ||
+        event.instruction->opcode == ir::PTXInstruction::Tex) {
+        //  Infomation that needs to save
+        unsigned int thread_id;
+        unsigned int access_size;
+        unsigned long long access_address;
+        unsigned int program_counter;
+
+        //  Loop over each thread in this thread block
+        unsigned memory_address_counter = 0;
+        for (unsigned int local_thread_id = 0; local_thread_id < block_dim; local_thread_id++) {
+            thread_id = block_id * block_dim + local_thread_id;
+            program_counter = event.instruction->pc;
+
+            //  Check if this thread launches a memory access
+        }
+    }
 }
 
 void TraceGenerator::finish() {

@@ -1,2 +1,6 @@
 *.swp
 *.[oa]
+*_profiler
+*_trace
+*_sim
+datasets

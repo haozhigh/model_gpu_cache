@@ -1,7 +1,6 @@
 
 
 
-
 //  Ocelot includes
 #include <ocelot/api/interface/ocelot.h>
 #include <ocelot/trace/interface/TraceGenerator.h>
@@ -19,8 +18,11 @@
 class TraceGenerator : public trace::TraceGenerator {
 	private:
 	std::string trace_out_path;
+	std::ofstream out_stream;
 
 	std::string demangle(std::string str_in);
+	std::string strip_parameters(std::string full_name);
+	void force_exit();
 
 	public:
 	TraceGenerator(std::string _trace_out_path);
@@ -50,6 +52,25 @@ std::string TraceGenerator::demangle(std::string str_in) {
 	return str_out;
 }
 
+std::string TraceGenerator::strip_parameters(std::string full_name) {
+	int locate;
+
+	locate = full_name.find("(");
+	if (locate == -1)
+		return full_name;
+	else
+		return full_name.substr(0, locate);
+}
+
+void TraceGenerator::force_exit() {
+	//  If out_stream is opened for last kernel, close it
+	if (this->out_stream.is_open())
+		out_stream.close();
+	
+	//  Force exit program executing
+	std::_Exit(-1);
+}
+
 TraceGenerator::TraceGenerator(std::string _trace_out_path) {
 	this->trace_out_path = _trace_out_path;
 }
@@ -57,8 +78,45 @@ TraceGenerator::TraceGenerator(std::string _trace_out_path) {
 void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
 	std::string kernel_name;
 
-	kernel_name = this->demangle(kernel.name);
+	kernel_name = this->strip_parameters(this->demangle(kernel.name));
 	std::cout<<kernel_name<<std::endl;
+
+	//  Check if the kernel is among the most time-consuming ones.
+	//  If so, exit the program
+	std::vector<std::string> avoid_kernels = {	"corr_kernel",
+												"covar_kernel",
+												"BFS_kernel_multi_blk_inGPU"
+												};
+	std::vector<std::string>::iterator it;
+	for (it = avoid_kernels.begin(); it != avoid_kernels.end(); ++it) {
+		if (*it == kernel_name) {
+			std::cout << "##  " << kernel_name << " encountered  ##" << std::endl;
+			this->force_exit();
+		}
+	}
+
+	//  Check if this kernel has been executed already
+	//  Exit program while seeing repeated kernels
+	static std::vector<std::string> executed_kernels;
+	for (it = executed_kernels.begin(); it != executed_kernels.end(); ++it) {
+		if (*it == kernel_name) {
+			std::cout << "##  Repeated " << kernel_name << " encountered  ##" << std::endl;
+			this->force_exit();
+		}
+	}
+	executed_kernels.push_back(kernel_name);
+
+	//  If out_stream is opened for last kernel, close it
+	if (this->out_stream.is_open())
+		out_stream.close();
+
+	//  Open the file to write traces
+	this->out_stream.open(this->trace_out_path + "/" + kernel_name + ".trc", std::ofstream::out);
+	if (! this->out_stream.is_open()) {
+		std::cout<< "##  Failed to open file to write trace  ##" <<std::endl;
+		this->force_exit();
+	}
+												
 }
 
 void TraceGenerator::event(const trace::TraceEvent & event) {
@@ -66,6 +124,9 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
 }
 
 void TraceGenerator::finish() {
+	//  If out_stream is opened for last kernel, close it
+	if (this->out_stream.is_open())
+		out_stream.close();
 
 }
 

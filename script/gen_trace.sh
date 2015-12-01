@@ -11,8 +11,13 @@ for suite in $suites; do
 		if [ $1 == "" -o \( $1 != "" -a $1 == $bench \) ]; then
         	echo "##  Generate trace for $suite/$bench  ##"
 			cd "$build_dir"
-			##  The argument specifies where to store trace files
-			./${bench}_trace $trace_store_dir $( get_bench_args $suite $bench )
+
+			##  Make sure trace dir for this bench exists
+			trace_store_dir_bench="$trace_store_dir/$suite/$bench"
+			makesure_dir_exists "$trace_store_dir_bench"
+
+			##  Generating trace
+			./${bench}_trace "$trace_store_dir_bench" $( get_bench_args $suite $bench )
 		fi
     done
 done

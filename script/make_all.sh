@@ -1,45 +1,38 @@
 #!/bin/bash
-
 source common.sh
 
-## Get the full dir of this script file
-cur_dir="$( cd "$( dirname $0 )" && pwd )"
-
-##  Make sure that ../build directory exists
-if [ ! -d "$cur_dir/../build" ]; then
-	mkdir "$cur_dir/../build"
-fi
-
 ##  Clean formally made executables if argument specified
-if [ "$1" == "clean" ]; then
-    echo "##Removing everything in ../build"
-    rm -f "$cur_dir/../build/*_profiler"
-    rm -f "$cur_dir/../build/*_sim"
-    rm -f "$cur_dir/../build/*_trace"
-    rm -f "$cur_dir/../build/cachemodel_*"
+if [ "$1" = "clean" ]; then
+    echo "##  Removing pre built executables  ##"
+	cd "$build_dir"
+	echo "##  Cleaning *_profiler  ##"
+    rm -f *_profiler
+	echo "##  Cleaning *_sim  ##"
+    rm -f *_sim
+	echo "##  Cleaning *_trace  ##"
+    rm -f *_trace
+	echo "##  Cleaning cachemodel_*  ##"
+    rm -f cachemodel_*
     exit 0
 fi
 
 ##  Do the make one bench by another
 ##  No blank characters should exist in suite names or bench names
-cd "$cur_dir/../src/benchmarks/"
-suites=`ls`
+suites=$( get_suite_names )
 for suite in $suites; do
-    if [ $suite != common ]; then
-        cd $suite
-        benches=`ls`
-        for bench in $benches; do
-            echo "####Start making bench: $suite/$bench"
-            cd $bench
-            make
-            cd ..
-            echo
-        done
-        cd ..
-    fi
+    benches=$( get_bench_names "$suite" )
+    for bench in $benches; do
+		##  If the argument $1 is not empty, a specific bench is selected to make
+		if [ "$1" = "" -o \( "$1" != "" -a "$1" = "$bench" \) ]; then
+        	echo "##  Start making $suite/$bench  ##"
+			cd "$benchmarks_dir/$suite/$bench"
+        	make
+        	echo
+		fi
+    done
 done
 
-#cd "$cur_dir/../src/model_base"
+#cd "$script_dir/../src/model_base"
 #echo "####Start making cache model"
 #make
 #echo

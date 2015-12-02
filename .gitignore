@@ -2,5 +2,8 @@
 *.[oa]
 *_profiler
 *_trace
+*_code
 *_sim
 datasets
+log
+output

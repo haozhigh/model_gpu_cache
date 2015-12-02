@@ -1,6 +1,7 @@
 ##  Set bash shell to display every command executed
 ##set -x
 
+##  Get current time stamp at milli seconds
 function get_time_ms {
     t1=`date +%s`
     t1=$(((t1 % 100000) * 1000))
@@ -54,9 +55,17 @@ script_dir="$( cd "$( dirname $0 )" && pwd )"
 
 ##  Set the specific dirs
 build_dir="$script_dir/../build"
-trace_store_dir="$script_dir/../output/trace"
+log_dir="$script_dir/../log"
+log_dir_trace="$log_dir/trace"
+log_dir_code="$log_dir/code"
+trace_dir="$script_dir/../output/trace"
+code_dir="$script_dir/../output/code"
 benchmarks_dir="$script_dir/../src/benchmarks"
 
 ##  Make sure that the above dirs exist
 makesure_dir_exists "$build_dir"
-makesure_dir_exists "$trace_store_dir"
+makesure_dir_exists "$log_dir"
+makesure_dir_exists "$log_dir_trace"
+makesure_dir_exists "$log_dir_code"
+makesure_dir_exists "$trace_dir"
+makesure_dir_exists "$code_dir"

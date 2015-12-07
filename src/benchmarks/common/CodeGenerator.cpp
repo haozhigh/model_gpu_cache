@@ -65,6 +65,7 @@ std::string TraceGenerator::strip_parameters(std::string full_name) {
 
 void TraceGenerator::force_exit() {
 	//  Force exit program executing
+    std::cout<< "##  Force Exit  ##" << std::endl;
 	std::_Exit(-1);
 }
 
@@ -82,7 +83,7 @@ void TraceGenerator::write_to_file() {
     //  Write instructions to file
     int i;
     for (i = 0; i < instructions.size(); i++) {
-        out_stream << std::setw(5) << std::right << (i + 1) << instructions[i] << "\n";
+        out_stream << std::setw(5) << std::left << (i + 1) << instructions[i] << "\n";
     }
 
     //  Close file
@@ -140,11 +141,13 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
     int pc;
 
     pc = event.instruction->pc;
-    if (pc > instructions.size() - 1)
+    if (pc + 1 > instructions.size()) {
         instructions.resize(pc + 1);
+    }
 
-    if (instructions[pc] == "")
+    if (instructions[pc] == "") {
         instructions[pc] = event.instruction->toString();
+    }
 }
 
 void TraceGenerator::finish() {
@@ -160,5 +163,4 @@ int main(int argc, char** argv) {
 	TraceGenerator generator(argv[1]);
 	ocelot::addTraceGenerator(generator);
 	original_main(argc - 1, argv + 1);
-	return 0;
 }

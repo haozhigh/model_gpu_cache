@@ -11,6 +11,7 @@
 
 //  C++ includes
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <stdio.h>
 #include <string>
@@ -18,14 +19,35 @@
 
 #define TOTAL_NUM_ACCESS_LIMIT 10000000
 
+class MyMemoryAccess {
+    public:
+    int pc;
+    std::string target;
+    int jam;
+
+    MyMemoryAccess();
+};
+
+MyMemoryAccess::MyMemoryAccess() {
+    pc = -1;
+    jam = 0;
+}
+
 class TraceGenerator : public trace::TraceGenerator {
 	private:
 	std::string trace_out_path;
 	std::ofstream out_stream;
+    std::string kernel_name;
+    bool kernel_started;
+    std::vector<std::string> instructions;
+    std::map<int , int> jam_info;
 
 	std::string demangle(std::string str_in);
 	std::string strip_parameters(std::string full_name);
 	void force_exit();
+    void kernel_finish();
+    void write_instructions();
+    void write_jam_info();
 
     //  Variables needed to limit the total number of accesses recorded
     bool num_access_within_limit;
@@ -71,20 +93,20 @@ std::string TraceGenerator::strip_parameters(std::string full_name) {
 }
 
 void TraceGenerator::force_exit() {
-	//  If out_stream is opened for last kernel, close it
-	if (this->out_stream.is_open())
-		out_stream.close();
-	
 	//  Force exit program executing
 	std::_Exit(-1);
 }
 
 TraceGenerator::TraceGenerator(std::string _trace_out_path) {
 	this->trace_out_path = _trace_out_path;
+    kernel_started = false;
 }
 
 void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
-	std::string kernel_name;
+    //  If kernel_name is empty, call kernel_finish for last kernel
+    if (kernel_started) {
+        this->kernel_finish();
+    }
 
     //  Get name of the kernel, and print it to console
 	kernel_name = this->strip_parameters(this->demangle(kernel.name));
@@ -117,9 +139,8 @@ void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
 	}
 	executed_kernels.push_back(kernel_name);
 
-	//  If out_stream is opened for last kernel, close it
-	if (this->out_stream.is_open())
-		out_stream.close();
+    //  Set kernel_started to true
+    kernel_started = true;
 
 	//  Open the file to write traces
 	this->out_stream.open(this->trace_out_path + "/" + kernel_name + ".trc", std::ofstream::out);
@@ -134,11 +155,28 @@ void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
     total_num_accesses = 0;
     last_block_id = -1;
 
+    //  Init instructions to record instructions for this kernel
+    instructions.clear();
+    std::vector<std::string> ().swap(instructions);
+
+    //  Init jam_info to record jam information for this kernel
+    jam_info.clear();
+    std::map<int, int> ().swap(jam_info);
 }
 
 void TraceGenerator::event(const trace::TraceEvent & event) {
     int block_id;
     int block_dim;
+    static MyMemoryAccess last_load;
+    
+    //  Record instructions
+    int pc = event.instruction->pc;
+    if (pc + 1 > instructions.size()) {
+        instructions.resize(pc + 1);
+    }
+    if (instructions[pc] == "") {
+        instructions[pc] = event.instruction->toString();
+    }
 
     //  If the number of accesses already exceeds limit, do not record any more
     if (! num_access_within_limit)
@@ -203,11 +241,66 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
     }
 }
 
-void TraceGenerator::finish() {
+//  Should be called whenever a kernel finishes
+void TraceGenerator::kernel_finish() {
 	//  If out_stream is opened for last kernel, close it
 	if (this->out_stream.is_open())
 		out_stream.close();
 
+    //  Write instructions and jam_info to file for this kernel
+    this->write_instructions();
+    this->write_jam_info();
+
+    kernel_started = false;
+}
+
+void TraceGenerator::finish() {
+    //  Call kernel_finish for the last non-empty kernel executed
+    if (kernel_started) {
+        this->kernel_finish();
+    }
+}
+
+void TraceGenerator::write_instructions() {
+	std::ofstream out_stream;
+
+	//  Open the file to write traces
+	out_stream.open(trace_out_path + "/" + kernel_name + ".ptx", std::ofstream::out);
+	if (! out_stream.is_open()) {
+		std::cout << "####  Failed to open file to write code  ####" <<std::endl;
+        std::cout << "####  Program exiting ####" << std::endl;
+		this->force_exit();
+	}
+
+    //  Write instructions to file
+    int i;
+    for (i = 0; i < instructions.size(); i++) {
+        out_stream << std::setw(5) << std::left << (i + 1) << instructions[i] << "\n";
+    }
+
+    //  Close file
+    out_stream.close();
+}
+
+void TraceGenerator::write_jam_info() {
+	std::ofstream out_stream;
+
+	//  Open the file to write traces
+	out_stream.open(trace_out_path + "/" + kernel_name + ".jam", std::ofstream::out);
+	if (! out_stream.is_open()) {
+		std::cout << "####  Failed to open file to write jam info  ####" <<std::endl;
+        std::cout << "####  Program exiting ####" << std::endl;
+		this->force_exit();
+	}
+
+    //  Write jam info to file
+    std::map<int, int>::iterator it;
+    for (it = jam_info.begin(); it != jam_info.end(); ++it) {
+        out_stream << it->first << " " << it->second << "\n";
+    }
+
+    //  Close file
+    out_stream.close();
 }
 
 

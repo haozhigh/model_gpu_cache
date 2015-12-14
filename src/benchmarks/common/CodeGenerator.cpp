@@ -147,6 +147,17 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
 
     if (instructions[pc] == "") {
         instructions[pc] = event.instruction->toString();
+        std::cout << event.instruction->toString() << "   ";
+        std::cout << pc << "  ";
+        if (event.instruction->d.isRegister())
+        std::cout << event.instruction->d.registerName() << "-d  ";
+        if (event.instruction->a.isRegister())
+        std::cout << event.instruction->a.registerName() << "-a  ";
+        if (event.instruction->b.isRegister())
+        std::cout << event.instruction->b.registerName() << "-b  ";
+        if (event.instruction->c.isRegister())
+        std::cout << event.instruction->c.registerName() << "-c   ";
+        std::cout<<std::endl;
     }
 }
 

@@ -18,72 +18,154 @@
 
 
 #define TOTAL_NUM_ACCESS_LIMIT 10000000
+#define WARP_SIZE 32
 
-class MyMemoryAccess {
+class MyAccess {
     public:
-    int pc;
     unsigned long long address;
     int width;
-    int jam;
-    int target;
+    int valid;
 
-    MyMemoryAccess();
+    MyAccess();
 };
 
-MyMemoryAccess::MyMemoryAccess() {
-    pc = 0;
+MyAccess::MyAccess() {
     address = 0;
     width = 0;
-    jam = 0;
-    target = 0;
+    valid = 0;
+}
+
+class MyWarpAccess {
+    private:
+    MyAccess accesses[WARP_SIZE];
+    int global_warp_id;
+    int pc;
+    int target;
+    int jam;
+    int valid;
+    int num_of_valid_accesses;
+
+    public:
+    void write_to_file(std::ofstream &out_stream);
+    void reset();
+    void add(
+
+    MyWarpAccess();
+};
+
+MyWarpAccess::MyWarpAccess() {
+    valid = 0;
+}
+
+void MyWarpAccess::reset() {
+    valid = 0;
+    num_of_valid_accesses = 0;
+    for (int i = 0; i < WARP_SIZE; i++)
+        accesses[i].valid = 0;;
+}
+
+void MyWarpAccess::write_to_file(std::ofstream &out_stream) {
+    //  Check and reset valid flag of this warp access
+    if (valid != 1)
+        return;
+
+    //  Output global warp id, pc valie, jam info, and number of valid accesses in this warp
+    out_stream << global_warp_id << " ";
+    out_stream << pc << " ";
+    out_stream << jam << " ";
+    out_stream << num_of_valid_accesses << " ";
+
+    /*
+    //  Calculate number of accesses in this warp, and output it
+    int num_accesses_this_warp;
+    num_accesses_this_warp = 0;
+    for (j = 0; j < WARP_SIZE; j++)
+        if (warp_accesses[i].accesses[j].valid == 1)
+            num_accesses_this_warp ++;
+    out_stream << num_accesses_this_warp << " ";
+    */
+
+    //  Output each single access address and width of this warp
+    for (int i = 0; i < WARP_SIZE; i++) {
+        if (accesses[i].valid == 1) {
+            //  Output access address and width
+            out_stream << accesses[i].address << " ";
+            out_stream << accesses[i].width << " ";
+        }
+    }
+
+    //  Outpub end of line
+    out_stream << "\n";
+
+    //  Reset itself
+    this->reset();
 }
 
 class MyLastLoad {
     private:
-    MyMemoryAccess *accesses;
-    int block_size;
-    int block_id;
-    bool valid;
+        MyWarpAccess *warp_accesses;
+        int num_warps_per_block;
+        int block_id;
+
+        int strip_reg_number(const std::string str);
 
     public:
-    MyLastLoad();
-    bool is_valid();
-    void update(const trace::TraceEvent &event);
-    void check_jam(const trace::TraceEvent &event);
-    void assign_memory(int b_size);
-    void release_memory();
-    void write_to_file(std::ofstream &out_stream);
-    ~MyLastLoad();
+        MyLastLoad();
+        void update(const trace::TraceEvent &event);
+        void check_jam(const trace::TraceEvent &event);
+        void assign_memory(int b_size);
+        void release_memory();
+        void write_to_file(std::ofstream &out_stream);
+        void write_to_file(std::ofstream &out_stream, const trace::TraceEvent &event);
+        ~MyLastLoad();
 };
 
 MyLastLoad::MyLastLoad() {
-    accesses = NULL;
-    block_size = 0;
+    warp_accesses = NULL;
+    num_warps_per_block = 0;
     block_id = 0;
-    valid = false;
 }
 
-bool MyLastLoad::is_valid() {
-    return this->valid;
+int MyLastLoad::strip_reg_number(const std::string str) {
+    std::string tmp_str;
+
+    //  If str is not a valid reg string, return -1
+    if (str.size() < 3)
+        return -1;
+
+    tmp_str = str.substr(2);
+    return atoi(tmp_str.c_str());
 }
 
 void MyLastLoad::write_to_file(std::ofstream &out_stream) {
-    if (! valid)
+    if (warp_accesses == NULL)
+        return;
+
+    int i;
+    for (i = 0; i < num_warps_per_block; i++) {
+        if (warp_accesses[i].valid == 1)
+            warp_accesses[i].write_to_file(out_stream);
+    }
+}
+
+void MyLastLoad::write_to_file(std::ofstream &out_stream, const trace::TraceEvent &event) {
+    if (accesses == NULL)
         return;
 
     int i;
     for (i = 0; i < block_size; i++) {
-        int thread_id;
+        if (event.active[i]) {
+            if (accesses[i].valid) {
+                out_stream << block_size * block_id + i << " ";
+                out_stream << accesses[i].pc << " ";
+                out_stream << accesses[i].address << " ";
+                out_stream << accesses[i].width << " ";
+                out_stream << accesses[i].jam << "\n";
 
-        thread_id = block_size * block_id + i;
-        out_stream << thread_id << " ";
-        out_stream << accesses[i].pc << " ";
-        out_stream << accesses[i].address << " ";
-        out_stream << accesses[i].width << " ";
-        out_stream << accesses[i].jam << "\n";
+                accesses[i].valid = 0;
+            }
+        }
     }
-
-    valid = false;
 }
 
 void MyLastLoad::update(const trace::TraceEvent &event) {
@@ -108,6 +190,7 @@ void MyLastLoad::update(const trace::TraceEvent &event) {
 
             accesses[i].pc = pc;
             accesses[i].width = width;
+            accesses[i].target = this->strip_reg_number(event.instruction->d.toString());
             accesses[i].jam = 0;
     }
 
@@ -116,19 +199,31 @@ void MyLastLoad::update(const trace::TraceEvent &event) {
 }
 
 void MyLastLoad::check_jam(const trace::TraceEvent &event) {
+    int a, b, c;
+    int i;
 
+    for (i = 0; i < block_size; i++) {
+        //  Only check jam for valid threads
+        if (! event.active[i])
+            continue;
+
+        //  Check jam
+        a = this->strip_reg_number(event.instruction->a.toString());
+        if (a >= 
+    }
+    
 }
 
 void MyLastLoad::assign_memory(int b_size) {
     release_memory();
-    block_size = b_size;
-    accesses = new MyMemoryAccess[block_size];
+    num_warps_per_block = b_size / WARP_SIZE;
+    warp_accesses = new MyWarpAccess[num_warps_per_block];
 }
 
 void MyLastLoad::release_memory() {
-    if (accesses != NULL) {
-        delete[] accesses;
-        accesses = NULL;
+    if (warp_accesses != NULL) {
+        delete[] warp_accesses;
+        warp_accesses = NULL;
     }
 }
 
@@ -300,6 +395,10 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
     if (block_id > last_block_id) {
         last_block_id = block_id;
 
+        //  If last_load of the last thread block is not empty, write it to file
+        if (last_load.is_valid())
+            last_load.write_to_file(this->out_stream);
+
         // Check if the number of accesses exceeds limit
         if (total_num_accesses > TOTAL_NUM_ACCESS_LIMIT) {
             num_access_within_limit = false;
@@ -337,6 +436,8 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
     }
     //  If it is not a global load event
     else {
+        //  If last_load is not empty, check jam info
+        last_load.check_jam(event);
     }
 }
 

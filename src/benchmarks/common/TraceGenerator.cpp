@@ -1,6 +1,3 @@
-
-
-
 //  Ocelot includes
 #include <ocelot/api/interface/ocelot.h>
 #include <ocelot/trace/interface/TraceGenerator.h>
@@ -23,16 +20,12 @@
 class MyAccess {
     public:
     unsigned long long address;
-    int width;
-    int valid;
 
     MyAccess();
 };
 
 MyAccess::MyAccess() {
     address = 0;
-    width = 0;
-    valid = 0;
 }
 
 class MyWarpAccess {
@@ -41,14 +34,20 @@ class MyWarpAccess {
     int global_warp_id;
     int pc;
     int target;
+    int width;
     int jam;
     int valid;
-    int num_of_valid_accesses;
+    int num_valid_accesses;
 
     public:
     void write_to_file(std::ofstream &out_stream);
     void reset();
-    void add(
+    void set_warp_info(int gwi, int p, int t, int width);
+    void add(unsigned long long a);
+    bool is_valid();
+    bool is_jam();
+    void check_jam(int reg_id);
+    
 
     MyWarpAccess();
 };
@@ -57,11 +56,40 @@ MyWarpAccess::MyWarpAccess() {
     valid = 0;
 }
 
+bool MyWarpAccess::is_valid() {
+    return (valid == 1);
+}
+
+bool MyWarpAccess::is_jam() {
+    return (jam == 1);
+}
+
 void MyWarpAccess::reset() {
     valid = 0;
-    num_of_valid_accesses = 0;
-    for (int i = 0; i < WARP_SIZE; i++)
-        accesses[i].valid = 0;;
+    num_valid_accesses = 0;
+}
+
+void MyWarpAccess::set_warp_info(int gwi, int p, int t, int w) {
+    global_warp_id = gwi;
+    pc = p;
+    target = t;
+    width = w;
+    jam = 0;
+}
+
+void MyWarpAccess::add(unsigned long long a) {
+    this->valid = 1;
+    accesses[num_valid_accesses].address = a;
+    num_valid_accesses ++;
+}
+
+void MyWarpAccess::check_jam(int reg_id) {
+    if (this->is_jam())
+        return;
+
+    if (reg_id >= target && (reg_id < target + width))
+        jam = 1;
+    return;
 }
 
 void MyWarpAccess::write_to_file(std::ofstream &out_stream) {
@@ -69,11 +97,12 @@ void MyWarpAccess::write_to_file(std::ofstream &out_stream) {
     if (valid != 1)
         return;
 
-    //  Output global warp id, pc valie, jam info, and number of valid accesses in this warp
+    //  Output global warp id, pc valie, width, jam info, and number of valid accesses in this warp
     out_stream << global_warp_id << " ";
     out_stream << pc << " ";
+    out_stream << width << " ";
     out_stream << jam << " ";
-    out_stream << num_of_valid_accesses << " ";
+    out_stream << num_valid_accesses << " ";
 
     /*
     //  Calculate number of accesses in this warp, and output it
@@ -86,12 +115,9 @@ void MyWarpAccess::write_to_file(std::ofstream &out_stream) {
     */
 
     //  Output each single access address and width of this warp
-    for (int i = 0; i < WARP_SIZE; i++) {
-        if (accesses[i].valid == 1) {
-            //  Output access address and width
-            out_stream << accesses[i].address << " ";
-            out_stream << accesses[i].width << " ";
-        }
+    for (int i = 0; i < num_valid_accesses; i++) {
+        //  Output access address and width
+        out_stream << accesses[i].address << " ";
     }
 
     //  Outpub end of line
@@ -104,6 +130,7 @@ void MyWarpAccess::write_to_file(std::ofstream &out_stream) {
 class MyLastLoad {
     private:
         MyWarpAccess *warp_accesses;
+        int block_size;
         int num_warps_per_block;
         int block_id;
 
@@ -143,27 +170,22 @@ void MyLastLoad::write_to_file(std::ofstream &out_stream) {
 
     int i;
     for (i = 0; i < num_warps_per_block; i++) {
-        if (warp_accesses[i].valid == 1)
+        if (warp_accesses[i].is_valid())
             warp_accesses[i].write_to_file(out_stream);
     }
 }
 
 void MyLastLoad::write_to_file(std::ofstream &out_stream, const trace::TraceEvent &event) {
-    if (accesses == NULL)
+    if (warp_accesses == NULL)
         return;
 
-    int i;
-    for (i = 0; i < block_size; i++) {
+    for (int i = 0; i < block_size; i++) {
         if (event.active[i]) {
-            if (accesses[i].valid) {
-                out_stream << block_size * block_id + i << " ";
-                out_stream << accesses[i].pc << " ";
-                out_stream << accesses[i].address << " ";
-                out_stream << accesses[i].width << " ";
-                out_stream << accesses[i].jam << "\n";
+            int local_warp_id;
 
-                accesses[i].valid = 0;
-            }
+            local_warp_id = i / WARP_SIZE;
+            if (warp_accesses[local_warp_id].is_valid())
+                warp_accesses[local_warp_id].write_to_file(out_stream);
         }
     }
 }
@@ -173,49 +195,70 @@ void MyLastLoad::update(const trace::TraceEvent &event) {
     int i;
     int pc;
     int width;
+    int target;
     int address_counter;
 
+    //  Update block_id with this event
+    block_id = event.blockId.x * event.gridDim.y * event.gridDim.z + event.blockId.y * event.gridDim.z + event.blockId.z;
+
+    //  Get pc, width, and target
     pc = event.instruction->pc;
     width = event.instruction->vec * ir::PTXOperand::bytes(event.instruction->type);
+    target = this->strip_reg_number(event.instruction->d.toString());
+
+    //  Loop over all the threads in the block
     address_counter = 0;
     for (i = 0; i < block_size; i++) {
             //  Check if this thread launches a memory access
             if (event.active[i]) {
-                accesses[i].address = event.memory_addresses[address_counter];
+                int address;
+                int local_warp_id;
+
+                //  Set warp info
+                local_warp_id = i / WARP_SIZE;
+                if (! warp_accesses[local_warp_id].is_valid()) {
+                    int global_warp_id;
+                    
+                    global_warp_id = block_id * num_warps_per_block + local_warp_id;
+                    warp_accesses[local_warp_id].set_warp_info(global_warp_id, pc, target, width);
+                }
+
+                //  Add address and width to the corresponding warp
+                address = event.memory_addresses[address_counter];
                 address_counter ++;
+                warp_accesses[local_warp_id].add(address);
             }
-            else {
-                accesses[i].address = 0;
-            }
-
-            accesses[i].pc = pc;
-            accesses[i].width = width;
-            accesses[i].target = this->strip_reg_number(event.instruction->d.toString());
-            accesses[i].jam = 0;
     }
-
-    //  Update block_id with this event
-    block_id = event.blockId.x * event.gridDim.y * event.gridDim.z + event.blockId.y * event.gridDim.z + event.blockId.z;
 }
 
 void MyLastLoad::check_jam(const trace::TraceEvent &event) {
     int a, b, c;
-    int i;
+    int local_warp_id;
 
-    for (i = 0; i < block_size; i++) {
+    for (int i = 0; i < block_size;) {
         //  Only check jam for valid threads
-        if (! event.active[i])
+        if (! event.active[i]) {
+            i ++;
             continue;
-
+        }
+        
         //  Check jam
+        local_warp_id = i / WARP_SIZE;
         a = this->strip_reg_number(event.instruction->a.toString());
-        if (a >= 
+        b = this->strip_reg_number(event.instruction->a.toString());
+        c = this->strip_reg_number(event.instruction->a.toString());
+        warp_accesses[local_warp_id].check_jam(a);
+        warp_accesses[local_warp_id].check_jam(b);
+        warp_accesses[local_warp_id].check_jam(c);
+
+        //  Increase i to the next warp
+        i = (i / WARP_SIZE + 1) * WARP_SIZE;
     }
-    
 }
 
 void MyLastLoad::assign_memory(int b_size) {
     release_memory();
+    block_size = b_size;
     num_warps_per_block = b_size / WARP_SIZE;
     warp_accesses = new MyWarpAccess[num_warps_per_block];
 }
@@ -232,82 +275,74 @@ MyLastLoad::~MyLastLoad() {
 }
 
 class TraceGenerator : public trace::TraceGenerator {
-	private:
-	std::string trace_out_path;
-	std::ofstream out_stream;
-    std::string kernel_name;
-    bool kernel_started;
-    std::vector<std::string> instructions;
+    private:
+        std::string trace_out_path;
+        std::ofstream out_stream;
+        std::string kernel_name;
+        std::vector<std::string> instructions;
 
-	std::string demangle(std::string str_in);
-	std::string strip_parameters(std::string full_name);
-	void force_exit();
-    void kernel_finish();
-    void write_instructions();
+        std::string demangle(std::string str_in);
+        std::string strip_parameters(std::string full_name);
+        void force_exit();
+        void write_instructions();
 
-    //  Variables needed to limit the total number of accesses recorded
-    bool num_access_within_limit;
-    int total_num_accesses;
-    int last_block_id;
+        //  Variables needed to limit the total number of accesses recorded
+        bool num_access_within_limit;
+        int total_num_accesses;
+        int last_block_id;
 
-    //  Variable to achieve jam info recording
-    MyLastLoad last_load;
+        //  Variable to achieve jam info recording
+        MyLastLoad last_load;
 
-	public:
-	TraceGenerator(std::string _trace_out_path);
-	void initialize(const executive::ExecutableKernel & kernel);
-	void event(const trace::TraceEvent & event);
-	void finish();
+    public:
+        TraceGenerator(std::string _trace_out_path);
+        void initialize(const executive::ExecutableKernel & kernel);
+        void event(const trace::TraceEvent & event);
+        void finish();
 
 };
 
 std::string TraceGenerator::demangle(std::string str_in) {
-	std::string str_out;
-	FILE *pipe;
-	std::string command;
-	char buffer[128];
+    std::string str_out;
+    FILE *pipe;
+    std::string command;
+    char buffer[128];
 
-	command = "c++filt \"" + str_in + "\"";
-	pipe = popen(command.c_str(), "r");
-	if (pipe == NULL) {
-		return "ERROR";
-	}
+    command = "c++filt \"" + str_in + "\"";
+    pipe = popen(command.c_str(), "r");
+    if (pipe == NULL) {
+        return "ERROR";
+    }
 
-	while (fgets(buffer, 128, pipe) != NULL) {
-		str_out += buffer;
-	}
-	pclose(pipe);
+    while (fgets(buffer, 128, pipe) != NULL) {
+        str_out += buffer;
+    }
+    pclose(pipe);
 
-	return str_out;
+    return str_out;
 }
 
 std::string TraceGenerator::strip_parameters(std::string full_name) {
-	int locate;
+    int locate;
 
-	locate = full_name.find("(");
-	if (locate == -1)
-		return full_name;
-	else
-		return full_name.substr(0, locate);
+    locate = full_name.find("(");
+    if (locate == -1)
+        return full_name;
+    else
+        return full_name.substr(0, locate);
 }
 
 void TraceGenerator::force_exit() {
-	//  Force exit program executing
+    //  Force exit program executing
     std::cout << "#### Force Exit ####" << std::endl;
-	std::_Exit(-1);
+    std::_Exit(-1);
 }
 
 TraceGenerator::TraceGenerator(std::string _trace_out_path) {
 	this->trace_out_path = _trace_out_path;
-    kernel_started = false;
 }
 
 void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
-    //  If kernel_name is empty, call kernel_finish for last kernel
-    if (kernel_started) {
-        this->kernel_finish();
-    }
-
     //  Get name of the kernel, and print it to console
 	kernel_name = this->strip_parameters(this->demangle(kernel.name));
     std::cout<< "####  Start Generating trace for " << kernel_name << "  ####" << std::endl;
@@ -353,13 +388,6 @@ void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
     this->out_stream << block_dim.x << " ";
     this->out_stream << block_dim.y << " ";
     this->out_stream << block_dim.z << "\n";
-    /*std::cout << "helloworld1\n";
-    std::cout << block_dim.x << " ";
-    std::cout << block_dim.y << " ";
-    std::cout << block_dim.z << "\n";
-    std::cout << "helloworld2\n";
-    this->out_stream.close();
-    this->force_exit();*/
 
     //  Reset variables to limit total number of accesses
     num_access_within_limit = true;;
@@ -374,9 +402,6 @@ void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
     int block_size;
     block_size = block_dim.x * block_dim.y * block_dim.z;
     last_load.assign_memory(block_size);
-
-    //  Set kernel_started to true
-    kernel_started = true;
 }
 
 void TraceGenerator::event(const trace::TraceEvent & event) {
@@ -396,8 +421,7 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
         last_block_id = block_id;
 
         //  If last_load of the last thread block is not empty, write it to file
-        if (last_load.is_valid())
-            last_load.write_to_file(this->out_stream);
+        last_load.write_to_file(this->out_stream);
 
         // Check if the number of accesses exceeds limit
         if (total_num_accesses > TOTAL_NUM_ACCESS_LIMIT) {
@@ -425,8 +449,8 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
         event.instruction->opcode == ir::PTXInstruction::Tex) {
 
         //  If last_load is not empty, write it to file
-        if (last_load.is_valid())
-            last_load.write_to_file(this->out_stream);
+        //  Only write warps that are going to be affected by current event
+        last_load.write_to_file(this->out_stream, event);
 
         //  Update last_load with current event
         last_load.update(event);
@@ -442,7 +466,7 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
 }
 
 //  Should be called whenever a kernel finishes
-void TraceGenerator::kernel_finish() {
+void TraceGenerator::finish() {
 	//  If out_stream is opened for last kernel, close it
 	if (this->out_stream.is_open())
 		out_stream.close();
@@ -450,14 +474,10 @@ void TraceGenerator::kernel_finish() {
     //  Write instructions to file for this kernel
     this->write_instructions();
 
-    kernel_started = false;
-}
-
-void TraceGenerator::finish() {
-    //  Call kernel_finish for the last non-empty kernel executed
-    if (kernel_started) {
-        this->kernel_finish();
-    }
+    //  If last_load of the last thread block is not empty, write it to file
+    //  Release memory for last_load
+    last_load.write_to_file(this->out_stream);
+    last_load.release_memory();
 }
 
 void TraceGenerator::write_instructions() {

@@ -9,7 +9,7 @@ for suite in $suites; do
     for bench in $benches; do
 		##  If the argument $1 is not empty, a specific bench is selected to generate trace
 		if [ "$1" == "" -o \( "$1" != "" -a "$1" == "$bench" \) ]; then
-        	echo "##  Generate trace for $suite/$bench  ##"
+        	echo "##  gen_trace.sh: Generate trace for $suite/$bench  ##"
 			cd "$build_dir"
 
 			##  Make sure the dir to store trace exists

@@ -5,9 +5,10 @@ C				:= /usr/bin/gcc-4.4
 CXX				:= /usr/bin/g++-4.4
 
 INCLUDE_FLAGS	:= -I./ -I../../common/ -I/usr/local/include/ocelot/api/interface -I/usr/local/cuda-4.0/include
-NVCC_FLAGS		:= -O3 -m64 -arch=sm_20 $(INCLUDE_FLAGS)
-C_FLAGS			:= -O3 -m64 $(INCLUDE_FLAGS)
-CXX_FLAGS		:= -O3 -m64 -std=c++0x $(INCLUDE_FLAGS)
+DEBUG_FLAG      := -g
+NVCC_FLAGS		:= -O3 -m64 -arch=sm_20 $(INCLUDE_FLAGS) $(DEBUG_FLAG)
+C_FLAGS			:= -O3 -m64 $(INCLUDE_FLAGS) $(DEBUG_FLAG)
+CXX_FLAGS		:= -O3 -m64 -std=c++0x $(INCLUDE_FLAGS) $(DEBUG_FLAG)
 
 BUILD_PATH		:= ../../../../build
 TARGET_PROFILER	:= $(BUILD_PATH)/$(TARGET)_profiler

@@ -54,6 +54,7 @@ class MyWarpAccess {
 
 MyWarpAccess::MyWarpAccess() {
     valid = 0;
+    num_valid_accesses = 0;
 }
 
 bool MyWarpAccess::is_valid() {
@@ -334,7 +335,7 @@ std::string TraceGenerator::strip_parameters(std::string full_name) {
 
 void TraceGenerator::force_exit() {
     //  Force exit program executing
-    std::cout << "#### Force Exit ####" << std::endl;
+    std::cout << "#### TraceGenerator::force_exit: Force Exit ####" << std::endl;
     std::_Exit(-1);
 }
 
@@ -345,7 +346,7 @@ TraceGenerator::TraceGenerator(std::string _trace_out_path) {
 void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
     //  Get name of the kernel, and print it to console
 	kernel_name = this->strip_parameters(this->demangle(kernel.name));
-    std::cout<< "####  Start Generating trace for " << kernel_name << "  ####" << std::endl;
+    std::cout<< "####  TraceGenerator::initialize: Start Generating trace for " << kernel_name << "  ####" << std::endl;
 
 	//  Check if the kernel is among the most time-consuming ones.
 	//  If so, exit the program
@@ -356,8 +357,8 @@ void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
 	std::vector<std::string>::iterator it;
 	for (it = avoid_kernels.begin(); it != avoid_kernels.end(); ++it) {
 		if (*it == kernel_name) {
-			std::cout << "####  " << kernel_name << " encountered  ####" << std::endl;
-            std::cout << "####  Program exiting ####" << std::endl;
+			std::cout << "####  TraceGenerator::initialize: " << kernel_name << " encountered  ####" << std::endl;
+            std::cout << "####  TraceGenerator::initialize: Program exiting ####" << std::endl;
 			this->force_exit();
 		}
 	}
@@ -367,8 +368,8 @@ void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
 	static std::vector<std::string> executed_kernels;
 	for (it = executed_kernels.begin(); it != executed_kernels.end(); ++it) {
 		if (*it == kernel_name) {
-			std::cout << "####  Repeated " << kernel_name << " encountered  ####" << std::endl;
-            std::cout << "####  Program exiting ####" << std::endl;
+			std::cout << "####  TraceGenerator::initialize: Repeated " << kernel_name << " encountered  ####" << std::endl;
+            std::cout << "####  TraceGenerator::initialize: Program exiting ####" << std::endl;
 			this->force_exit();
 		}
 	}
@@ -377,8 +378,8 @@ void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
 	//  Open the file to write traces
 	this->out_stream.open(this->trace_out_path + "/" + kernel_name + ".trc", std::ofstream::out);
 	if (! this->out_stream.is_open()) {
-		std::cout<< "####  Failed to open file to write trace  ####" <<std::endl;
-        std::cout << "####  Program exiting ####" << std::endl;
+		std::cout << "####  TraceGenerator::initialize: Failed to open file to write trace  ####" <<std::endl;
+        std::cout << "####  TraceGenerator::initialize: Program exiting ####" << std::endl;
 		this->force_exit();
 	}
 
@@ -426,9 +427,9 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
         // Check if the number of accesses exceeds limit
         if (total_num_accesses > TOTAL_NUM_ACCESS_LIMIT) {
             num_access_within_limit = false;
-            std::cout<< "####  Total number of accesses exceeds " << TOTAL_NUM_ACCESS_LIMIT << "  ####" << std::endl;
+            std::cout<< "####  TraceGenerator::event: Total number of accesses exceeds " << TOTAL_NUM_ACCESS_LIMIT << "  ####" << std::endl;
             int grid_dim = event.gridDim.x * event.gridDim.y * event.gridDim.z;
-            std::cout<< "####  Please wait while " << (grid_dim - block_id) << "(out of " << grid_dim << ") blocks are still running ####" << std::endl;
+            std::cout<< "####  TraceGenerator::event: Please wait while " << (grid_dim - block_id) << "(out of " << grid_dim << ") blocks are still running ####" << std::endl;
 
             //  Return for the first event that number of accesses exceeds limit
             return;
@@ -467,17 +468,17 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
 
 //  Should be called whenever a kernel finishes
 void TraceGenerator::finish() {
+    //  If last_load of the last thread block is not empty, write it to file
+    //  Release memory for last_load
+    last_load.write_to_file(this->out_stream);
+    last_load.release_memory();
+
 	//  If out_stream is opened for last kernel, close it
 	if (this->out_stream.is_open())
 		out_stream.close();
 
     //  Write instructions to file for this kernel
     this->write_instructions();
-
-    //  If last_load of the last thread block is not empty, write it to file
-    //  Release memory for last_load
-    last_load.write_to_file(this->out_stream);
-    last_load.release_memory();
 }
 
 void TraceGenerator::write_instructions() {
@@ -486,8 +487,8 @@ void TraceGenerator::write_instructions() {
 	//  Open the file to write traces
 	out_stream.open(trace_out_path + "/" + kernel_name + ".ptx", std::ofstream::out);
 	if (! out_stream.is_open()) {
-		std::cout << "####  Failed to open file to write code  ####" <<std::endl;
-        std::cout << "####  Program exiting ####" << std::endl;
+		std::cout << "####  TraceGenerator::write_instructions: Failed to open file to write code  ####" <<std::endl;
+        std::cout << "####  TraceGenerator::write_instructions: Program exiting ####" << std::endl;
 		this->force_exit();
 	}
 

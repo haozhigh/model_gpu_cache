@@ -209,26 +209,47 @@ void MyLastLoad::update(const trace::TraceEvent &event) {
 
     //  Loop over all the threads in the block
     address_counter = 0;
+    bool warp_active = false;
     for (i = 0; i < block_size; i++) {
-            //  Check if this thread launches a memory access
-            if (event.active[i]) {
-                int address;
-                int local_warp_id;
+        //  At the start of each warp, check if this warp has valid accesses
+        if (i % WARP_SIZE == 0) {
+            warp_active = false;
 
-                //  Set warp info
-                local_warp_id = i / WARP_SIZE;
-                if (! warp_accesses[local_warp_id].is_valid()) {
-                    int global_warp_id;
-                    
-                    global_warp_id = block_id * num_warps_per_block + local_warp_id;
-                    warp_accesses[local_warp_id].set_warp_info(global_warp_id, pc, target, width);
+            int j;
+            for (j = i; j < i + WARP_SIZE; j++) {
+                if (event.active[j]) {
+                    warp_active = true;
+                    break;
                 }
+            }
+        }
 
-                //  Add address and width to the corresponding warp
+        //  If the current warp is valid, then record access of each thread
+        //  Unactive access is marked by a zero address
+        if (warp_active) {
+            int address;
+            int local_warp_id;
+
+            //  Set warp info
+            local_warp_id = i / WARP_SIZE;
+            if (! warp_accesses[local_warp_id].is_valid()) {
+                int global_warp_id;
+
+                global_warp_id = block_id * num_warps_per_block + local_warp_id;
+                warp_accesses[local_warp_id].set_warp_info(global_warp_id, pc, target, width);
+            }
+
+            //  Add address and width to the corresponding warp
+            if (event.active[i]) {
                 address = event.memory_addresses[address_counter];
                 address_counter ++;
-                warp_accesses[local_warp_id].add(address);
             }
+            else {
+                address = 0;
+            }
+            warp_accesses[local_warp_id].add(address);
+
+        }
     }
 }
 
@@ -242,7 +263,7 @@ void MyLastLoad::check_jam(const trace::TraceEvent &event) {
             i ++;
             continue;
         }
-        
+
         //  Check jam
         local_warp_id = i / WARP_SIZE;
         a = this->strip_reg_number(event.instruction->a.toString());
@@ -385,10 +406,14 @@ void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
 
     //  Write block dimension info to trace file
     ir::Dim3 block_dim;
+    ir::Dim3 grid_dim;
     block_dim = kernel.blockDim();
-    this->out_stream << block_dim.x << " ";
-    this->out_stream << block_dim.y << " ";
-    this->out_stream << block_dim.z << "\n";
+    grid_dim = kernel.gridDim();
+    this->out_stream << block_dim.x * block_dim.y * block_dim.z << " ";
+    this->out_stream << grid_dim.x * grid_dim.y * grid_dim.z << "\n";
+    //this->out_stream << block_dim.x << " ";
+    //this->out_stream << block_dim.y << " ";
+    //this->out_stream << block_dim.z << "\n";
 
     //  Reset variables to limit total number of accesses
     num_access_within_limit = true;;

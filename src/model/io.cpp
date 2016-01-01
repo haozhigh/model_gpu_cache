@@ -3,7 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "ModelConfig.h"
+
+#include "io.h"
 #include "functions.h"
 
 void read_model_config_from_file(std::string file_path, ModelConfig &model_config) {
@@ -21,7 +22,7 @@ void read_model_config_from_file(std::string file_path, ModelConfig &model_confi
     model_config.latency_mean = 100;
     model_config.latency_dev = 5;
 
-    in_stream.open(file_path, std::ofstream::in);
+    in_stream.open(file_path, std::ifstream::in);
     //  If the config file can not be opened, use the default config
     if (! in_stream.is_open()) {
         std::cout<< "####  read_model_config_from_file: config file cannot be opened, use the default config  ####" << std::endl;
@@ -101,4 +102,48 @@ void read_model_config_from_file(std::string file_path, ModelConfig &model_confi
     }
 
     model_config.print();
+}
+
+
+int read_trace_from_file(std::string file_path, std::vector<WarpTrace> &warp_traces, ThreadDim &thread_dim) {
+    std::ifstream in_stream;
+
+    //  Open the trace file
+    //  If the file can not be opened, return error
+    in_stream.open(file_path, std::ifstream::in);
+    if (! in_stream.is_open()) {
+        std::cout << "####  read_trace_from_file: trace file '" << file_path << "' can not be opened  ####" << std::endl;
+        return -1;
+    }
+
+    //  Read thread dimension information from trace file
+    int block_size, grid_size;
+    in_stream >> block_size >> grid_size;
+    thread_dim.reset(block_size, grid_size);
+
+    //  Allocate space for warp_accesses
+    warp_traces.reserve(thread_dim.num_warps);
+    warp_traces.resize(thread_dim.num_warps);
+
+    //  Read traces from the trace file
+    int warp_id;
+    int pc;
+    int jam;
+    int width;
+    int num_valid_accesses;
+    unsigned long long *addr = new unsigned long long[thread_dim.threads_per_warp];
+
+    in_stream >> warp_id >> pc >> width >> jam >> num_valid_accesses;
+    while (in_stream.good()) {
+        int i;
+
+        for (i = 0; i < num_valid_accesses; i++)
+            in_stream >> addr[i];
+
+        warp_traces[warp_id].add_warp_access(pc, width, jam, num_valid_accesses, addr);
+    }
+    delete[] addr;
+
+
+    return 0;
 }

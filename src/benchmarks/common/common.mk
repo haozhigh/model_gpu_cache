@@ -15,12 +15,13 @@ TARGET_PROFILER	:= $(BUILD_PATH)/$(TARGET)_profiler
 TARGET_SIM		:= $(BUILD_PATH)/$(TARGET)_sim
 TARGET_TRACE	:= $(BUILD_PATH)/$(TARGET)_trace
 
+all:				$(TARGET_PROFILER) $(TARGET_SIM) $(TARGET_TRACE)
+
+####  Rules to comiple bench source files to obj files
 C_OBJS			:= $(patsubst %.c,%.o,$(C_FILES))
 CPP_OBJS		:= $(patsubst %.cpp,%.o,$(CPP_FILES))
 CU_OBJS			:= $(patsubst %.cu,%.o,$(CU_FILES))
 OBJS			:= $(C_OBJS) $(CPP_OBJS) $(CU_OBJS)
-
-all:				$(TARGET_PROFILER) $(TARGET_TRACE)
 
 ifneq ($(C_OBJS),)
 $(C_OBJS):	%.o:	%.c
@@ -35,35 +36,48 @@ $(CU_OBJS):	%.o:	%.cu
 	$(NVCC) -c $< $(NVCC_FLAGS) -o $@
 endif
 
+
+####  Rules to generate profiler version executables
 $(TARGET_PROFILER):	$(OBJS)
 	$(CXX) -o $(TARGET_PROFILER) $(OBJS) $(CXX_FLAGS) -L$(CUDA_LIB_PATH) -Wl,-rpath=$(CUDA_LIB_PATH) -lcudart
 
+####  Rules to generate Sim version executables
 $(TARGET_SIM):		$(OBJS)
 	$(CXX) -o $(TARGET_SIM) $(OBJS) $(CXX_FLAGS) -L$(CUDA_LIB_PATH) -lcudart
 
+####  Rules to compile bench source files to obj files with the MAIN MACRO on, for trace generating
 CTRACE_OBJS		:= $(patsubst %.c,%.otrace,$(C_FILES))
 CPPTRACE_OBJS	:= $(patsubst %.cpp,%.otrace,$(CPP_FILES))
 CUTRACE_OBJS	:= $(patsubst %.cu,%.otrace,$(CU_FILES))
 TRACE_OBJS		:= $(CTRACE_OBJS) $(CPPTRACE_OBJS) $(CUTRACE_OBJS)
 
 MAIN_MACRO_FLAG	:= -Dmain=original_main
-ifneq ($(CTRACE_OBJS,))
+ifneq ($(CTRACE_OBJS),)
 $(CTRACE_OBJS):		%.otrace:	%.c
 	$(C) -c $< $(C_FLAGS) $(MAIN_MACRO_FLAG) -o $@
 endif
-ifneq ($(CPPTRACE_OBJS,))
+ifneq ($(CPPTRACE_OBJS),)
 $(CPPTRACE_OBJS):		%.otrace:	%.cpp
 	$(CXX) -c $< $(CXX_FLAGS) $(MAIN_MACRO_FLAG) -o $@
 endif
-ifneq ($(CUTRACE_OBJS,))
+ifneq ($(CUTRACE_OBJS),)
 $(CUTRACE_OBJS):		%.otrace:	%.cu
 	$(NVCC) -c $< $(NVCC_FLAGS) $(MAIN_MACRO_FLAG) -o $@
 endif
 
-GENERATOR_OBJS	:= ../../../trace/*.o
-$(TARGET_TRACE):	$(TRACE_OBJS)
-	$(CXX) -o $(TARGET_TRACE) $(TRACE_OBJS) $(CXX_FLAGS) -L$(CUDA_LIB_PATH) `OcelotConfig -l`
+####  Rules to compile trace generator source files to obj files
+GENERATOR_PATH			:= ../../../trace
+GENERATOR_CPP_FILES		:= $(GENERATOR_PATH)/TraceGenerator.cpp $(GENERATOR_PATH)/MyLastLoad.cpp $(GENERATOR_PATH)/MyWarpAccess.cpp
+GENERATOR_OBJS			:= $(patsubst %.cpp,%.o,$(GENERATOR_CPP_FILES))
+
+$(GENERATOR_OBJS):	%.o:	%.cpp
+	$(CXX) -c $< -o $@ $(CXX_FLAGS)
+
+####  Rules to generate trace generator executables
+$(TARGET_TRACE):	$(TRACE_OBJS) $(GENERATOR_OBJS)
+	$(CXX) -o $(TARGET_TRACE) $(TRACE_OBJS) $(GENERATOR_OBJS) $(CXX_FLAGS) -L$(CUDA_LIB_PATH) `OcelotConfig -l`
 
 
 clean:
-	rm $(OBJS) $(TRACE_OBJS)
+	rm -f $(OBJS) $(TRACE_OBJS) $(GENERATOR_OBJS)
+	rm -f $(TARGET_PROFILER) $(TARGET_SIM) $(TARGET_TRACE)

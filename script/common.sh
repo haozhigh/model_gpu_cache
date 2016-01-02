@@ -50,13 +50,6 @@ function get_bench_args {
 	echo "$args"
 }
 
-##  Compile trace generator files
-function compile_geenrator {
-    cd "$generator_dir"
-    make
-    cd -
-}
-
 ## Get the full dir of the script file which sources common.sh
 script_dir="$( cd "$( dirname $0 )" && pwd )"
 
@@ -66,7 +59,6 @@ log_dir="$script_dir/../log"
 log_dir_trace="$log_dir/trace"
 trace_dir="$script_dir/../output/trace"
 benchmarks_dir="$script_dir/../src/benchmarks"
-generator_dir="$script_dir/../src/trace"
 
 ##  Make sure that the above dirs exist
 makesure_dir_exists "$build_dir"

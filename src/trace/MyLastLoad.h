@@ -4,6 +4,8 @@
 
 #include "MyWarpAccess.h"
 
+#ifndef MY_LAST_LOAD
+#define MY_LAST_LOAD
 
 class MyLastLoad {
     private:
@@ -24,3 +26,5 @@ class MyLastLoad {
         void write_to_file(std::ofstream &out_stream, const trace::TraceEvent &event);
         ~MyLastLoad();
 };
+
+#endif

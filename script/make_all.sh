@@ -2,22 +2,12 @@
 source common.sh
 
 ##  Clean formally made executables if argument specified
+make_flag=""
+bench_specified=$1
 if [ "$1" = "clean" ]; then
-    echo "##  Removing pre built executables  ##"
-	cd "$build_dir"
-	echo "##  Cleaning *_profiler  ##"
-    rm -f *_profiler
-	echo "##  Cleaning *_sim  ##"
-    rm -f *_sim
-	echo "##  Cleaning *_trace  ##"
-    rm -f *_trace
-	echo "##  Cleaning cachemodel_*  ##"
-    rm -f cachemodel_*
-    exit 0
+    make_flag="clean"
+    bench_specified=$2
 fi
-
-##  Make sure that the trace generator is compiled in advance
-compile_geenrator
 
 ##  Do the make one bench by another
 ##  No blank characters should exist in suite names or bench names
@@ -26,10 +16,10 @@ for suite in $suites; do
     benches=$( get_bench_names "$suite" )
     for bench in $benches; do
 		##  If the argument $1 is not empty, a specific bench is selected to make
-		if [ "$1" = "" -o \( "$1" != "" -a "$1" = "$bench" \) ]; then
+		if [ "$bench_specified" = "" -o \( "$bench_specified" != "" -a "$bench_specified" = "$bench" \) ]; then
         	echo "##  Start making $suite/$bench  ##"
 			cd "$benchmarks_dir/$suite/$bench"
-        	make
+        	make $make_flag
         	echo
 		fi
     done

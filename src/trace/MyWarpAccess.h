@@ -4,6 +4,8 @@
 
 #include "constant.h"
 
+#ifndef MY_WARP_ACCESS
+#define MY_WARP_ACCESS
 
 class MyAccess {
     public:
@@ -11,10 +13,6 @@ class MyAccess {
 
     MyAccess();
 };
-
-MyAccess::MyAccess() {
-    address = 0;
-}
 
 class MyWarpAccess {
     private:
@@ -40,3 +38,4 @@ class MyWarpAccess {
     MyWarpAccess();
 };
 
+#endif

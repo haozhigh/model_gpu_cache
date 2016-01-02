@@ -3,6 +3,11 @@
 
 #include "MyWarpAccess.h"
 
+MyAccess::MyAccess() {
+    address = 0;
+}
+
+
 MyWarpAccess::MyWarpAccess() {
     this->reset();
 }

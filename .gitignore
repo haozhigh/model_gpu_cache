@@ -1,5 +1,6 @@
 *.swp
 *.[oa]
+*.otrace
 *_profiler
 *_trace
 *_code

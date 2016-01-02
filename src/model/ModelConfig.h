@@ -18,6 +18,10 @@ class ModelConfig {
 	int latency_mean;
 	int latency_dev;
 
+    int cache_line_bits;
+
+    public:
+    void calculate_line_bits();
     void print();
 };
 

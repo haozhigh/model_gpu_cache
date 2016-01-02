@@ -316,6 +316,11 @@ class TraceGenerator : public trace::TraceGenerator {
         //  Variable to achieve jam info recording
         MyLastLoad last_load;
 
+        //  Record block dimension infomation
+        int total_threads_per_block;
+        int total_threads;
+        void write_total_num_threads_to_file();
+
     public:
         TraceGenerator(std::string _trace_out_path);
         void initialize(const executive::ExecutableKernel & kernel);
@@ -405,12 +410,13 @@ void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
 	}
 
     //  Write block dimension info to trace file
+    //  Set total number of threads to grid dimension for now
     ir::Dim3 block_dim;
     ir::Dim3 grid_dim;
     block_dim = kernel.blockDim();
     grid_dim = kernel.gridDim();
-    this->out_stream << block_dim.x * block_dim.y * block_dim.z << " ";
-    this->out_stream << grid_dim.x * grid_dim.y * grid_dim.z << "\n";
+    total_threads_per_block = block_dim.x * block_dim.y * block_dim.z;
+    total_threads = grid_dim.x * grid_dim.y * grid_dim.z * total_threads_per_block;
     //this->out_stream << block_dim.x << " ";
     //this->out_stream << block_dim.y << " ";
     //this->out_stream << block_dim.z << "\n";
@@ -455,6 +461,9 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
             std::cout<< "####  TraceGenerator::event: Total number of accesses exceeds " << TOTAL_NUM_ACCESS_LIMIT << "  ####" << std::endl;
             int grid_dim = event.gridDim.x * event.gridDim.y * event.gridDim.z;
             std::cout<< "####  TraceGenerator::event: Please wait while " << (grid_dim - block_id) << "(out of " << grid_dim << ") blocks are still running ####" << std::endl;
+
+            //  Reset total number of theads to the restricted value
+            total_threads = block_dim * block_id;
 
             //  Return for the first event that number of accesses exceeds limit
             return;
@@ -506,6 +515,24 @@ void TraceGenerator::finish() {
     this->write_instructions();
 }
 
+void TraceGenerator::write_total_num_threads_to_file() {
+    std::ofstream out_stream;
+
+    //  Open the file to write
+    out_stream.open(trace_out_path + "/" + kernel_name + ".trc.dim", std::ofstream::out);
+    if (! out_stream.is_open()) {
+		std::cout << "####  TraceGenerator::write_total_num_threads_to_file: Failed to open file to write code  ####" <<std::endl;
+		this->force_exit();
+    }
+    
+    //  Do the write
+    out_stream << this->total_threads_per_block << " ";
+    out_stream << this->total_threads << "\n";
+
+    //  Close file
+    out_stream.close();
+}
+
 void TraceGenerator::write_instructions() {
 	std::ofstream out_stream;
 
@@ -513,7 +540,6 @@ void TraceGenerator::write_instructions() {
 	out_stream.open(trace_out_path + "/" + kernel_name + ".ptx", std::ofstream::out);
 	if (! out_stream.is_open()) {
 		std::cout << "####  TraceGenerator::write_instructions: Failed to open file to write code  ####" <<std::endl;
-        std::cout << "####  TraceGenerator::write_instructions: Program exiting ####" << std::endl;
 		this->force_exit();
 	}
 

@@ -101,11 +101,12 @@ void read_model_config_from_file(std::string file_path, ModelConfig &model_confi
         continue;
     }
 
+    model_config.calculate_line_bits();
     model_config.print();
 }
 
 
-int read_trace_from_file(std::string file_path, std::vector<WarpTrace> &warp_traces, ThreadDim &thread_dim) {
+int read_trace_from_file(std::string file_path, std::vector<WarpTrace> &warp_traces, ThreadDim &thread_dim, const ModelConfig & model_config) {
     std::ifstream in_stream;
 
     //  Open the trace file
@@ -137,8 +138,13 @@ int read_trace_from_file(std::string file_path, std::vector<WarpTrace> &warp_tra
     while (in_stream.good()) {
         int i;
 
-        for (i = 0; i < num_valid_accesses; i++)
+        for (i = 0; i < num_valid_accesses; i++) {
             in_stream >> addr[i];
+
+            //  Convert memory access address to line block address
+            addr[i] = addr[i] >> model_config.cache_line_bits;
+        }
+
 
         warp_traces[warp_id].add_warp_access(pc, width, jam, num_valid_accesses, addr);
     }

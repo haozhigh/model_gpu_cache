@@ -60,6 +60,8 @@ int WarpAccess::get_num_distinct_block_addr() {
 
 void WarpAccess::coalesce(ModelConfig & model_config, ThreadDim & thread_dim) {
     int coalesce_width;
+    std::set<unsigned long long> distinct_addr;
+    int i;
 
     //  Calculate the coalesce width
     coalesce_width = thread_dim.threads_per_warp;
@@ -67,6 +69,20 @@ void WarpAccess::coalesce(ModelConfig & model_config, ThreadDim & thread_dim) {
         coalesce_width = thread_dim.threads_per_warp / 2;
     if (accesses[0].width == 16)
         coalesce_width = thread_dim.threads_per_warp / 4;
+
+    i = 0;
+    for (i = 0; i < size; i++) {
+        //  At the start of a coalescing part, clean distinct_addr
+        if (i % coalesce_width == 0) {
+            distinct_addr.clear();
+        }
+
+        //  If the access is not valid, ignore it
+        if (accesses[i].address == 0)
+            continue;
+
+
+    }
 }
 
 WarpTrace::WarpTrace() {

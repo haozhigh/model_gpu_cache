@@ -16,6 +16,9 @@ if [ "$1" = "clean" ]; then
     exit 0
 fi
 
+##  Make sure that the trace generator is compiled in advance
+compile_geenrator
+
 ##  Do the make one bench by another
 ##  No blank characters should exist in suite names or bench names
 suites=$( get_suite_names )

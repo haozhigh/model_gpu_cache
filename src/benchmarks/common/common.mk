@@ -14,55 +14,56 @@ BUILD_PATH		:= ../../../../build
 TARGET_PROFILER	:= $(BUILD_PATH)/$(TARGET)_profiler
 TARGET_SIM		:= $(BUILD_PATH)/$(TARGET)_sim
 TARGET_TRACE	:= $(BUILD_PATH)/$(TARGET)_trace
-TARGET_CODE 	:= $(BUILD_PATH)/$(TARGET)_code
 
-all:				$(TARGET_PROFILER) $(TARGET_TRACE) $(TARGET_CODE)
+C_OBJS			:= $(patsubst %.c,%.o,$(C_FILES))
+CPP_OBJS		:= $(patsubst %.cpp,%.o,$(CPP_FILES))
+CU_OBJS			:= $(patsubst %.cu,%.o,$(CU_FILES))
+OBJS			:= $(C_OBJS) $(CPP_OBJS) $(CU_OBJS)
 
-$(TARGET_PROFILER):	$(CU_FILES) $(C_FILES) $(CPP_FILES)
-	rm -f *.o
-ifneq ("$(CU_FILES)", "")
-	$(NVCC) -c $(CU_FILES) $(NVCC_FLAGS)
-endif
-ifneq ("$(C_FILES)", "")
-	$(C) -c $(C_FILES) $(C_FLAGS)
-endif
-ifneq ("$(CPP_FILES)", "")
-	$(CXX) -c $(CPP_FILES) $(CXX_FLAGS)
-endif
-	$(CXX) -o $(TARGET_PROFILER) *.o $(CXX_FLAGS) -L$(CUDA_LIB_PATH) -Wl,-rpath=$(CUDA_LIB_PATH) -lcudart
-	$(CXX) -o $(TARGET_SIM) *.o $(CXX_FLAGS) -L$(CUDA_LIB_PATH) -lcudart
-	rm -f *.o
+all:				$(TARGET_PROFILER) $(TARGET_TRACE)
 
-TRACE_GENERATOR	:= ../../common/TraceGenerator.cpp
+ifneq ($(C_OBJS),)
+$(C_OBJS):	%.o:	%.c
+	$(C) -c $< $(C_FLAGS) -o $@
+endif
+ifneq ($(CPP_OBJS),)
+$(CPP_OBJS):	%.o:	%.cpp
+	$(CXX) -c $< $(CXX_FLAGS) -o $@
+endif
+ifneq ($(CU_OBJS),)
+$(CU_OBJS):	%.o:	%.cu
+	$(NVCC) -c $< $(NVCC_FLAGS) -o $@
+endif
+
+$(TARGET_PROFILER):	$(OBJS)
+	$(CXX) -o $(TARGET_PROFILER) $(OBJS) $(CXX_FLAGS) -L$(CUDA_LIB_PATH) -Wl,-rpath=$(CUDA_LIB_PATH) -lcudart
+
+$(TARGET_SIM):		$(OBJS)
+	$(CXX) -o $(TARGET_SIM) $(OBJS) $(CXX_FLAGS) -L$(CUDA_LIB_PATH) -lcudart
+
+CTRACE_OBJS		:= $(patsubst %.c,%.otrace,$(C_FILES))
+CPPTRACE_OBJS	:= $(patsubst %.cpp,%.otrace,$(CPP_FILES))
+CUTRACE_OBJS	:= $(patsubst %.cu,%.otrace,$(CU_FILES))
+TRACE_OBJS		:= $(CTRACE_OBJS) $(CPPTRACE_OBJS) $(CUTRACE_OBJS)
+
 MAIN_MACRO_FLAG	:= -Dmain=original_main
-$(TARGET_TRACE):	$(CU_FILES) $(C_FILES) $(CPP_FILES) $(TRACE_GENERATOR)
-	rm -f *.o
-ifneq ("$(CU_FILES)", "")
-	$(NVCC) -c $(CU_FILES) $(NVCC_FLAGS) $(MAIN_MACRO_FLAG)
+ifneq ($(CTRACE_OBJS,))
+$(CTRACE_OBJS):		%.otrace:	%.c
+	$(C) -c $< $(C_FLAGS) $(MAIN_MACRO_FLAG) -o $@
 endif
-ifneq ("$(C_FILES)", "")
-	$(C) -c $(C_FILES) $(C_FLAGS) $(MAIN_MACRO_FLAG)
+ifneq ($(CPPTRACE_OBJS,))
+$(CPPTRACE_OBJS):		%.otrace:	%.cpp
+	$(CXX) -c $< $(CXX_FLAGS) $(MAIN_MACRO_FLAG) -o $@
 endif
-ifneq ("$(CPP_FILES)", "")
-	$(CXX) -c $(CPP_FILES) $(CXX_FLAGS) $(MAIN_MACRO_FLAG)
+ifneq ($(CUTRACE_OBJS,))
+$(CUTRACE_OBJS):		%.otrace:	%.cu
+	$(NVCC) -c $< $(NVCC_FLAGS) $(MAIN_MACRO_FLAG) -o $@
 endif
-	$(CXX) -c $(TRACE_GENERATOR) $(CXX_FLAGS)
-	$(CXX) -o $(TARGET_TRACE) *.o $(CXX_FLAGS) -L$(CUDA_LIB_PATH) `OcelotConfig -l`
-	rm -f *.o
 
-CODE_GENERATOR	:= ../../common/CodeGenerator.cpp
-MAIN_MACRO_FLAG	:= -Dmain=original_main
-$(TARGET_CODE):	$(CU_FILES) $(C_FILES) $(CPP_FILES) $(CODE_GENERATOR)
-	rm -f *.o
-ifneq ("$(CU_FILES)", "")
-	$(NVCC) -c $(CU_FILES) $(NVCC_FLAGS) $(MAIN_MACRO_FLAG)
-endif
-ifneq ("$(C_FILES)", "")
-	$(C) -c $(C_FILES) $(C_FLAGS) $(MAIN_MACRO_FLAG)
-endif
-ifneq ("$(CPP_FILES)", "")
-	$(CXX) -c $(CPP_FILES) $(CXX_FLAGS) $(MAIN_MACRO_FLAG)
-endif
-	$(CXX) -c $(CODE_GENERATOR) $(CXX_FLAGS)
-	$(CXX) -o $(TARGET_CODE) *.o $(CXX_FLAGS) -L$(CUDA_LIB_PATH) `OcelotConfig -l`
-	rm -f *.o
+GENERATOR_OBJS	:= ../../../trace/*.o
+$(TARGET_TRACE):	$(TRACE_OBJS)
+	$(CXX) -o $(TARGET_TRACE) $(TRACE_OBJS) $(CXX_FLAGS) -L$(CUDA_LIB_PATH) `OcelotConfig -l`
+
+
+clean:
+	rm $(OBJS) $(TRACE_OBJS)

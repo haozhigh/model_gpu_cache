@@ -17,6 +17,12 @@ class ModelConfig {
 	int latency_type;
 	int latency_mean;
 	int latency_dev;
+    
+    int num_sms;
+    int max_active_threads;
+    int max_active_blocks;
+
+    int num_running_threads;
 
     int cache_line_bits;
 

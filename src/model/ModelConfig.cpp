@@ -5,7 +5,6 @@
 
 #include "ModelConfig.h"
 
-
 void ModelConfig::calculate_line_bits() {
     int i;
     int n, m;
@@ -34,14 +33,23 @@ void ModelConfig::calculate_line_bits() {
 
 void ModelConfig::print() {
     std::cout << "########  ModelConfig::Print  ########" << std::endl;
-    std::cout << "cache_line_size:  " << cache_line_size << std::endl;
-    std::cout << "cache_way_size:   " << cache_way_size << std::endl;
-    std::cout << "cache_set_size:   " << cache_set_size << std::endl;
-    std::cout << "allocate_on_miss: " << allocate_on_miss << std::endl;
-    std::cout << "jam_instruction:  " << jam_instruction << std::endl;
-    std::cout << "latency_type:     " << latency_type << std::endl;
-    std::cout << "latency_mean:     " << latency_mean << std::endl;
-    std::cout << "latency_dev:      " << latency_dev << std::endl;
+    std::cout << "cache_line_size:    " << cache_line_size << std::endl;
+    std::cout << "cache_way_size:     " << cache_way_size << std::endl;
+    std::cout << "cache_set_size:     " << cache_set_size << std::endl;
+    std::cout << std::endl;
+    std::cout << "allocate_on_miss:   " << allocate_on_miss << std::endl;
+    std::cout << "jam_instruction:    " << jam_instruction << std::endl;
+    std::cout << std::endl;
+    std::cout << "latency_type:       " << latency_type << std::endl;
+    std::cout << "latency_mean:       " << latency_mean << std::endl;
+    std::cout << "latency_dev:        " << latency_dev << std::endl;
+    std::cout << std::endl;
+    std::cout << "num_sms:            " << num_sms << std::endl;
+    std::cout << "max_active_blocks:  " << max_active_blocks << std::endl;
+    std::cout << "max_active_threads: " << max_active_threads << std::endl;
+    std::cout << std::endl;
+    std::cout << "num_running_threads:" << num_running_threads << std::endl;
+    std::cout << std::endl;
     std::cout << "cache_line_bits:  " << cache_line_bits << std::endl;
     std::cout << "#############  Print End  ############" << std::endl;
 }

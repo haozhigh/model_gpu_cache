@@ -23,27 +23,25 @@ void ThreadDim::reset(int block_size, int grid_size) {
 }
 
 
-GlobalAccess::GlobalAccess() {
-}
-
 WarpAccess::WarpAccess() {
     accesses = NULL;
     size = 0;
     jam = 0;
     pc = 0;
+    width = 0;
 }
 
-WarpAccess::WarpAccess(int p, int w, int j, int s, unsigned long long *addr) {
+WarpAccess::WarpAccess(int _pc, int _width, int _jam, int _size, addr_type *addr) {
     int i;
 
-    this->pc = p;
-    this->jam = j;
-    this->size = s;
+    this->pc = _pc;
+    this->width = _width;
+    this->jam = _jam;
+    this->size = _size;
 
-    accesses = new GlobalAccess[s];
-    for (i = 0; i < s; i++) {
-        accesses[i].width = w;
-        accesses[i].address = addr[i];
+    accesses = new addr_type[_size];
+    for (i = 0; i < _size; i++) {
+        accesses[i] = addr[i];
     }
 }
 
@@ -52,49 +50,9 @@ WarpAccess::~WarpAccess() {
         delete[] accesses;
 }
 
-int WarpAccess::get_num_distinct_block_addr() {
-
-
-    return 0;
-}
-
-void WarpAccess::coalesce(ModelConfig & model_config, ThreadDim & thread_dim) {
-    int coalesce_width;
-    std::set<unsigned long long> distinct_addr;
-    int i;
-
-    //  Calculate the coalesce width
-    coalesce_width = thread_dim.threads_per_warp;
-    if (accesses[0].width == 8)
-        coalesce_width = thread_dim.threads_per_warp / 2;
-    if (accesses[0].width == 16)
-        coalesce_width = thread_dim.threads_per_warp / 4;
-
-    i = 0;
-    for (i = 0; i < size; i++) {
-        //  At the start of a coalescing part, clean distinct_addr
-        if (i % coalesce_width == 0) {
-            distinct_addr.clear();
-        }
-
-        //  If the access is not valid, ignore it
-        if (accesses[i].address == 0)
-            continue;
-
-
-    }
-}
-
 WarpTrace::WarpTrace() {
 }
 
-void WarpTrace::add_warp_access(int p,int w, int j, int s, unsigned long long *addr) {
-    warp_accesses.emplace_back(p, w, j, s, addr);
-}
-
-void WarpTrace::coalesce(ModelConfig & model_config, ThreadDim & thread_dim) {
-    std::vector<WarpAccess>::iterator it;
-    for (it = warp_accesses.begin(); it != warp_accesses.end(); it++) {
-        it->coalesce(model_config);
-    }
+void WarpTrace::add_warp_access(int _pc,int _width, int _jam, int _size, addr_type *addr) {
+    warp_accesses.emplace_back(_pc, _width, _jam, _size, addr);
 }

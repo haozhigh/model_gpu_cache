@@ -253,8 +253,10 @@ void TraceGenerator::write_total_num_threads_to_file() {
     }
     
     //  Do the write
+    int total_blocks;
+    total_blocks = total_threads / total_threads_per_block;
     out_stream << this->total_threads_per_block << " ";
-    out_stream << this->total_threads << "\n";
+    out_stream << total_blocks << "\n";
 
     //  Close file
     out_stream.close();

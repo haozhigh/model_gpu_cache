@@ -22,6 +22,10 @@ void read_model_config_from_file(std::string file_path, ModelConfig &model_confi
     model_config.latency_mean = 100;
     model_config.latency_dev = 5;
 
+    model_config.num_sms = 15;
+    model_config.max_active_blocks = 1;
+    model_config.max_active_threads = 1024;
+
     in_stream.open(file_path, std::ifstream::in);
     //  If the config file can not be opened, use the default config
     if (! in_stream.is_open()) {
@@ -71,7 +75,6 @@ void read_model_config_from_file(std::string file_path, ModelConfig &model_confi
             continue;
         }
 
-
         if (str_item == "allocate_on_miss") {
             model_config.allocate_on_miss = value;
             continue;
@@ -97,12 +100,70 @@ void read_model_config_from_file(std::string file_path, ModelConfig &model_confi
             continue;
         }
 
+        if (str_item == "num_sms") {
+            model_config.num_sms = value;
+        }
+
+        if (str_item == "max_active_blocks") {
+            model_config.max_active_blocks = value;
+        }
+
+        if (str_item == "max_active_threads") {
+            model_config.max_active_threads = value;
+        }
+
+        if (str_item == "num_running_threads") {
+            model_config.num_running_threads = value;
+        }
+
         std::cout << "#### read_model_config_from_file: Unrecognized config item: " << line << std::endl;
         continue;
     }
 
     model_config.calculate_line_bits();
     model_config.print();
+}
+
+int coalesce_addr(addr_type *addr, int warp_size, int width) {
+    int coalesce_width;
+    std::set<unsigned long long> distinct_addr;
+    int i;
+    int coalesced_size;
+
+    //  Calculate the coalesce width
+    coalesce_width = warp_size;
+    if (width == 8)
+        coalesce_width = warp_size / 2;
+    if (width == 16)
+        coalesce_width = warp_size / 4;
+
+    i = 0;
+    for (i = 0; i < warp_size; i++) {
+        //  At the start of a coalescing part, clean distinct_addr
+        if (i % coalesce_width == 0) {
+            distinct_addr.clear();
+        }
+
+        //  If the access is not valid, ignore it
+        if (addr[i] != 0) {
+            if (distinct_addr.find(addr[i]) == distinct_addr.end()) {
+                distinct_addr.insert(addr[i]);
+            }
+            else {
+                addr[i] = 0;
+            }
+        }
+    }
+
+    coalesced_size = 0;
+    for (i = 0; i < warp_size; i++) {
+        if (addr[i] != 0) {
+            addr[coalesced_size] = addr[i];
+            coalesced_size ++;
+        }
+    }
+
+    return coalesced_size;
 }
 
 
@@ -116,11 +177,11 @@ int read_trace_from_file(std::string file_path, std::vector<WarpTrace> &warp_tra
         std::cout << "####  read_trace_from_file: trace file '" << file_path << "' can not be opened  ####" << std::endl;
         return -1;
     }
-
-    //  Read thread dimension information from trace file
-    int block_size, grid_size;
-    in_stream >> block_size >> grid_size;
-    thread_dim.reset(block_size, grid_size);
+    
+    //  Read thread dim info from the corresponding file
+    if (read_thread_dim_from_file(file_path, thread_dim) < 0) {
+        return -2;    
+    };
 
     //  Allocate space for warp_accesses
     warp_traces.reserve(thread_dim.num_warps);
@@ -132,7 +193,7 @@ int read_trace_from_file(std::string file_path, std::vector<WarpTrace> &warp_tra
     int jam;
     int width;
     int num_valid_accesses;
-    unsigned long long *addr = new unsigned long long[thread_dim.threads_per_warp];
+    addr_type *addr = new addr_type[thread_dim.threads_per_warp];
 
     in_stream >> warp_id >> pc >> width >> jam >> num_valid_accesses;
     while (in_stream.good()) {
@@ -145,11 +206,32 @@ int read_trace_from_file(std::string file_path, std::vector<WarpTrace> &warp_tra
             addr[i] = addr[i] >> model_config.cache_line_bits;
         }
 
+        //  Do the coalescing
+        int coalesced_size;
+        coalesced_size = coalesce_addr(addr, num_valid_accesses, width);
 
-        warp_traces[warp_id].add_warp_access(pc, width, jam, num_valid_accesses, addr);
+        warp_traces[warp_id].add_warp_access(pc, width, jam, coalesced_size, addr);
     }
     delete[] addr;
 
+    return 0;
+}
+
+int read_thread_dim_from_file(std::string trace_path, ThreadDim &thread_dim) {
+    std::ifstream in_stream;
+
+    //  Open the trace dimension file
+    //  If the file can not be opened, return error
+    in_stream.open(trace_path + ".dim", std::ifstream::in);
+    //  Read thread dimension information from trace file
+    if (! in_stream.is_open()) {
+        std::cout << "####  read_thread_dim_from_file: trace dim file '" << trace_path + ".dim" << "' can not be opened  ####" << std::endl;
+        return -1;
+    }
+
+    int block_size, grid_size;
+    in_stream >> block_size >> grid_size;
+    thread_dim.reset(block_size, grid_size);
 
     return 0;
 }

@@ -25,31 +25,20 @@ class ThreadDim{
 	void reset(int block_size, int grid_size);
 };
 
-
-class GlobalAccess {
-    public:
-    unsigned long long address;
-    int width;
-
-    GlobalAccess();
-};
+typedef unsigned long long addr_type;
 
 class WarpAccess {
 	private:
-	GlobalAccess *accesses;
+	addr_type *accesses;
 	int size;
 	int jam;
 	int pc;
-
-	int get_num_distinct_block_addr();
+    int width;
 
 	public:
 	WarpAccess();
-	WarpAccess(int p, int w, int j, int s, unsigned long long *addr);
+	WarpAccess(int _pc, int _width, int _jam, int _size, addr_type *addr);
 	~WarpAccess();
-
-	void coalesce(ModelConfig & model_config, ThreadDim & thread_dim);
-	
 };
 
 class WarpTrace {
@@ -58,8 +47,7 @@ class WarpTrace {
 
 	public:
 	WarpTrace();
-	void add_warp_access(int p,int w, int j, int s, unsigned long long *addr);
-	void coalesce(ModelConfig & model_config, ThreadDim & thread_dim);
+	void add_warp_access(int _pc,int _width, int _jam, int _size, addr_type *addr);
 };
 
 

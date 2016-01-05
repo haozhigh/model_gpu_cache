@@ -84,3 +84,37 @@ int string_to_int(const std::string & str) {
         return sum;
     }
 }
+
+
+int calculate_cache_set(addr_type line_addr, ModelConfig & model_config) {
+	int set = 0;
+	
+	// Default mapping function (no 'hash')
+	if (model_config.mapping_type == 0) {
+		set = line_addr % model_config.cache_set_size;
+	}
+	
+	// Basic XOR hashing function
+	else if (model_config.mapping_type == 1) {
+		set = (line_addr % model_config.cache_set_size) ^ ((line_addr/model_config.cache_set_size) % model_config.cache_set_size);
+	}
+	
+	// Fermi's hashing function
+	else if (model_config.mapping_type == 2) {
+        // Generate groups of bits
+        int bits[13];
+        for (int i = 0; i < 13; i ++) {
+            bits[i] = line_addr % 2;
+            line_addr = line_addr >> 1;
+        }
+	
+        //  Calculate set
+		unsigned b01234 = bits[0] + bits[1]*2 + bits[2]*4 + bits[3] *8 + bits[4] *16;
+		unsigned b678AC = bits[6] + bits[7]*2 + bits[8]*4 + bits[10]*8 + bits[12]*16;
+		set = (b01234 ^ b678AC) + bits[5]*32;
+	}
+	
+	// Return the result modulo the number of sets
+	return (set % model_config.cache_set_size);
+
+}

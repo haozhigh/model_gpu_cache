@@ -5,7 +5,7 @@
 
 
 AnalyseTask::AnalyseTask() {
-
+    location = 0;
 }
 
 void AnalyseTask::add_warp_trace(WarpTrace * _p_warp_trace) {
@@ -46,4 +46,49 @@ void AnalyseTask::generate_tasks(std::vector<WarpTrace> & warp_traces, std::vect
             tasks.resize(task_id + 1);
         tasks[task_id].add_warp_trace(&warp_traces[warp_id]);
     }
+}
+
+void AnalyseTask::reset() {
+    int i;
+
+    location = 0;
+    for (i = 0; i < p_warp_traces.size(); i++)
+        p_warp_traces[i]->reset();
+}
+
+int AnalyseTask::next_non_finish_warp_trace() {
+    int i;
+    int n;
+
+    i = location;
+    n = p_warp_traces.size();
+    while (true) {
+        if (! p_warp_traces[i]->is_finish())
+            return i;
+        i = (i + 1) % n;
+        if (i == location)
+            return -1;
+    }
+}
+
+bool AnalyseTask::is_finish() {
+    int i;
+
+    for (i = 0; i < p_warp_traces.size(); i++) {
+        if (! p_warp_traces[i]->is_finish())
+            return false;
+    }
+
+    return true;
+}
+
+WarpAccess * AnalyseTask::next_warp_access() {
+    int new_location;
+
+    new_location = this->next_non_finish_warp_trace();
+    if (new_location < 0)
+        return NULL;
+
+    location = (new_location + 1) % p_warp_traces.size();
+    return p_warp_traces[new_location]->next_warp_access();
 }

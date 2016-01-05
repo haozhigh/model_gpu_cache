@@ -28,7 +28,7 @@ class ThreadDim{
 typedef unsigned long long addr_type;
 
 class WarpAccess {
-	private:
+	public:
 	addr_type *accesses;
 	int size;
 	int jam;
@@ -44,10 +44,15 @@ class WarpAccess {
 class WarpTrace {
 	private:
 	std::vector<WarpAccess> warp_accesses;
+    int location;
 
 	public:
 	WarpTrace();
 	void add_warp_access(int _pc,int _width, int _jam, int _size, addr_type *addr);
+
+    void reset();
+    bool is_finish();
+    WarpAccess * next_warp_access();
 };
 
 

@@ -51,6 +51,27 @@ WarpAccess::~WarpAccess() {
 }
 
 WarpTrace::WarpTrace() {
+    this->reset();
+}
+
+void WarpTrace::reset() {
+    this->location = 0;
+}
+
+bool WarpTrace::is_finish() {
+    if (location < warp_accesses.size())
+        return false;
+    else
+        return true;
+}
+
+WarpAccess * WarpTrace::next_warp_access() {
+    if (location >= warp_accesses.size())
+        return NULL;
+    else {
+        location ++;
+        return &warp_accesses[location - 1];
+    }
 }
 
 void WarpTrace::add_warp_access(int _pc,int _width, int _jam, int _size, addr_type *addr) {

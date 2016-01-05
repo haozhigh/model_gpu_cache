@@ -23,6 +23,8 @@ class ModelConfig {
     int max_active_blocks;
 
     int num_running_threads;
+    
+    int mapping_type;
 
     int cache_line_bits;
 

@@ -26,6 +26,10 @@ void read_model_config_from_file(std::string file_path, ModelConfig &model_confi
     model_config.max_active_blocks = 1;
     model_config.max_active_threads = 1024;
 
+    model_config.num_running_threads = 1;
+
+    model_config.mapping_tpe = 2;
+
     in_stream.open(file_path, std::ifstream::in);
     //  If the config file can not be opened, use the default config
     if (! in_stream.is_open()) {
@@ -114,6 +118,10 @@ void read_model_config_from_file(std::string file_path, ModelConfig &model_confi
 
         if (str_item == "num_running_threads") {
             model_config.num_running_threads = value;
+        }
+
+        if (str_item == "mapping_type") {
+            model_config.mapping_type = value;
         }
 
         std::cout << "#### read_model_config_from_file: Unrecognized config item: " << line << std::endl;

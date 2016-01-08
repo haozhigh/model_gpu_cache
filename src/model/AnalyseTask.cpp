@@ -56,14 +56,14 @@ void AnalyseTask::reset() {
         p_warp_traces[i]->reset();
 }
 
-int AnalyseTask::next_non_finish_warp_trace() {
+int AnalyseTask::next_available_warp_trace(int time_stamp) {
     int i;
     int n;
 
     i = location;
     n = p_warp_traces.size();
     while (true) {
-        if (! p_warp_traces[i]->is_finish())
+        if (p_warp_traces[i]->is_available(time_stamp))
             return i;
         i = (i + 1) % n;
         if (i == location)
@@ -82,13 +82,21 @@ bool AnalyseTask::is_finish() {
     return true;
 }
 
-WarpAccess * AnalyseTask::next_warp_access() {
+WarpAccess * AnalyseTask::next_warp_access(int time_stamp) {
     int new_location;
 
-    new_location = this->next_non_finish_warp_trace();
+    new_location = this->next_available_warp_trace(time_stamp);
     if (new_location < 0)
         return NULL;
 
     location = (new_location + 1) % p_warp_traces.size();
-    return p_warp_traces[new_location]->next_warp_access();
+    return p_warp_traces[new_location]->next_warp_access(time_stamp);
+}
+
+void AnalyseTask::set_last_warptrace_jam(int time_stamp) {
+    int last_location;
+
+    last_location = (location + p_warp_traces.size() - 1) % p_warp_traces.size();
+    p_warp_traces[last_location]->set_jam(time_stamp);
+    return;
 }

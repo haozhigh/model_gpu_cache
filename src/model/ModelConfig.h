@@ -26,6 +26,9 @@ class ModelConfig {
     
     int mapping_type;
 
+    int mshr_check;
+    int num_mshrs;
+
     int cache_line_bits;
 
     public:

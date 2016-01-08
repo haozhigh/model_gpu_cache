@@ -52,6 +52,9 @@ void ModelConfig::print() {
     std::cout << std::endl;
     std::cout << "mapping_type:       " << mapping_type << std::endl;
     std::cout << std::endl;
+    std::cout << "mshr_check:         " << mshr_check << std::endl;
+    std::cout << "num_mshrs:          " << num_mshrs << std::endl;
+    std::cout << std::endl;
     std::cout << "cache_line_bits:  " << cache_line_bits << std::endl;
     std::cout << "#############  Print End  ############" << std::endl;
 }

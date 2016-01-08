@@ -55,7 +55,16 @@ WarpTrace::WarpTrace() {
 }
 
 void WarpTrace::reset() {
+    this->jam = 0;
     this->location = 0;
+}
+
+void WarpTrace::set_jam(int time_stamp) {
+    this->jam = time_stamp;
+}
+
+bool WarpTrace::is_available(int time_stamp) {
+    return ((! this->is_finish()) && time_stamp >= jam);
 }
 
 bool WarpTrace::is_finish() {
@@ -65,8 +74,8 @@ bool WarpTrace::is_finish() {
         return true;
 }
 
-WarpAccess * WarpTrace::next_warp_access() {
-    if (location >= warp_accesses.size())
+WarpAccess * WarpTrace::next_warp_access(int time_stamp) {
+    if (this->is_finish() || time_stamp < jam)
         return NULL;
     else {
         location ++;

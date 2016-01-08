@@ -45,14 +45,17 @@ class WarpTrace {
 	private:
 	std::vector<WarpAccess> warp_accesses;
     int location;
+    int jam;        //  The time stamp that this trace changes from jam to unjam
 
 	public:
 	WarpTrace();
 	void add_warp_access(int _pc,int _width, int _jam, int _size, addr_type *addr);
 
     void reset();
+    void set_jam(int time_stamp);
+    bool is_available(int time_stamp);
     bool is_finish();
-    WarpAccess * next_warp_access();
+    WarpAccess * next_warp_access(int time_stamp);
 };
 
 

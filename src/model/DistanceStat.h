@@ -14,6 +14,7 @@ class DistanceStat {
     public:
     DistanceStat();
 
+    void increase(int pc, int distance);
     void merge(DistanceStat & stat2);
     void write_to_file(std::string file_path);
 };

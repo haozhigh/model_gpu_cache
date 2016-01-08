@@ -10,6 +10,25 @@
 DistanceStat::DistanceStat() {
 }
 
+void DistanceStat::increase(int pc, int distance) {
+    //  If stat for this pc is empty
+    if (stat.find(pc) == stat.end()) {
+        stat[pc][distance] = 1;
+        return;
+    }
+
+    //  If stat for this pc is not empty, but stat for the distance is empty
+    std::map<int, int> & stat_sub = stat[pc];
+    if (stat_sub.find(distance) == stat_sub.end()) {
+        stat[pc][distance] = 1;
+        return;
+    }
+
+    //  If stat for this pc and distance already exists
+    stat[pc][distance] = stat[pc][distance] + 1;
+    return;
+}
+
 void DistanceStat::merge(DistanceStat & stat2) {
     std::map<int, std::map<int, int>> & map1 = this->stat;
     std::map<int, std::map<int, int>> & map2 = stat2.stat;

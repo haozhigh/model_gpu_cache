@@ -14,7 +14,7 @@ class AnalyseTask {
     std::vector<WarpTrace *> p_warp_traces;
     int location;
 
-    int next_non_finish_warp_trace();
+    int next_available_warp_trace(int time_stamp);
 
     public:
     AnalyseTask();
@@ -25,7 +25,8 @@ class AnalyseTask {
 
     void reset();
     bool is_finish();
-    WarpAccess * next_warp_access();
+    WarpAccess * next_warp_access(int time_stamp);
+    void set_last_warptrace_jam(int time_stamp);
 };
 
 

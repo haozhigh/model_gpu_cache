@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
     //  Read input trace from file
     //  Coalescing is already done in this phase
     std::cout << "####  main: Reading trace from '" << argv[1] << "'  ####" << std::endl;
-    read_trace_from_file(argv[1], warp_traces, thread_dim);
+    read_trace_from_file(argv[1], warp_traces, thread_dim, model_config);
 
     //  Generate tasks
     AnalyseTask::generate_tasks(warp_traces, tasks, model_config, thread_dim);
@@ -103,6 +103,8 @@ int main(int argc, char **argv) {
     }
 
     //  Write reuse distance stat to file
+    std::cout << "####  main: Writing distances to '" << argv[2] << "'  ####" << std::endl;
+    stats[0].write_to_file(argv[2], model_config);
 
     return 0;
 }

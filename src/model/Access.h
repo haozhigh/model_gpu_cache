@@ -38,6 +38,7 @@ class WarpAccess {
 	public:
 	WarpAccess();
 	WarpAccess(int _pc, int _width, int _jam, int _size, addr_type *addr);
+    WarpAccess(const WarpAccess & _warp_access);
 	~WarpAccess();
 };
 

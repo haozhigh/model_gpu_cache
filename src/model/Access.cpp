@@ -31,6 +31,20 @@ WarpAccess::WarpAccess() {
     width = 0;
 }
 
+WarpAccess::WarpAccess(const WarpAccess & _warp_access) {
+    int i;
+
+    this->pc = _warp_access.pc;
+    this->width = _warp_access.width;
+    this->jam = _warp_access.jam;
+    this->size = _warp_access.size;
+
+    accesses = new addr_type[this->size];
+    for (i = 0; i < this->size; i++) {
+        accesses[i] = _warp_access.accesses[i];
+    }
+}
+
 WarpAccess::WarpAccess(int _pc, int _width, int _jam, int _size, addr_type *addr) {
     int i;
 
@@ -84,5 +98,5 @@ WarpAccess * WarpTrace::next_warp_access(int time_stamp) {
 }
 
 void WarpTrace::add_warp_access(int _pc,int _width, int _jam, int _size, addr_type *addr) {
-    warp_accesses.emplace_back(_pc, _width, _jam, _size, addr);
+    warp_accesses.push_back(WarpAccess(_pc, _width, _jam, _size, addr));
 }

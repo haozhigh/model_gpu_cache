@@ -21,7 +21,7 @@ void calculate_reuse_distance(AnalyseTask & task, ModelConfig & model_config, Di
 
     //  Variable to record on going requests
     //  Meant for mshr check
-    std::multimap<int, int> ongoing_requests;
+    std::multimap<addr_type, int> ongoing_requests;
 
     //  Calculate total number of accesses for each set
     std::vector<int> total_accesses_per_set;
@@ -47,6 +47,7 @@ void calculate_reuse_distance(AnalyseTask & task, ModelConfig & model_config, Di
 	// Create the hash data structure (P in the Almasi et al. paper)
     std::vector<std::map<addr_type, int>> Ps;
     Ps.reserve(model_config.cache_set_size);
+    Ps.resize(model_config.cache_set_size);
 	
     //  Record processed number of accesses per cache set
     std::vector<int> set_counters;
@@ -81,7 +82,7 @@ void calculate_reuse_distance(AnalyseTask & task, ModelConfig & model_config, Di
         int max_latency = -1;            //  max_latency of accesses int the same warp access
         int latency;
         for (i = 0; i < p_warp_access->size; i++) {
-            int line_addr;
+            addr_type line_addr;
             int distance;
 
             line_addr = p_warp_access->accesses[i];
@@ -91,6 +92,7 @@ void calculate_reuse_distance(AnalyseTask & task, ModelConfig & model_config, Di
 
             //  Calculate reuse distance and update stack
             distance = update_stack_tree(line_addr, Bs[set_id], Ps[set_id], set_counters[set_id]);
+            //std::cout << p_warp_access->pc << "  " << distance << std::endl;
 
             //  Update the final output DistanceStat
             stat.increase(p_warp_access->pc, distance);
@@ -100,7 +102,7 @@ void calculate_reuse_distance(AnalyseTask & task, ModelConfig & model_config, Di
                 latency = 0;
 
                 //  In the case of pending hit, the latency is not zero
-                std::multimap<int, int>::iterator it;
+                std::multimap<addr_type, int>::iterator it;
                 it = ongoing_requests.find(line_addr);
                 if (it != ongoing_requests.end()) {
                     latency = it->second - fake_stamp;
@@ -116,7 +118,7 @@ void calculate_reuse_distance(AnalyseTask & task, ModelConfig & model_config, Di
 
             //  Use the latency to update ongoing_requests
             if (latency > 0)
-                ongoing_requests.insert(line_addr, fake_stamp + latency);
+                ongoing_requests.emplace(line_addr, fake_stamp + latency);
 
         }
 
@@ -133,8 +135,8 @@ void calculate_reuse_distance(AnalyseTask & task, ModelConfig & model_config, Di
 
 }
 
-void process_ongoing_requests(std::multimap<int, int> & ongoing_requests, int fake_stamp) {
-    std::multimap<int, int>::iterator it;
+void process_ongoing_requests(std::multimap<addr_type, int> & ongoing_requests, int fake_stamp) {
+    std::multimap<addr_type, int>::iterator it;
 
     it = ongoing_requests.begin();
     while (it != ongoing_requests.end()) {
@@ -147,10 +149,10 @@ void process_ongoing_requests(std::multimap<int, int> & ongoing_requests, int fa
     }
 }
 
-int get_shortest_stamp(std::multimap<int, int> & ongoing_requests) {
+int get_shortest_stamp(std::multimap<addr_type, int> & ongoing_requests) {
     int t;
 
-    std::multimap<int, int>::iterator it;
+    std::multimap<addr_type, int>::iterator it;
     for (it = ongoing_requests.begin(); it != ongoing_requests.end(); it++) {
         if (it == ongoing_requests.begin())
             t = it->second;

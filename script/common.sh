@@ -50,6 +50,15 @@ function get_bench_args {
 	echo "$args"
 }
 
+## Stripe file extensions for a list of file names
+function strip_extensions {
+    return_str=""
+    for original_name in $1; do
+        return_str="$return_str ${original_name%.*}"
+    done
+    echo $return_str
+}
+
 ## Get the full dir of the script file which sources common.sh
 script_dir="$( cd "$( dirname $0 )" && pwd )"
 
@@ -57,11 +66,15 @@ script_dir="$( cd "$( dirname $0 )" && pwd )"
 build_dir="$script_dir/../build"
 log_dir="$script_dir/../log"
 log_dir_trace="$log_dir/trace"
+log_dir_model="$log_dir/model"
 trace_dir="$script_dir/../output/trace"
 benchmarks_dir="$script_dir/../src/benchmarks"
+
+model_dir=$"$script_dir/../src/model"
 
 ##  Make sure that the above dirs exist
 makesure_dir_exists "$build_dir"
 makesure_dir_exists "$log_dir"
 makesure_dir_exists "$log_dir_trace"
+makesure_dir_exists "$log_dir_model"
 makesure_dir_exists "$trace_dir"

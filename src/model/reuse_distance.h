@@ -14,9 +14,9 @@
     
 void calculate_reuse_distance(AnalyseTask & task, ModelConfig & model_config, DistanceStat & stat);
 
-void process_ongoing_requests(std::multimap<int, int> & ongoing_requests, int fake_stamp);
+void process_ongoing_requests(std::multimap<addr_type, int> & ongoing_requests, int fake_stamp);
 
-int get_shortest_stamp(std::multimap<int, int> & ongoing_requests);
+int get_shortest_stamp(std::multimap<addr_type, int> & ongoing_requests);
 
 int update_stack_tree(addr_type line_addr, Tree & B, std::map<addr_type, int> & P, int & set_counter);
 

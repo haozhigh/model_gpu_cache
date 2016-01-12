@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -23,7 +21,7 @@ void read_model_config_from_file(std::string file_path, ModelConfig &model_confi
     model_config.latency_dev = 5;
 
     model_config.num_sms = 15;
-    model_config.max_active_blocks = 1;
+    model_config.max_active_blocks = 8;
     model_config.max_active_threads = 1024;
 
     model_config.num_running_threads = 1;
@@ -48,6 +46,11 @@ void read_model_config_from_file(std::string file_path, ModelConfig &model_confi
     while (std::getline(in_stream, line)) {
         int i;
 
+        //  Skip empty lines
+        string_trim(line);
+        if (line.empty())
+            continue;
+
         //  Split each line to two parts, and trim them individually
         i = line.find(' ');
         if (i < 0) {
@@ -65,6 +68,9 @@ void read_model_config_from_file(std::string file_path, ModelConfig &model_confi
             continue;
         }
         value = string_to_int(str_value);
+
+
+        //std::cout << str_item << "   " << value << std::endl;
 
         //  Check for each possible config item
         if (str_item == "cache_line_size") {
@@ -109,30 +115,37 @@ void read_model_config_from_file(std::string file_path, ModelConfig &model_confi
 
         if (str_item == "num_sms") {
             model_config.num_sms = value;
+            continue;
         }
 
         if (str_item == "max_active_blocks") {
             model_config.max_active_blocks = value;
+            continue;
         }
 
         if (str_item == "max_active_threads") {
             model_config.max_active_threads = value;
+            continue;
         }
 
         if (str_item == "num_running_threads") {
             model_config.num_running_threads = value;
+            continue;
         }
 
         if (str_item == "mapping_type") {
             model_config.mapping_type = value;
+            continue;
         }
 
         if (str_item == "mshr_check") {
             model_config.mshr_check = value;
+            continue;
         }
 
         if (str_item == "num_mshrs") {
             model_config.num_mshrs = value;
+            continue;
         }
 
         std::cout << "#### read_model_config_from_file: Unrecognized config item: " << line << std::endl;
@@ -230,6 +243,9 @@ int read_trace_from_file(std::string file_path, std::vector<WarpTrace> &warp_tra
         coalesced_size = coalesce_addr(addr, num_valid_accesses, width);
 
         warp_traces[warp_id].add_warp_access(pc, width, jam, coalesced_size, addr);
+
+        //  Try to read next line
+        in_stream >> warp_id >> pc >> width >> jam >> num_valid_accesses;
     }
     delete[] addr;
 

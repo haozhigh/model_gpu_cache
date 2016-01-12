@@ -25,6 +25,12 @@ for suite in $suites; do
     done
 done
 
+##  Make the model
+if [ "$bench_specified" = "model" ]; then
+    cd "$model_dir"
+    make $make_flag
+fi
+
 #cd "$script_dir/../src/model_base"
 #echo "####Start making cache model"
 #make

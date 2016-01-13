@@ -137,7 +137,7 @@ void MyLastLoad::check_jam(const trace::TraceEvent &event) {
 void MyLastLoad::assign_memory(int b_size) {
     release_memory();
     block_size = b_size;
-    num_warps_per_block = b_size / WARP_SIZE;
+    num_warps_per_block = (b_size - 1) / WARP_SIZE + 1;
     warp_accesses = new MyWarpAccess[num_warps_per_block];
 }
 

@@ -72,7 +72,7 @@ void MyLastLoad::update(const trace::TraceEvent &event) {
             warp_active = false;
 
             int j;
-            for (j = i; j < i + WARP_SIZE; j++) {
+            for (j = i; j < i + WARP_SIZE && j < block_size; j++) {
                 if (event.active[j]) {
                     warp_active = true;
                     break;

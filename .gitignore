@@ -3,10 +3,10 @@
 *.otrace
 *.trc
 
-*_profiler
-*_trace
-*_code
-*_sim
+build/*_profiler
+build/*_trace
+build/*_sim
+build/model
 
 datasets
 log

@@ -1,0 +1,22 @@
+1    mov.u32 %r0, %ctaid.x
+2    mul.lo.u32 %r1, %r0, 512
+3    mov.u32 %r2, %tid.x
+4    add.u32 %r3, %r2, %r1
+5    ld.param.s32 %r4, [__cudaparm__Z17ComputePhiMag_GPUPfS_S_i_numK + 24]
+6    setp.le.s32 %p5, %r4, %r3
+7    @%p5 bra BB_1_4
+8    cvt.s64.s32 %r6, %r3
+9    mul.wide.s32 %r7, %r3, 4
+10   ld.param.u64 %r8, [__cudaparm__Z17ComputePhiMag_GPUPfS_S_i_phiR]
+11   add.u64 %r9, %r8, %r7
+12   ld.global.f32 %r10, [%r9]
+13   ld.param.u64 %r11, [__cudaparm__Z17ComputePhiMag_GPUPfS_S_i_phiI + 8]
+14   add.u64 %r12, %r11, %r7
+15   ld.global.f32 %r13, [%r12]
+16   mul.f32 %r14, %r13, %r13
+17   fma.rn.f32 %r15, %r10, %r10, %r14
+18   ld.param.u64 %r16, [__cudaparm__Z17ComputePhiMag_GPUPfS_S_i_phiMag + 16]
+19   add.u64 %r17, %r16, %r7
+20   st.global.f32 [%r17], %r15
+21   reconverge
+22   exit

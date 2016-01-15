@@ -1,10 +1,13 @@
 *.swp
 *.[oa]
 *.otrace
+*.trc
+
 *_profiler
 *_trace
 *_code
 *_sim
+
 datasets
 log
-output
+output/bench_output

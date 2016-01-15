@@ -1,0 +1,166 @@
+1    mov.u32 %r0, %ntid.x
+2    mov.u32 %r1, %ctaid.x
+3    mul.lo.u32 %r2, %r0, %r1
+4    mul.lo.u32 %r3, %r2, 2
+5    mov.u32 %r4, %tid.x
+6    add.u32 %r5, %r3, %r4
+7    ld.param.u32 %r6, [__cudaparm__Z14scan_L1_kerneljPjS__n]
+8    setp.lt.u32 %p7, %r5, %r6
+9    @!%p7 bra BB_1_4
+10   ld.param.u64 %r8, [__cudaparm__Z14scan_L1_kerneljPjS__data + 8]
+11   cvt.u64.u32 %r9, %r5
+12   mul.wide.u32 %r10, %r5, 4
+13   add.u64 %r11, %r8, %r10
+14   ld.global.u32 %r12, [%r11]
+15   bra.uni BB_1_5
+16   
+17   reconverge
+18   mov.u64 %r13, __cuda___cuda_local_var_33673_42_non_const_s_data24
+19   add.s32 %r14, %r4, 4
+20   shr.u32 %r15, %r4, %r14
+21   shr.u32 %r16, %r15, 8
+22   add.u32 %r17, %r16, %r4
+23   cvt.u64.u32 %r18, %r17
+24   mul.wide.u32 %r19, %r17, 4
+25   add.u64 %r20, %r13, %r19
+26   st.shared.u32 [%r20], %r12
+27   add.u32 %r21, %r5, %r0
+28   setp.lt.u32 %p22, %r21, %r6
+29   @!%p22 bra BB_1_7
+30   ld.param.u64 %r23, [__cudaparm__Z14scan_L1_kerneljPjS__data + 8]
+31   cvt.u64.u32 %r24, %r21
+32   mul.wide.u32 %r25, %r21, 4
+33   add.u64 %r26, %r23, %r25
+34   ld.global.u32 %r27, [%r26]
+35   bra.uni BB_1_8
+36   mov.u32 %r27, 0
+37   reconverge
+38   add.u32 %r28, %r4, %r0
+39   add.s32 %r29, %r28, 4
+40   shr.u32 %r30, %r28, %r29
+41   shr.u32 %r31, %r30, 8
+42   add.u32 %r32, %r28, %r31
+43   cvt.u64.u32 %r33, %r32
+44   mul.wide.u32 %r34, %r32, 4
+45   add.u64 %r35, %r13, %r34
+46   st.shared.u32 [%r35], %r27
+47   mov.s32 %r36, %r0
+48   mov.u32 %r37, 0
+49   setp.eq.u32 %p38, %r0, %r37
+50   @%p38 bra BB_1_14
+51   mov.u32 %r39, 1
+52   bar.sync 0
+53   setp.le.u32 %p40, %r36, %r4
+54   @%p40 bra BB_1_12
+55   mul.lo.u32 %r41, %r39, %r4
+56   mul.lo.u32 %r42, %r41, 2
+57   add.u32 %r43, %r42, %r39
+58   add.u32 %r44, %r43, %r39
+59   sub.u32 %r45, %r44, 1
+60   add.s32 %r46, %r44, 3
+61   shr.u32 %r47, %r45, %r46
+62   shr.u32 %r48, %r47, 8
+63   add.u32 %r49, %r44, %r48
+64   cvt.u64.u32 %r50, %r49
+65   mul.wide.u32 %r51, %r49, 4
+66   add.u64 %r52, %r13, %r51
+67   ld.shared.u32 %r53, [%r52 + -4]
+68   sub.u32 %r54, %r43, 1
+69   add.s32 %r55, %r43, 3
+70   shr.u32 %r56, %r54, %r55
+71   shr.u32 %r57, %r56, 8
+72   add.u32 %r58, %r43, %r57
+73   cvt.u64.u32 %r59, %r58
+74   mul.wide.u32 %r60, %r58, 4
+75   add.u64 %r61, %r13, %r60
+76   ld.shared.u32 %r62, [%r61 + -4]
+77   add.u32 %r63, %r53, %r62
+78   st.shared.u32 [%r52 + -4], %r63
+79   reconverge
+80   mul.lo.u32 %r39, %r39, 2
+81   shr.u32 %r36, %r36, 1
+82   mov.u32 %r64, 0
+83   setp.ne.u32 %p65, %r36, %r64
+84   @%p65 bra BB_1_10
+85   reconverge
+86   bra.uni BB_1_15
+87   
+88   reconverge
+89   mov.u32 %r66, 0
+90   setp.ne.u32 %p67, %r4, %r66
+91   @%p67 bra BB_1_17
+92   mul.lo.u32 %r68, %r0, 2
+93   sub.u32 %r69, %r68, 1
+94   add.s32 %r70, %r68, 3
+95   shr.u32 %r71, %r69, %r70
+96   shr.u32 %r72, %r71, 8
+97   add.u32 %r73, %r68, %r72
+98   cvt.u64.u32 %r74, %r73
+99   mul.wide.u32 %r75, %r73, 4
+100  add.u64 %r76, %r13, %r75
+101  ld.shared.u32 %r77, [%r76 + -4]
+102  ld.param.u64 %r78, [__cudaparm__Z14scan_L1_kerneljPjS__inter + 16]
+103  cvt.u64.u32 %r79, %r1
+104  mul.wide.u32 %r80, %r1, 4
+105  add.u64 %r81, %r78, %r80
+106  st.global.u32 [%r81], %r77
+107  mov.u32 %r82, 0
+108  st.shared.u32 [%r76 + -4], %r82
+109  reconverge
+110  mov.u32 %r83, 1
+111  setp.lt.u32 %p84, %r0, %r83
+112  @%p84 bra BB_1_22
+113  mov.u32 %r85, 1
+114  shr.u32 %r39, %r39, 1
+115  bar.sync 0
+116  setp.le.u32 %p86, %r85, %r4
+117  @%p86 bra BB_1_21
+118  mul.lo.u32 %r87, %r39, %r4
+119  mul.lo.u32 %r88, %r87, 2
+120  add.u32 %r89, %r88, %r39
+121  sub.u32 %r90, %r89, 1
+122  add.s32 %r91, %r89, 3
+123  shr.u32 %r92, %r90, %r91
+124  shr.u32 %r93, %r92, 8
+125  add.u32 %r94, %r89, %r93
+126  cvt.u64.u32 %r95, %r94
+127  mul.wide.u32 %r96, %r94, 4
+128  add.u64 %r97, %r13, %r96
+129  ld.shared.u32 %r98, [%r97 + -4]
+130  add.u32 %r99, %r89, %r39
+131  sub.u32 %r100, %r99, 1
+132  add.s32 %r101, %r99, 3
+133  shr.u32 %r102, %r100, %r101
+134  shr.u32 %r103, %r102, 8
+135  add.u32 %r104, %r99, %r103
+136  cvt.u64.u32 %r105, %r104
+137  mul.wide.u32 %r106, %r104, 4
+138  add.u64 %r107, %r13, %r106
+139  ld.shared.u32 %r108, [%r107 + -4]
+140  st.shared.u32 [%r97 + -4], %r108
+141  ld.shared.u32 %r109, [%r107 + -4]
+142  add.u32 %r110, %r109, %r98
+143  st.shared.u32 [%r107 + -4], %r110
+144  reconverge
+145  mul.lo.u32 %r85, %r85, 2
+146  setp.le.u32 %p111, %r85, %r0
+147  @%p111 bra BB_1_19
+148  reconverge
+149  bar.sync 0
+150  @!%p7 bra BB_1_24
+151  ld.shared.u32 %r112, [%r20]
+152  ld.param.u64 %r113, [__cudaparm__Z14scan_L1_kerneljPjS__data + 8]
+153  cvt.u64.u32 %r114, %r5
+154  mul.wide.u32 %r115, %r5, 4
+155  add.u64 %r116, %r113, %r115
+156  st.global.u32 [%r116], %r112
+157  reconverge
+158  @!%p22 bra BB_1_26
+159  ld.shared.u32 %r117, [%r35]
+160  ld.param.u64 %r118, [__cudaparm__Z14scan_L1_kerneljPjS__data + 8]
+161  cvt.u64.u32 %r119, %r21
+162  mul.wide.u32 %r120, %r21, 4
+163  add.u64 %r121, %r118, %r120
+164  st.global.u32 [%r121], %r117
+165  reconverge
+166  exit

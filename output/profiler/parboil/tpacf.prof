@@ -1,0 +1,10 @@
+==5230== NVPROF is profiling process 5230, command: ./tpacf_profiler -i ../datasets/parboil/tpacf/small/input/Datapnts.1,../datasets/parboil/tpacf/small/input/Randompnts.1,../datasets/parboil/tpacf/small/input/Randompnts.2,../datasets/parboil/tpacf/small/input/Randompnts.3,../datasets/parboil/tpacf/small/i
+==5230== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==5230== Profiling application: ./tpacf_profiler -i ../datasets/parboil/tpacf/small/input/Datapnts.1,../datasets/parboil/tpacf/small/input/Randompnts.1,../datasets/parboil/tpacf/small/input/Randompnts.2,../datasets/parboil/tpacf/small/input/Randompnts.3,../datasets/parboil/tpacf/small/i
+==5230== Profiling result:
+==5230== Metric result:
+Invocations                     Metric Name              Metric Description         Min         Max         Avg
+Device "GeForce GTX 570 (0)"
+	Kernel: gen_hists(unsigned long*, float*, float*, float*, int, int)
+          1        l1_cache_global_hit_rate              L1 Global Hit Rate      67.98%      67.98%      67.98%
+          1             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      80.41%      80.41%      80.41%

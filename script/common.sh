@@ -64,17 +64,25 @@ script_dir="$( cd "$( dirname $0 )" && pwd )"
 
 ##  Set the specific dirs
 build_dir="$script_dir/../build"
+
 log_dir="$script_dir/../log"
 log_dir_trace="$log_dir/trace"
 log_dir_model="$log_dir/model"
-trace_dir="$script_dir/../output/trace"
-benchmarks_dir="$script_dir/../src/benchmarks"
+log_dir_profiler="$log_dir/profiler"
 
+trace_dir="$script_dir/../output/trace"
+out_profiler_dir="$script_dir/../output/profiler"
+
+benchmarks_dir="$script_dir/../src/benchmarks"
 model_dir=$"$script_dir/../src/model"
 
 ##  Make sure that the above dirs exist
 makesure_dir_exists "$build_dir"
+
 makesure_dir_exists "$log_dir"
 makesure_dir_exists "$log_dir_trace"
 makesure_dir_exists "$log_dir_model"
+makesure_dir_exists "$log_dir_profiler"
+
 makesure_dir_exists "$trace_dir"
+makesure_dir_exists "$out_profiler_dir"

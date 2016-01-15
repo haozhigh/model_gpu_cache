@@ -1,0 +1,29 @@
+1    mov.u32 %r0, %ctaid.x
+2    mov.u32 %r1, %ntid.x
+3    mul.lo.u32 %r2, %r0, %r1
+4    mov.u32 %r3, %tid.x
+5    add.u32 %r4, %r3, %r2
+6    mov.u32 %r5, 511
+7    setp.gt.s32 %p6, %r4, %r5
+8    @%p6 bra BB_2_5
+9    cvt.s64.s32 %r7, %r4
+10   mov.s32 %r8, %r4
+11   add.s32 %r9, %r4, 262144
+12   ld.param.u64 %r10, [__cudaparm__Z11mvt_kernel2PfS_S__y_2 + 16]
+13   mul.wide.s32 %r11, %r4, 4
+14   ld.param.u64 %r12, [__cudaparm__Z11mvt_kernel2PfS_S__x2 + 8]
+15   add.u64 %r13, %r12, %r11
+16   ld.global.f32 %r14, [%r13]
+17   ld.param.u64 %r15, [__cudaparm__Z11mvt_kernel2PfS_S__a]
+18   add.u64 %r16, %r15, %r11
+19   ld.global.f32 %r17, [%r16]
+20   ld.global.f32 %r18, [%r10]
+21   fma.rn.f32 %r14, %r17, %r18, %r14
+22   st.global.f32 [%r13], %r14
+23   add.u64 %r10, %r10, 4
+24   add.s32 %r8, %r8, 512
+25   add.u64 %r16, %r16, 2048
+26   setp.ne.s32 %p19, %r8, %r9
+27   @%p19 bra BB_2_4
+28   reconverge
+29   exit

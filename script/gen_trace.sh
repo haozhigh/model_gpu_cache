@@ -20,18 +20,16 @@ for suite in $suites; do
             ##  Set the file path to store log info and duration info
             log_dir_trace_suite="$log_dir_trace/$suite"
             makesure_dir_exists "$log_dir_trace_suite"
-            log_file="$log_dir_trace_suite/$bench.log"
-            duration_file="$log_dir_trace_suite/$bench.duration"
 
 			##  Generating trace
             ##  Get the time stamp before and after execution
             stamp0=$( get_time_ms )
-			gdb --args ./${bench}_trace "$trace_dir_bench" $( get_bench_args $suite $bench ) | tee "$log_file"
+			gdb --args ./${bench}_trace "$trace_dir_bench" $( get_bench_args $suite $bench ) | tee "$$log_dir_trace_suite/$bench.log"
             stamp1=$( get_time_ms )
 
             ##  Calculate time duration and write to corresponding file
             duration=$((stamp1 - stamp0))
-            echo $duration > "$duration_file"
+            echo $duration > "$log_dir_trace_suite/$bench.duration"
 		fi
     done
 done

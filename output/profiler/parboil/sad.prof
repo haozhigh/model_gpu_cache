@@ -1,0 +1,16 @@
+==5142== NVPROF is profiling process 5142, command: ./sad_profiler -i ../datasets/parboil/sad/default/input/reference.bin,../datasets/parboil/sad/default/input/frame.bin -o ../output/bench_output/parboil/sad_default.out
+==5142== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==5142== Profiling application: ./sad_profiler -i ../datasets/parboil/sad/default/input/reference.bin,../datasets/parboil/sad/default/input/frame.bin -o ../output/bench_output/parboil/sad_default.out
+==5142== Profiling result:
+==5142== Metric result:
+Invocations                     Metric Name              Metric Description         Min         Max         Avg
+Device "GeForce GTX 570 (0)"
+	Kernel: larger_sad_calc_16(unsigned short*, int, int)
+          1        l1_cache_global_hit_rate              L1 Global Hit Rate      44.26%      44.26%      44.26%
+          1             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)       3.09%       3.09%       3.09%
+	Kernel: mb_sad_calc(unsigned short*, unsigned short*, int, int)
+          1        l1_cache_global_hit_rate              L1 Global Hit Rate      38.71%      38.71%      38.71%
+          1             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      92.45%      92.45%      92.45%
+	Kernel: larger_sad_calc_8(unsigned short*, int, int)
+          1        l1_cache_global_hit_rate              L1 Global Hit Rate      14.52%      14.52%      14.52%
+          1             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      18.14%      18.14%      18.14%

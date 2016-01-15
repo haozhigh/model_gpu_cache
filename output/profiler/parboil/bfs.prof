@@ -1,0 +1,13 @@
+==5009== NVPROF is profiling process 5009, command: ./bfs_profiler -i ../datasets/parboil/bfs/NY/input/graph_input.dat -o ../output/bench_output/parboil/bfs_NY.out
+==5009== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==5009== Profiling application: ./bfs_profiler -i ../datasets/parboil/bfs/NY/input/graph_input.dat -o ../output/bench_output/parboil/bfs_NY.out
+==5009== Profiling result:
+==5009== Metric result:
+Invocations                     Metric Name              Metric Description         Min         Max         Avg
+Device "GeForce GTX 570 (0)"
+	Kernel: BFS_kernel_multi_blk_inGPU(int*, int*, int2*, int2*, int*, int*, int*, int*, int, int, int*, int*, int*, int*)
+          2        l1_cache_global_hit_rate              L1 Global Hit Rate      23.24%      39.64%      31.44%
+          2             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      84.24%      94.69%      89.47%
+	Kernel: BFS_in_GPU_kernel(int*, int*, int2*, int2*, int*, int*, int, int*, int, int, int*)
+          3        l1_cache_global_hit_rate              L1 Global Hit Rate      40.02%      53.22%      45.44%
+          3             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      52.39%      93.90%      79.51%

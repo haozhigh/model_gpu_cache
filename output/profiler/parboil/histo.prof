@@ -1,0 +1,19 @@
+==5053== NVPROF is profiling process 5053, command: ./histo_profiler -i ../datasets/parboil/histo/default/input/img.bin -o ../output/bench_output/parboil/histo_default.out -- 20 4
+==5053== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==5053== Profiling application: ./histo_profiler -i ../datasets/parboil/histo/default/input/img.bin -o ../output/bench_output/parboil/histo_default.out -- 20 4
+==5053== Profiling result:
+==5053== Metric result:
+Invocations                     Metric Name              Metric Description         Min         Max         Avg
+Device "GeForce GTX 570 (0)"
+	Kernel: histo_prescan_kernel(unsigned int*, int, unsigned int*)
+         20        l1_cache_global_hit_rate              L1 Global Hit Rate      54.63%      58.03%      56.53%
+         20             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      39.89%      43.48%      41.88%
+	Kernel: histo_main_kernel(uchar4*, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int*, unsigned int*, unsigned int*)
+         20        l1_cache_global_hit_rate              L1 Global Hit Rate       0.00%       0.00%       0.00%
+         20             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      44.99%      48.03%      46.64%
+	Kernel: histo_final_kernel(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int*, unsigned int*, unsigned int*, unsigned int*)
+         20        l1_cache_global_hit_rate              L1 Global Hit Rate       0.00%       0.00%       0.00%
+         20             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)       0.00%       0.00%       0.00%
+	Kernel: histo_intermediates_kernel(uint2*, unsigned int, unsigned int, unsigned int, uchar4*)
+         20        l1_cache_global_hit_rate              L1 Global Hit Rate      41.84%      43.95%      42.95%
+         20             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)       2.72%       3.38%       3.08%

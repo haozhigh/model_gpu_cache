@@ -1,0 +1,16 @@
+==5353== NVPROF is profiling process 5353, command: ./covar_profiler
+==5353== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==5353== Profiling application: ./covar_profiler
+==5353== Profiling result:
+==5353== Metric result:
+Invocations                     Metric Name              Metric Description         Min         Max         Avg
+Device "GeForce GTX 570 (0)"
+	Kernel: reduce_kernel(float*, float*)
+          1        l1_cache_global_hit_rate              L1 Global Hit Rate      47.63%      47.63%      47.63%
+          1             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      51.74%      51.74%      51.74%
+	Kernel: mean_kernel(float*, float*)
+          1        l1_cache_global_hit_rate              L1 Global Hit Rate      43.03%      43.03%      43.03%
+          1             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      10.80%      10.80%      10.80%
+	Kernel: covar_kernel(float*, float*)
+          1        l1_cache_global_hit_rate              L1 Global Hit Rate      42.59%      42.59%      42.59%
+          1             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      28.22%      28.22%      28.22%

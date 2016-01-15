@@ -1,0 +1,74 @@
+1    cvt.s32.u32 %r0, %tid.x
+2    mov.s32 %r1, %r0
+3    mov.u32 %r2, 544
+4    setp.gt.s32 %p3, %r0, %r2
+5    @%p3 bra BB_2_5
+6    mov.s32 %r4, 576
+7    sub.s32 %r5, %r4, %r0
+8    shr.s32 %r6, %r5, 31
+9    mov.s32 %r7, 31
+10   and.b32 %r8, %r6, %r7
+11   add.s32 %r9, %r8, %r5
+12   shr.s32 %r10, %r9, 5
+13   ld.param.s32 %r11, [__cudaparm__Z18larger_sad_calc_16Ptii_mb_width + 8]
+14   ld.param.s32 %r12, [__cudaparm__Z18larger_sad_calc_16Ptii_mb_height + 12]
+15   mul24.lo.s32 %r13, %r11, %r12
+16   cvt.s32.u32 %r14, %ctaid.y
+17   mul24.lo.s32 %r15, %r14, %r11
+18   cvt.s32.u32 %r16, %ctaid.x
+19   add.s32 %r17, %r16, %r15
+20   cvt.s64.s32 %r18, %r0
+21   mul.wide.s32 %r19, %r0, 4
+22   mul.lo.s32 %r20, %r13, 1096
+23   cvt.s64.s32 %r21, %r20
+24   add.s32 %r22, %r13, %r17
+25   mul.lo.s32 %r23, %r22, 1096
+26   ld.param.u64 %r24, [__cudaparm__Z18larger_sad_calc_16Ptii_blk_sad]
+27   mul.lo.s32 %r25, %r17, 1096
+28   cvt.s64.s32 %r26, %r25
+29   mul.wide.s32 %r27, %r25, 2
+30   add.s64 %r28, %r24, %r27
+31   add.s64 %r29, %r19, %r28
+32   mul.lo.s32 %r30, %r17, 2192
+33   cvt.s64.s32 %r31, %r30
+34   add.u64 %r32, %r31, %r21
+35   mul.lo.u64 %r33, %r32, 2
+36   add.s64 %r34, %r24, %r33
+37   add.s64 %r35, %r19, %r34
+38   shl.b32 %r36, %r23, 2
+39   cvt.s64.s32 %r37, %r36
+40   add.u64 %r38, %r37, %r21
+41   mul.lo.u64 %r39, %r38, 2
+42   add.s64 %r40, %r24, %r39
+43   add.s64 %r41, %r19, %r40
+44   shl.b32 %r42, %r23, 1
+45   cvt.s64.s32 %r43, %r42
+46   add.u64 %r44, %r43, %r21
+47   mul.lo.u64 %r45, %r44, 2
+48   add.s64 %r46, %r24, %r45
+49   add.s64 %r47, %r19, %r46
+50   mov.s32 %r48, %r10
+51   ld.global.u32 %r49, [%r41]
+52   ld.global.u32 %r50, [%r41 + 2192]
+53   ld.global.u32 %r51, [%r41 + 4384]
+54   ld.global.u32 %r52, [%r41 + 6576]
+55   add.u32 %r53, %r49, %r51
+56   st.global.u32 [%r47], %r53
+57   add.u32 %r54, %r50, %r52
+58   st.global.u32 [%r47 + 2192], %r54
+59   add.u32 %r55, %r49, %r50
+60   st.global.u32 [%r35], %r55
+61   add.u32 %r56, %r51, %r52
+62   st.global.u32 [%r35 + 2192], %r56
+63   add.u32 %r57, %r55, %r56
+64   st.global.u32 [%r29], %r57
+65   add.s32 %r1, %r1, 32
+66   add.s64 %r47, %r47, 128
+67   add.s64 %r41, %r41, 128
+68   add.s64 %r35, %r35, 128
+69   add.s64 %r29, %r29, 128
+70   mov.u32 %r58, 544
+71   setp.le.s32 %p59, %r1, %r58
+72   @%p59 bra BB_2_4
+73   reconverge
+74   exit

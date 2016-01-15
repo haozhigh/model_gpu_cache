@@ -1,0 +1,10 @@
+==5031== NVPROF is profiling process 5031, command: ./cutcp_profiler -i ../datasets/parboil/cutcp/small/input/watbox.sl40.pqr -o ../output/bench_output/parboil/cutcp_small.out
+==5031== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==5031== Profiling application: ./cutcp_profiler -i ../datasets/parboil/cutcp/small/input/watbox.sl40.pqr -o ../output/bench_output/parboil/cutcp_small.out
+==5031== Profiling result:
+==5031== Metric result:
+Invocations                     Metric Name              Metric Description         Min         Max         Avg
+Device "GeForce GTX 570 (0)"
+	Kernel: cuda_cutoff_potential_lattice6overlap(int, int, float4*, float, float, float, float*, int)
+         11        l1_cache_global_hit_rate              L1 Global Hit Rate      54.90%      63.59%      57.76%
+         11             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      93.00%      94.48%      93.85%

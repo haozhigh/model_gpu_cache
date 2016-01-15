@@ -71,10 +71,12 @@ log_dir_base_trace="$log_dir/base_trace"
 log_dir_model="$log_dir/model"
 log_dir_base_model="$log_dir/base_model"
 log_dir_profiler="$log_dir/profiler"
+log_dir_sim="$log_dir/sim"
 
 trace_dir="$script_dir/../output/trace"
 base_trace_dir="$script_dir/../output/base_trace"
 out_profiler_dir="$script_dir/../output/profiler"
+out_sim_dir="$script_dir/../output/sim"
 
 benchmarks_dir="$script_dir/../src/benchmarks"
 model_dir="$script_dir/../src/model"

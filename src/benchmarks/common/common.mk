@@ -10,12 +10,13 @@ NVCC_FLAGS		:= -O3 -m64 -arch=sm_20 $(INCLUDE_FLAGS) $(DEBUG_FLAG)
 C_FLAGS			:= -O3 -m64 $(INCLUDE_FLAGS) $(DEBUG_FLAG)
 CXX_FLAGS		:= -O3 -m64 -std=c++0x $(INCLUDE_FLAGS) $(DEBUG_FLAG)
 
-BUILD_PATH		:= ../../../../build
-TARGET_PROFILER	:= $(BUILD_PATH)/$(TARGET)_profiler
-TARGET_SIM		:= $(BUILD_PATH)/$(TARGET)_sim
-TARGET_TRACE	:= $(BUILD_PATH)/$(TARGET)_trace
+BUILD_PATH		    := ../../../../build
+TARGET_PROFILER	    := $(BUILD_PATH)/$(TARGET)_profiler
+TARGET_SIM		    := $(BUILD_PATH)/$(TARGET)_sim
+TARGET_TRACE	    := $(BUILD_PATH)/$(TARGET)_trace
+TARGET_BASE_TRACE   := $(BUILD_PATH)/$(TARGET)_base_trace
 
-all:				$(TARGET_PROFILER) $(TARGET_SIM) $(TARGET_TRACE)
+all:				$(TARGET_PROFILER) $(TARGET_SIM) $(TARGET_TRACE) $(TARGET_BASE_TRACE)
 
 ####  Rules to comiple bench source files to obj files
 C_OBJS			:= $(patsubst %.c,%.o,$(C_FILES))
@@ -77,7 +78,19 @@ $(GENERATOR_OBJS):	%.o:	%.cpp
 $(TARGET_TRACE):	$(TRACE_OBJS) $(GENERATOR_OBJS)
 	$(CXX) -o $(TARGET_TRACE) $(TRACE_OBJS) $(GENERATOR_OBJS) $(CXX_FLAGS) -L$(CUDA_LIB_PATH) `OcelotConfig -l`
 
+####  Rules to compile basetrace generator source files to obj files
+BASE_GENERATOR_PATH          := ../../../base_trace
+BASE_GENERATOR_CPP_FILES     := $(BASE_GENERATOR_PATH)/TraceGenerator.cpp
+BASE_GENERATOR_OBJS          := $(patsubst %.cpp,%.o,$(BASE_GENERATOR_CPP_FILES))
+
+$(BASE_GENERATOR_OBJS): %.o:    %.cpp
+	$(CXX) -c $< -o $@ $(CXX_FLAGS)
+
+#### Rules to generate base generator executables
+$(TARGET_BASE_TRACE):   $(TRACE_OBJS) $(BASE_GENERATOR_OBJS)
+	$(CXX) -o $(TARGET_BASE_TRACE) $(TRACE_OBJS) $(BASE_GENERATOR_OBJS) $(CXX_FLAGS) -L$(CUDA_LIB_PATH) `OcelotConfig -l`
+
 
 clean:
-	rm -f $(OBJS) $(TRACE_OBJS) $(GENERATOR_OBJS)
-	rm -f $(TARGET_PROFILER) $(TARGET_SIM) $(TARGET_TRACE)
+	rm -f $(OBJS) $(TRACE_OBJS) $(GENERATOR_OBJS) $(BASE_GENERATOR_OBJS)
+	rm -f $(TARGET_PROFILER) $(TARGET_SIM) $(TARGET_TRACE) $(TARGET_BASE_TRACE)

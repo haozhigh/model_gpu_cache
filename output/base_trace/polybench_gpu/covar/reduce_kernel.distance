@@ -1,0 +1,28 @@
+line_size: 128
+cache_bytes: 16384
+cache_lines: 128
+cache_ways: 4
+cache_sets: 32
+
+histogram:
+1 13
+2 4
+3 1
+0 413
+99999999 585
+
+CASE: 0 miss_compulsory: 585 miss_capacity: 0
+CASE: 1 miss_compulsory: 585 miss_capacity: 0
+CASE: 2 miss_compulsory: 506 miss_capacity: 2
+CASE: 3 miss_compulsory: 600 miss_capacity: 0
+modelled_accesses: 1016
+modelled_misses(compulsory): 506
+modelled_misses(capacity): 0
+modelled_misses(associativity): 0
+modelled_misses(latency): 79
+modelled_misses(mshr): 0
+modelled_misses(tot_associativity): 585
+modelled_misses(tot_latency): 508
+modelled_misses(tot_mshr): 600
+modelled_hits: 431
+modelled_miss_rate: 57.5787

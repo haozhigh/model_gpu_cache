@@ -7,6 +7,7 @@ build/*_profiler
 build/*_trace
 build/*_sim
 build/model
+build/base_model
 
 datasets
 log

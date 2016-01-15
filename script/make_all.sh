@@ -31,7 +31,8 @@ if [ "$bench_specified" = "model" ]; then
     make $make_flag
 fi
 
-#cd "$script_dir/../src/model_base"
-#echo "####Start making cache model"
-#make
-#echo
+##  Make the base model
+if [ "$bench_specified" = "base_model" ]; then
+    cd "$base_model_dir"
+    make $make_flag
+fi

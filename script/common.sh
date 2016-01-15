@@ -69,6 +69,7 @@ log_dir="$script_dir/../log"
 log_dir_trace="$log_dir/trace"
 log_dir_base_trace="$log_dir/base_trace"
 log_dir_model="$log_dir/model"
+log_dir_base_model="$log_dir/base_model"
 log_dir_profiler="$log_dir/profiler"
 
 trace_dir="$script_dir/../output/trace"
@@ -76,7 +77,8 @@ base_trace_dir="$script_dir/../output/base_trace"
 out_profiler_dir="$script_dir/../output/profiler"
 
 benchmarks_dir="$script_dir/../src/benchmarks"
-model_dir=$"$script_dir/../src/model"
+model_dir="$script_dir/../src/model"
+base_model_dir="$script_dir/../src/base_model"
 
 ##  Make sure that the above dirs exist
 makesure_dir_exists "$build_dir"

@@ -29,6 +29,8 @@ for suite in $suites; do
             ##  Calculate time duration and write to corresponding file
             duration=$((stamp1 - stamp0))
             echo $duration > "$log_dir_sim_suite/${bench}.duration"
+
+            rm -f "$build_dir/_cuobjdump_*"
 		fi
     done
 done

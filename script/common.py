@@ -1,11 +1,16 @@
 #!/usr/bin/python3
 
 import os
+import os.path as path
 import sys
 import re
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
+
+
+
+dir_script = path.dirname(path.abspath(__file__))
 
 class DDict:
     def __init__(self):

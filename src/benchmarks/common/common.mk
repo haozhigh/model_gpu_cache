@@ -4,7 +4,7 @@ NVCC			:= $(CUDA_HOME)/bin/nvcc
 C				:= /usr/bin/gcc-4.4
 CXX				:= /usr/bin/g++-4.4
 
-INCLUDE_FLAGS	:= -I./ -I../../common/ -I/usr/local/include/ocelot/api/interface -I/usr/local/cuda-4.0/include
+INCLUDE_FLAGS	:= -I./ -I../../common/ -I/usr/local/include/ocelot/api/interface -I$(CUDA_HOME)/include
 DEBUG_FLAG      := -g
 NVCC_FLAGS		:= -O3 -m64 -arch=sm_20 $(INCLUDE_FLAGS) $(DEBUG_FLAG)
 C_FLAGS			:= -O3 -m64 $(INCLUDE_FLAGS) $(DEBUG_FLAG)

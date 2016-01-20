@@ -6,6 +6,17 @@ from pandas import Series
 from common import *
 
 
+
+
+def demangle_cpp_fun_name(name):
+    cmd = "c++filt " + name
+    pipe = os.popen(cmd)
+    data = pipe.read()
+    pipe.close()
+    return data.split('(')[0]
+
+
+
 ##  Break down a wide kernel name to (suite, bench, kernel)
 def breakdown_wide_kernel_name(wide_kernel_name):
     break_kernel_name = wide_kernel_name.split("#")
@@ -88,6 +99,58 @@ def parse_model_out(wide_kernel_names, model_out_dir):
     ##  Return the Series
     return (model_comp_miss, model_uncomp_miss)
 
+def parse_base_model_out(wide_kernel_names, base_model_out_dir):
+    base_model_comp_miss = Series(0.0, index = wide_kernel_names)
+    base_model_uncomp_miss = Series(0.0, index = wide_kernel_names)
+
+    ##  Iterate over all kernels
+    for wide_kernel_name in wide_kernel_names:
+
+        ##  Break down wide kerenl name
+        (suite, bench, kernel) = breakdown_wide_kernel_name(wide_kernel_name)
+
+        ##  Set base model miss rate output file for this kernel
+        out_file = path.join(base_model_out_dir, suite, bench, kernel + '.distance')
+
+        ##  Check if the out file exists
+        if path.isfile(out_file):
+
+            ##  Read file content
+            f_str = read_text_file(out_file)
+
+            ##  Parse file content
+            access_count = 0
+            comp_miss_count = 0
+            hit_count = 0
+
+            p = re.compile(r'^modelled_accesses: (\d*)\s*$', re.MULTILINE)
+            m = p.search(f_str)
+            if m == None:
+                access_count = 0
+            else:
+                access_count = int(m.group(1))
+
+            p = re.compile(r'^modelled_misses\(compulsory\): (\d*)\s*$', re.MULTILINE)
+            m = p.search(f_str)
+            if m == None:
+                comp_miss_count = 0
+            else:
+                comp_miss_count = int(m.group(1))
+
+            p = re.compile(r'^modelled_hits: (\d*)\s*$', re.MULTILINE)
+            m = p.search(f_str)
+            if m == None:
+                hit_count = 0
+            else:
+                hit_count = int(m.group(1))
+
+            base_model_comp_miss[wide_kernel_name] = float(comp_miss_count) / float(access_count)
+            base_model_uncomp_miss[wide_kernel_name] = 1 - float(comp_miss_count + hit_count) / float(access_count)
+
+    ##  Return
+    return (base_model_comp_miss, base_model_uncomp_miss)
+    
+
 def parse_profiler_out(wide_kernel_names, profiler_out_dir):
     profiler_miss = Series(0.0, index = wide_kernel_names)
 
@@ -135,6 +198,73 @@ def parse_profiler_out(wide_kernel_names, profiler_out_dir):
 def parse_sim_out(wide_kernel_names, sim_out_dir):
     sim_miss = Series(0.0, index = wide_kernel_names)
 
+    suites = os.listdir(sim_out_dir)
+    for suite in suites:
+
+        sim_out_dir_suite = path.join(sim_out_dir, suite)
+        bench_files = os.listdir(sim_out_dir_suite)
+        for bench_file in bench_files:
+
+            bench = bench_file.split('.')[0]
+
+            f_str = read_text_file(path.join(sim_out_dir_suite, bench_file))
+
+            sum_hit = 0
+            sum_hit_reserved = 0
+            sum_miss = 0
+            sum_reservation_fail = 0
+
+            p1 = re.compile(r'^kernel_name = (\S*)\s*$', re.MULTILINE)
+            p2 = re.compile(r'^\s*Total_core_cache_stats_breakdown\[GLOBAL_ACC_R\]\[HIT\] = (\d*)\s*$', re.MULTILINE)
+            p3 = re.compile(r'^\s*Total_core_cache_stats_breakdown\[GLOBAL_ACC_R\]\[HIT_RESERVED\] = (\d*)\s*$', re.MULTILINE)
+            p4 = re.compile(r'^\s*Total_core_cache_stats_breakdown\[GLOBAL_ACC_R\]\[MISS\] = (\d*)\s*$', re.MULTILINE)
+            p5 = re.compile(r'^\s*Total_core_cache_stats_breakdown\[GLOBAL_ACC_R\]\[RESERVATION_FAIL\] = (\d*)\s*$', re.MULTILINE)
+            m1 = p1.search(f_str)
+            while m1 != None:
+                kernel = demangle_cpp_fun_name(m1.group(1))
+                hit_count = sum_hit
+                hit_reserved_count = sum_hit_reserved
+                miss_count = sum_miss
+                reservation_fail_count = sum_reservation_fail
+
+                m2 = p2.search(f_str, pos = m1.end())
+                if m2 != None:
+                    hit_count = int(m2.group(1))
+                hit_count = hit_count - sum_hit
+                sum_hit = sum_hit + hit_count
+
+                m3 = p3.search(f_str, pos = m1.end())
+                if m3 != None:
+                    hit_reserved_count = int(m3.group(1))
+                hit_reserved_count = hit_reserved_count - sum_hit_reserved
+                sum_hit_reserved = sum_hit_reserved + hit_reserved_count
+        
+                m4 = p4.search(f_str, pos = m1.end())
+                if m4 != None:
+                    miss_count = int(m4.group(1))
+                miss_count = miss_count - sum_miss
+                sum_miss = sum_miss + miss_count
+
+                m5 = p5.search(f_str, pos = m1.end())
+                if m5 != None:
+                    reservation_fail_count = int(m5.group(1))
+                reservation_fail_count = reservation_fail_count - sum_reservation_fail
+                sum_reservation_fail = sum_reservation_fail + reservation_fail_count
+
+                access_count = hit_count + hit_reserved_count + miss_count
+
+                try_wide_kernel_name = suite + '#' + bench + '#' + kernel
+                if try_wide_kernel_name in wide_kernel_names:
+                    sim_miss[try_wide_kernel_name] = float(miss_count) / float(access_count)
+
+                m1 = p1.search(f_str, pos = m1.end())
+
+    return sim_miss
+
+
+def parse_duration_out(wide_kernel_names, duration_out_dir):
+    durations = Series(0, index = wide_kernel_names)
+
     ##  Iterate over all kernels
     for wide_kernel_name in wide_kernel_names:
 
@@ -142,13 +272,19 @@ def parse_sim_out(wide_kernel_names, sim_out_dir):
         (suite, bench, kernel) = breakdown_wide_kernel_name(wide_kernel_name)
 
         ##  Set profiler miss rate output file for this kernel
-        out_file = path.join(profiler_out_dir, suite, bench + ".simlog")
+        out_file = path.join(duration_out_dir, suite, bench + ".duration")
         
         ##  Check if the out_file exists
         if os.path.isfile(out_file):
             
             ##  Read file content
             f_str = read_text_file(out_file)
+
+            ##  Parse duration
+            durations[wide_kernel_name] = int(f_str)
+
+    return durations
+ 
  
 
 

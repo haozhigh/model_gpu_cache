@@ -141,7 +141,7 @@ void compareResults(DATA_TYPE* symmat, DATA_TYPE* symmat_outputFromGpu)
 			if (percentDiff(symmat[i*(N+1) + j], symmat_outputFromGpu[i*(N+1) + j]) > PERCENT_DIFF_ERROR_THRESHOLD)
 			{
 				fail++;
-				printf("i: %d j: %d\n1: %f 2: %f\n", i, j, symmat[i*N + j], symmat_outputFromGpu[i*N + j]);
+				//printf("i: %d j: %d\n1: %f 2: %f\n", i, j, symmat[i*N + j], symmat_outputFromGpu[i*N + j]);
 		
 			}
 		}

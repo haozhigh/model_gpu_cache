@@ -2,6 +2,7 @@
 ##set -x
 
 ##  Get current time stamp at milli seconds
+##  Because of the overflow problem, it may not work fine on a 32-bit machine
 function get_time_ms {
     t1=`date +%s`
     t1=$(((t1 % 100000) * 1000))

@@ -284,6 +284,22 @@ def parse_duration_out(wide_kernel_names, duration_out_dir):
             durations[wide_kernel_name] = int(f_str)
 
     return durations
+
+def breakdown_frame_index(data_frame):
+    suites = Series("", index = data_frame.index)
+    benches = Series("", index = data_frame.index)
+    kernels = Series("", index = data_frame.index)
+
+    for wide_kernel_name in data_frame.index:
+        (suite, bench, kernel) = breakdown_wide_kernel_name(wide_kernel_name)
+        suites[wide_kernel_name] = suite
+        benches[wide_kernel_name] = bench
+        kernels[wide_kernel_name] = kernel
+
+
+    data_frame['suite'] = suites
+    data_frame['bench'] = benches
+    data_frame['kernel'] = kernels
  
  
 

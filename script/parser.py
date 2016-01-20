@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 
+import os
+import re
 import os.path as path
 from pandas import Series
 
-from common import *
 
 
+dir_script = path.dirname(path.abspath(__file__))
 
 
 def demangle_cpp_fun_name(name):
@@ -21,6 +23,22 @@ def demangle_cpp_fun_name(name):
 def breakdown_wide_kernel_name(wide_kernel_name):
     break_kernel_name = wide_kernel_name.split("#")
     return (break_kernel_name[0], break_kernel_name[1], break_kernel_name[2])
+    
+##  Break down a wide bench name to (suite, bench)
+def breakdown_wide_bench_name(wide_bench_name):
+    break_bench_name = wide_bench_name.split("#")
+    return (break_bench_name[0], break_bench_name[1])
+
+##  Get wide bench names from wide kernel names
+def get_wide_bench_names(wide_kernel_names):
+    wide_bench_names_set = set()
+    for wide_kernel_name in wide_kernel_names:
+        (suite, bench, kernel) = breakdown_wide_kernel_name(wide_kernel_name)
+        wide_bench_names_set.add(suite + "#" + bench)
+    
+    wide_bench_names_list = list(wide_bench_names_set)
+    wide_bench_names_list.sort()
+    return wide_bench_names_list
 
 ##  Read text file content as a whole str
 def read_text_file(file_path):
@@ -262,14 +280,14 @@ def parse_sim_out(wide_kernel_names, sim_out_dir):
     return sim_miss
 
 
-def parse_duration_out(wide_kernel_names, duration_out_dir):
-    durations = Series(0, index = wide_kernel_names)
+def parse_duration_out(wide_bench_names, duration_out_dir):
+    durations = Series(0, index = wide_bench_names)
 
     ##  Iterate over all kernels
-    for wide_kernel_name in wide_kernel_names:
+    for wide_bench_name in wide_bench_names:
 
         ##  Breakdown wide kernel name to (suite, bench, kernel)
-        (suite, bench, kernel) = breakdown_wide_kernel_name(wide_kernel_name)
+        (suite, bench) = breakdown_wide_bench_name(wide_bench_name)
 
         ##  Set profiler miss rate output file for this kernel
         out_file = path.join(duration_out_dir, suite, bench + ".duration")
@@ -281,7 +299,7 @@ def parse_duration_out(wide_kernel_names, duration_out_dir):
             f_str = read_text_file(out_file)
 
             ##  Parse duration
-            durations[wide_kernel_name] = int(f_str)
+            durations[wide_bench_name] = int(f_str)
 
     return durations
 

@@ -40,6 +40,36 @@ def get_wide_bench_names(wide_kernel_names):
     wide_bench_names_list.sort()
     return wide_bench_names_list
 
+def breakdown_frame_index_wide_bench_name(data_frame):
+    suites = Series("", index = data_frame.index)
+    benches = Series("", index = data_frame.index)
+
+    for wide_bench_name in data_frame.index:
+        (suite, bench) = breakdown_wide_bench_name(wide_bench_name)
+        suites[wide_bench_name] = suite
+        benches[wide_bench_name] = bench
+
+    data_frame['suite'] = suites
+    data_frame['bench'] = benches
+
+def breakdown_frame_index_wide_kernel_name(data_frame):
+    suites = Series("", index = data_frame.index)
+    benches = Series("", index = data_frame.index)
+    kernels = Series("", index = data_frame.index)
+
+    for wide_kernel_name in data_frame.index:
+        (suite, bench, kernel) = breakdown_wide_kernel_name(wide_kernel_name)
+        suites[wide_kernel_name] = suite
+        benches[wide_kernel_name] = bench
+        kernels[wide_kernel_name] = kernel
+
+
+    data_frame['suite'] = suites
+    data_frame['bench'] = benches
+    data_frame['kernel'] = kernels
+
+
+
 ##  Read text file content as a whole str
 def read_text_file(file_path):
     ##  Check if the file exists
@@ -303,21 +333,6 @@ def parse_duration_out(wide_bench_names, duration_out_dir):
 
     return durations
 
-def breakdown_frame_index(data_frame):
-    suites = Series("", index = data_frame.index)
-    benches = Series("", index = data_frame.index)
-    kernels = Series("", index = data_frame.index)
-
-    for wide_kernel_name in data_frame.index:
-        (suite, bench, kernel) = breakdown_wide_kernel_name(wide_kernel_name)
-        suites[wide_kernel_name] = suite
-        benches[wide_kernel_name] = bench
-        kernels[wide_kernel_name] = kernel
-
-
-    data_frame['suite'] = suites
-    data_frame['bench'] = benches
-    data_frame['kernel'] = kernels
  
  
 

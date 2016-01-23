@@ -43,7 +43,7 @@ def main():
     sim_out_dir = path.join(dir_script, "../output/sim")
     miss_frame['sim_miss'] = parse_sim_out(wide_kernel_names, sim_out_dir)
 
-    breakdown_frame_index(miss_frame)
+    breakdown_frame_index_wide_kernel_name(miss_frame)
 
 
     ##  Write to file
@@ -64,6 +64,7 @@ def main():
     duration_frame['profiler'] = parse_duration_out(wide_bench_names, path.join(duration_root_dir, 'profiler'))
     duration_frame['sim'] = parse_duration_out(wide_bench_names, path.join(duration_root_dir, 'sim'))
 
+    breakdown_frame_index_wide_bench_name(duration_frame)
 
     duration_out_file = path.join(dir_script, "../output/duration.csv")
     duration_frame.to_csv(duration_out_file)

@@ -3,7 +3,7 @@ parboil#bfs#BFS_in_GPU_kernel,0.0684,0.8223,0.8907,0.06898310708749548,0.8898667
 parboil#cutcp#cuda_cutoff_potential_lattice6overlap,0.2801,0.1874,0.4675,0.03356944093093853,0.39787503162155324,0.43144447255249174,0.4224,0.37547798199087207,parboil,cutcp,cuda_cutoff_potential_lattice6overlap
 parboil#histo#histo_intermediates_kernel,0.0,0.0,0.0,0.5264270613107822,0.35934196617336156,0.8857690274841438,0.5705,0.9885787342851055,parboil,histo,histo_intermediates_kernel
 parboil#histo#histo_prescan_kernel,0.2563,0.0198,0.27609999999999996,0.257458009526197,0.38205063925795935,0.6395086487841564,0.4347,0.6235962066383828,parboil,histo,histo_prescan_kernel
-parboil#lbm#performStreamCollide_kernel,0.0,0.0,0.0,1.0,0.0,1.0,1.0,1.0,parboil,lbm,performStreamCollide_kernel
+parboil#lbm#performStreamCollide_kernel,1.0,0.0,1.0,1.0,0.0,1.0,1.0,1.0,parboil,lbm,performStreamCollide_kernel
 parboil#mri-g#binning_kernel,0.6411,0.3417,0.9828,0.311887323943662,0.34478873239436625,0.6566760563380283,0.7030000000000001,0.6816849403921001,parboil,mri-g,binning_kernel
 parboil#mri-g#scan_L1_kernel,1.0,0.0,1.0,1.0,0.0,1.0,1.0,1.0,parboil,mri-g,scan_L1_kernel
 parboil#mri-g#scan_inter1_kernel,0.5,0.0,0.5,0.5,0.0,0.5,0.5556000000000001,0.5,parboil,mri-g,scan_inter1_kernel

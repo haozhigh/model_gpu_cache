@@ -2,7 +2,7 @@
 parboil#bfs,0,0,0,253568,33,155368,parboil,bfs
 parboil#cutcp,0,0,0,27697,0,929441,parboil,cutcp
 parboil#histo,0,0,0,1714,0,420468,parboil,histo
-parboil#lbm,0,0,0,28300,0,2448234,parboil,lbm
+parboil#lbm,0,770,0,28300,0,2448234,parboil,lbm
 parboil#mri-g,0,0,0,78224,0,4656623,parboil,mri-g
 parboil#mri-q,0,0,0,131823,0,5078208,parboil,mri-q
 parboil#sad,0,0,0,16230,0,540474,parboil,sad

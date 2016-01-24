@@ -1,0 +1,5 @@
+####  Start Generating trace for bicg_kernel1  ####
+####  Start Generating trace for bicg_kernel2  ####
+GPU Runtime: 0.723381s
+CPU Runtime: 0.001371s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.50 Percent: 0

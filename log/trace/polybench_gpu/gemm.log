@@ -1,0 +1,6 @@
+####  Start Generating trace for gemm_kernel  ####
+####  Total number of accesses exceeds 10000000  ####
+####  Please wait while 23(out of 256) blocks are still running ####
+GPU Runtime: 15.274834s
+CPU Runtime: 0.081391s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 0

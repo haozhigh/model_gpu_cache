@@ -1,0 +1,4 @@
+####  Start Generating trace for gesummv_kernel  ####
+GPU Runtime: 0.251272s
+CPU Runtime: 0.000347s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 14

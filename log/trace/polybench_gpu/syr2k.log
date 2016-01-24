@@ -1,0 +1,4 @@
+####  Start Generating trace for syr2k_kernel  ####
+GPU Runtime: 4.754738s
+CPU Runtime: 0.016577s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 0

@@ -1,0 +1,12 @@
+####  Start Generating trace for fdtd_step1_kernel  ####
+####  Total number of accesses exceeds 10000000  ####
+####  Please wait while 53(out of 16384) blocks are still running ####
+####  Start Generating trace for fdtd_step2_kernel  ####
+####  Total number of accesses exceeds 10000000  ####
+####  Please wait while 53(out of 16384) blocks are still running ####
+####  Start Generating trace for fdtd_step3_kernel  ####
+####  Total number of accesses exceeds 10000000  ####
+####  Please wait while 134(out of 16384) blocks are still running ####
+####  Start Generating trace for fdtd_step1_kernel  ####
+####  Repeated fdtd_step1_kernel encountered  ####
+####  Program exiting ####

@@ -1,0 +1,7 @@
+CUDA accelerated 7 points stencil codes****
+Original version by Li-Wen Chang <lchang20@illinois.edu> and I-Jui Sung<sung10@illinois.edu>
+This version maintained by Chris Rodrigues  ***********
+####  Start Generating trace for block2D_hybrid_coarsen_x  ####
+####  Start Generating trace for block2D_hybrid_coarsen_x  ####
+####  Repeated block2D_hybrid_coarsen_x encountered  ####
+####  Program exiting ####

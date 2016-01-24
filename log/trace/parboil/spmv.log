@@ -1,0 +1,33 @@
+GNU gdb (Ubuntu 7.7.1-0ubuntu5~14.04.2) 7.7.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./spmv_trace...done.
+(gdb) r
+Starting program: /home/haozhi/Workspace/model_gpu_cache/build/spmv_trace /home/haozhi/Workspace/model_gpu_cache/script/../output/trace/parboil/spmv -i ../datasets/parboil/spmv/small/input/1138_bus.mtx,../datasets/parboil/spmv/small/input/vector.bin -o ../output/bench_output/parboil/spmv_small.out
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x7ffff58a7700 (LWP 14937)]
+[Thread 0x7ffff58a7700 (LWP 14937) exited]
+[New Thread 0x7ffff58a7700 (LWP 14938)]
+
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0x7ffff58a7700 (LWP 14938)]
+0x00007ffff77e2e60 in executive::ExecutableKernel::initializeTraceGenerators (this=0x6541d0) at ocelot/executive/implementation/ExecutableKernel.cpp:186
+186			(*it)->initialize(*this);
+(gdb) quit
+A debugging session is active.
+
+	Inferior 1 [process 14933] will be killed.
+
+Quit anyway? (y or n) 

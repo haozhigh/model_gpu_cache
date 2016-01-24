@@ -1,0 +1,27 @@
+
+Reading parameters
+  Number of samples = 2655910
+  Grid Size = 256x256x256
+  Input Matrix Size = 60x60x60
+  Recon Matrix Size = 60x60x60
+  Kernel Width = 5.000000
+  KMax = 150.00 150.00 150.00
+  Oversampling = 5.000000
+  GPU Binsize = 32
+  Use LUT = Yes
+Reading input data from files
+Generating Look-Up Table
+Running gold version
+Running CUDA version
+####  Start Generating trace for binning_kernel  ####
+####  Total number of accesses exceeds 10000000  ####
+####  Please wait while 305(out of 5188) blocks are still running ####
+####  Start Generating trace for splitSort  ####
+####  Start Generating trace for scan_L1_kernel  ####
+####  Start Generating trace for scan_inter1_kernel  ####
+####  Start Generating trace for scan_inter2_kernel  ####
+####  Start Generating trace for uniformAdd  ####
+####  Start Generating trace for splitRearrange  ####
+####  Start Generating trace for splitSort  ####
+####  Repeated splitSort encountered  ####
+####  Program exiting ####

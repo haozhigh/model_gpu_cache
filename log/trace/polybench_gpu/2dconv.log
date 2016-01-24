@@ -1,0 +1,4 @@
+####  Start Generating trace for Convolution2D_kernel  ####
+GPU Runtime: 6.007636s
+CPU Runtime: 0.025384s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 0

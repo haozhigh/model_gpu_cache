@@ -1,0 +1,9 @@
+####  Start Generating trace for mysgemmNT  ####
+GFLOPs = 0.00132963
+IO        : 0.025097
+Kernel    : 2.957337
+Copy      : 0.000113
+Driver    : 2.957347
+Compute   : 0.000298
+CPU/Kernel Overlap: 2.957337
+Timer Wall Time: 2.982934

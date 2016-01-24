@@ -1,0 +1,8 @@
+####  Start Generating trace for mean_kernel  ####
+####  Start Generating trace for std_kernel  ####
+####  Start Generating trace for reduce_kernel  ####
+####  Total number of accesses exceeds 10000000  ####
+####  Please wait while 53(out of 16384) blocks are still running ####
+####  Start Generating trace for corr_kernel  ####
+####  corr_kernel encountered  ####
+####  Program exiting ####

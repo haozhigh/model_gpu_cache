@@ -1,0 +1,6 @@
+32768 pixels in output; 3072 samples in trajectory; using 3072 samples
+####  Start Generating trace for ComputePhiMag_GPU  ####
+####  Start Generating trace for ComputeQ_GPU  ####
+####  Start Generating trace for ComputeQ_GPU  ####
+####  Repeated ComputeQ_GPU encountered  ####
+####  Program exiting ####

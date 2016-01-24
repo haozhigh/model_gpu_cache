@@ -5,12 +5,12 @@
 
 build/*_profiler
 build/*_trace
+build/*_code
 build/*_sim
 build/model
 build/base_model
 
 datasets
-log
 output/bench_output
 
 __pycache__

@@ -1,0 +1,4 @@
+####  Start Generating trace for syrk_kernel  ####
+GPU Runtime: 2.469496s
+CPU Runtime: 0.002432s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 0

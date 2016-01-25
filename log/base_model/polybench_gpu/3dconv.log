@@ -1,0 +1,38 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'convolution3D_kernel'...done
+### Blocksize: (32,8,1)
+### Total threads: 217
+### Total memory accesses: 1969
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 1 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 69
+### %%% [0] => 51
+### %%% [1] => 21
+### %%% [2] => 12
+### %%% [4] => 3
+### %%% [3] => 1
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 157
+### 	 Of which are misses: 40 + 0 + 0 + 29 + 0 = 69 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 88
+### 	 Miss rate: 43.949%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

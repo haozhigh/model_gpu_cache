@@ -1,0 +1,247 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'binning_kernel'...done
+### Blocksize: (512,1,1)
+### Total threads: 8192
+### Total memory accesses: 32768
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 3 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 2779
+### %%% [1] => 1322
+### %%% [0] => 922
+### %%% [2] => 597
+### %%% [3] => 148
+### %%% [33] => 129
+### %%% [31] => 117
+### %%% [30] => 115
+### %%% [34] => 110
+### %%% [40] => 108
+### %%% [39] => 104
+### %%% [32] => 103
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 8875
+### 	 Of which are misses: 2768 + 2946 + 103 + 11 + 0 = 5828 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 3047
+### 	 Miss rate: 65.6676%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'scan_inter1_kernel'...done
+### Blocksize: (64,1,1)
+### Total threads: 64
+### Total memory accesses: 128
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 1 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [0] => 4
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 8
+### 	 Of which are misses: 4 + 0 + 0 + 0 + 0 = 4 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 4
+### 	 Miss rate: 50%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'scan_inter2_kernel'...done
+### Blocksize: (64,1,1)
+### Total threads: 64
+### Total memory accesses: 128
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 1 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [0] => 4
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 8
+### 	 Of which are misses: 4 + 0 + 0 + 0 + 0 = 4 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 4
+### 	 Miss rate: 50%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'scan_L1_kernel'...done
+### Blocksize: (512,1,1)
+### Total threads: 8192
+### Total memory accesses: 16384
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 3 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 512
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 512
+### 	 Of which are misses: 512 + 0 + 0 + 0 + 0 = 512 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 0
+### 	 Miss rate: 100%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'splitRearrange'...done
+### Blocksize: (256,1,1)
+### Total threads: 8192
+### Total memory accesses: 16896
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 6 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 2130
+### %%% [0] => 133
+### %%% [1] => 62
+### %%% [8] => 53
+### %%% [11] => 33
+### %%% [12] => 31
+### %%% [13] => 21
+### %%% [7] => 20
+### %%% [10] => 18
+### %%% [6] => 16
+### %%% [2] => 10
+### %%% [15] => 6
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 2560
+### 	 Of which are misses: 2079 + 221 + 0 + 51 + 0 = 2351 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 209
+### 	 Miss rate: 91.8359%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'splitSort'...done
+### Blocksize: (256,1,1)
+### Total threads: 8192
+### Total memory accesses: 16384
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 6 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 2048
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 2048
+### 	 Of which are misses: 2048 + 0 + 0 + 0 + 0 = 2048 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 0
+### 	 Miss rate: 100%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'uniformAdd'...done
+### Blocksize: (512,1,1)
+### Total threads: 8192
+### Total memory accesses: 16384
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 3 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 512
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 512
+### 	 Of which are misses: 512 + 0 + 0 + 0 + 0 = 512 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 0
+### 	 Miss rate: 100%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

@@ -1,0 +1,44 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'gesummv_kernel'...done
+### Blocksize: (256,1,1)
+### Total threads: 256
+### Total memory accesses: 393472
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 1 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [15] => 21377
+### %%% [14] => 20852
+### %%% [13] => 18448
+### %%% [12] => 16289
+### %%% [11] => 13001
+### %%% [16] => 11548
+### %%% [10] => 9997
+### %%% [9] => 5899
+### %%% [inf] => 4123
+### %%% [8] => 3712
+### %%% [0] => 1777
+### %%% [17] => 1521
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 139272
+### 	 Of which are misses: 4120 + 129568 + 1318 + 3 + 0 = 135009 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 4263
+### 	 Miss rate: 96.9391%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

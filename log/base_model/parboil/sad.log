@@ -1,0 +1,133 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'larger_sad_calc_16'...done
+### Blocksize: (32,1,1)
+### Total threads: 3168
+### Total memory accesses: 215820
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 8 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 6783
+### %%% [1] => 2186
+### %%% [2] => 1519
+### %%% [0] => 1494
+### %%% [3] => 640
+### %%% [4] => 111
+### %%% [16] => 86
+### %%% [15] => 74
+### %%% [17] => 52
+### %%% [14] => 25
+### %%% [5] => 13
+### %%% [18] => 8
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 13010
+### 	 Of which are misses: 6783 + 266 + 11 + 0 + 0 = 7060 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 5950
+### 	 Miss rate: 54.2659%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'larger_sad_calc_8'...done
+### Blocksize: (32,4,1)
+### Total threads: 8192
+### Total memory accesses: 130680
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 8 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 4127
+### %%% [1] => 1426
+### %%% [0] => 1097
+### %%% [2] => 720
+### %%% [3] => 195
+### %%% [16] => 74
+### %%% [15] => 48
+### %%% [17] => 31
+### %%% [4] => 23
+### %%% [14] => 14
+### %%% [8] => 6
+### %%% [7] => 5
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 7770
+### 	 Of which are misses: 4127 + 180 + 2 + 0 + 0 = 4309 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 3461
+### 	 Miss rate: 55.4569%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'mb_sad_calc'...done
+### Blocksize: (61,1,1)
+### Total threads: 8174
+### Total memory accesses: 933896
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 8 block(s) at a time
+### Calculating the reuse distances...Error: 563868 != 556240
+...Error: 563868 != 556240
+...Error: 563868 != 556240
+...Error: 563868 != 556240
+done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [0] => 302357
+### %%% [1] => 180287
+### %%% [2] => 60870
+### %%% [3] => 10275
+### %%% [inf] => 614
+### %%% [6] => 516
+### %%% [7] => 455
+### %%% [5] => 323
+### %%% [4] => 297
+### %%% [8] => 179
+### %%% [9] => 67
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 556240
+### 	 Of which are misses: 263 + 1540 + 0 + 351 + 0 = 2154 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 554086
+### 	 Miss rate: 0.387243%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

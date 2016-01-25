@@ -1,0 +1,155 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'histo_final_kernel'...done
+### Blocksize: (512,1,1)
+### Total threads: 8192
+### Total memory accesses: 335872
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 3 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 14848
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 14848
+### 	 Of which are misses: 14848 + 0 + 0 + 0 + 0 = 14848 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 0
+### 	 Miss rate: 100%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'histo_intermediates_kernel'...done
+### Blocksize: (498,1,1)
+### Total threads: 7968
+### Total memory accesses: 127488
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 3 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 8417
+### %%% [0] => 919
+### %%% [29] => 320
+### %%% [31] => 318
+### %%% [33] => 303
+### %%% [30] => 298
+### %%% [32] => 296
+### %%% [20] => 289
+### %%% [3] => 279
+### %%% [28] => 242
+### %%% [1] => 240
+### %%% [21] => 225
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 15136
+### 	 Of which are misses: 7968 + 4650 + 340 + 449 + 0 = 13407 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 1729
+### 	 Miss rate: 88.5769%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'histo_main_kernel'...done
+### Blocksize: (768,1,1)
+### Total threads: 7680
+### Total memory accesses: 670464
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 2 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 9301
+### %%% [71] => 4684
+### %%% [72] => 3309
+### %%% [73] => 2130
+### %%% [70] => 1435
+### %%% [69] => 69
+### %%% [0] => 22
+### %%% [68] => 2
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 20952
+### 	 Of which are misses: 4656 + 11629 + 0 + 4645 + 0 = 20930 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 22
+### 	 Miss rate: 99.895%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'histo_prescan_kernel'...done
+### Blocksize: (512,1,1)
+### Total threads: 8192
+### Total memory accesses: 64736
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 3 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 1971
+### %%% [4] => 673
+### %%% [5] => 546
+### %%% [1] => 246
+### %%% [0] => 235
+### %%% [3] => 215
+### %%% [2] => 69
+### %%% [6] => 31
+### %%% [7] => 3
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 3989
+### 	 Of which are misses: 1027 + 580 + 0 + 944 + 0 = 2551 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 1438
+### 	 Miss rate: 63.9509%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

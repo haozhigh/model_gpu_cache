@@ -1,0 +1,44 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'BFS_in_GPU_kernel'...done
+### Blocksize: (512,1,1)
+### Total threads: 509
+### Total memory accesses: 205449
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 1 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 13998
+### %%% [0] => 2062
+### %%% [1] => 1816
+### %%% [2] => 1622
+### %%% [3] => 1466
+### %%% [4] => 1343
+### %%% [6] => 1317
+### %%% [8] => 1248
+### %%% [9] => 1240
+### %%% [16] => 1237
+### %%% [14] => 1233
+### %%% [25] => 1228
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 201919
+### 	 Of which are misses: 13929 + 178991 + 0 + 69 + 621 = 193610 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 8309
+### 	 Miss rate: 95.885%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

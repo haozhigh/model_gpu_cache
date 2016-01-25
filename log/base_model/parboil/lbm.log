@@ -1,0 +1,33 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'performStreamCollide_kernel'...done
+### Blocksize: (120,1,1)
+### Total threads: 8160
+### Total memory accesses: 163200
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 8 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 5440
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 5440
+### 	 Of which are misses: 5440 + 0 + 0 + 0 + 0 = 5440 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 0
+### 	 Miss rate: 100%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

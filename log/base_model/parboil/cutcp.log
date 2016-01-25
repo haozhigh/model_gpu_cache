@@ -1,0 +1,44 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'cuda_cutoff_potential_lattice6overlap'...done
+### Blocksize: (8,2,8)
+### Total threads: 8192
+### Total memory accesses: 632480
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 8 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [0] => 20254
+### %%% [inf] => 3992
+### %%% [1] => 1622
+### %%% [22] => 1171
+### %%% [23] => 1045
+### %%% [24] => 995
+### %%% [21] => 968
+### %%% [26] => 954
+### %%% [20] => 923
+### %%% [27] => 814
+### %%% [18] => 738
+### %%% [19] => 731
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 39530
+### 	 Of which are misses: 1327 + 13063 + 0 + 2665 + 0 = 17055 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 22475
+### 	 Miss rate: 43.1444%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

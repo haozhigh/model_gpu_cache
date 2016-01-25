@@ -1,0 +1,78 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'atax_kernel1'...done
+### Blocksize: (256,1,1)
+### Total threads: 512
+### Total memory accesses: 524800
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 2 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [1] => 48283
+### %%% [0] => 46282
+### %%% [2] => 30100
+### %%% [3] => 26448
+### %%% [4] => 8849
+### %%% [inf] => 8226
+### %%% [5] => 7447
+### %%% [10] => 7298
+### %%% [11] => 7113
+### %%% [9] => 6898
+### %%% [8] => 6890
+### %%% [12] => 6774
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 270352
+### 	 Of which are misses: 8224 + 39504 + 62660 + 2 + 0 = 110390 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 159962
+### 	 Miss rate: 40.832%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'atax_kernel2'...done
+### Blocksize: (256,1,1)
+### Total threads: 512
+### Total memory accesses: 524800
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 2 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 8440
+### %%% [0] => 7708
+### %%% [1] => 252
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 16400
+### 	 Of which are misses: 8224 + 0 + 0 + 216 + 0 = 8440 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 7960
+### 	 Miss rate: 51.4634%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

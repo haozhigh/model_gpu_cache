@@ -1,0 +1,36 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'gemm_kernel'...done
+### Blocksize: (32,8,1)
+### Total threads: 256
+### Total memory accesses: 131328
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 1 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 2114
+### %%% [1] => 1732
+### %%% [0] => 148
+### %%% [2] => 110
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 4104
+### 	 Of which are misses: 328 + 0 + 0 + 1786 + 0 = 2114 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 1990
+### 	 Miss rate: 51.5107%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

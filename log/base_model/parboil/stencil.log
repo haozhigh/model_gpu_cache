@@ -1,0 +1,44 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'block2D_hybrid_coarsen_x'...done
+### Blocksize: (32,4,1)
+### Total threads: 8192
+### Total memory accesses: 647108
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 8 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 16400
+### %%% [0] => 6523
+### %%% [1] => 1140
+### %%% [11] => 1084
+### %%% [7] => 966
+### %%% [13] => 899
+### %%% [10] => 865
+### %%% [3] => 858
+### %%% [9] => 845
+### %%% [12] => 822
+### %%% [6] => 813
+### %%% [4] => 807
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 43159
+### 	 Of which are misses: 16387 + 16478 + 283 + 13 + 0 = 33161 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 9998
+### 	 Miss rate: 76.8345%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

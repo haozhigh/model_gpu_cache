@@ -1,0 +1,10 @@
+CUDA accelerated 7 points stencil codes****
+Original version by Li-Wen Chang <lchang20@illinois.edu> and I-Jui Sung<sung10@illinois.edu>
+This version maintained by Chris Rodrigues  ***********
+IO        : 0.014566
+Kernel    : 0.328109
+Copy      : 0.130260
+Driver    : 0.328250
+Compute   : 0.000192
+CPU/Kernel Overlap: 0.328261
+Timer Wall Time: 0.473290

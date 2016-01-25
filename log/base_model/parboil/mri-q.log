@@ -1,0 +1,65 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'ComputePhiMag_GPU'...done
+### Blocksize: (512,1,1)
+### Total threads: 3072
+### Total memory accesses: 6144
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 3 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 192
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 192
+### 	 Of which are misses: 192 + 0 + 0 + 0 + 0 = 192 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 0
+### 	 Miss rate: 100%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'ComputeQ_GPU'...done
+### Blocksize: (256,1,1)
+### Total threads: 8192
+### Total memory accesses: 40960
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 6 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 1280
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 1280
+### 	 Of which are misses: 1280 + 0 + 0 + 0 + 0 = 1280 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 0
+### 	 Miss rate: 100%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

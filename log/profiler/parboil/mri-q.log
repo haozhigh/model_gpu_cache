@@ -1,0 +1,8 @@
+32768 pixels in output; 3072 samples in trajectory; using 3072 samples
+IO        : 0.000504
+Kernel    : 0.137935
+Copy      : 0.129112
+Driver    : 0.137927
+Compute   : 0.000090
+CPU/Kernel Overlap: 0.137931
+Timer Wall Time: 0.267673

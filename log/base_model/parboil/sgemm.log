@@ -1,0 +1,44 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'mysgemmNT'...done
+### Blocksize: (16,8,1)
+### Total threads: 1280
+### Total memory accesses: 158720
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 8 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 4662
+### %%% [34] => 102
+### %%% [33] => 96
+### %%% [35] => 86
+### %%% [36] => 82
+### %%% [32] => 73
+### %%% [30] => 62
+### %%% [31] => 57
+### %%% [37] => 54
+### %%% [39] => 42
+### %%% [40] => 32
+### %%% [29] => 26
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 5440
+### 	 Of which are misses: 1504 + 768 + 0 + 3158 + 0 = 5430 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 10
+### 	 Miss rate: 99.8162%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

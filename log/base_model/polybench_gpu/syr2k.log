@@ -1,0 +1,44 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'syr2k_kernel'...done
+### Blocksize: (32,8,1)
+### Total threads: 4352
+### Total memory accesses: 262656
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 6 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [1] => 63944
+### %%% [0] => 59112
+### %%% [2] => 6306
+### %%% [inf] => 2683
+### %%% [3] => 1561
+### %%% [4] => 1069
+### %%% [5] => 299
+### %%% [6] => 142
+### %%% [10] => 19
+### %%% [9] => 14
+### %%% [11] => 9
+### %%% [12] => 6
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 135184
+### 	 Of which are misses: 528 + 509 + 0 + 2155 + 0 = 3192 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 131992
+### 	 Miss rate: 2.36123%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

@@ -1,0 +1,85 @@
+
+####  main: Reading model config from '/home/asic/Workspace/model_gpu_cache/script/../build/model_config/fermi_16k.config'  ####
+########  ModelConfig::Print  ########
+cache_line_size:    128
+cache_way_size:     4
+cache_set_size:     32
+
+allocate_on_miss:   1
+jam_instruction:    1
+
+latency_type:       0
+latency_mean:       100
+latency_dev:        5
+
+num_sms:            15
+max_active_blocks:  8
+max_active_threads: 1024
+
+num_running_threads:1
+
+mapping_type:       2
+
+mshr_check:         1
+num_mshrs:          64
+
+cache_line_bits:  7
+#############  Print End  ############
+####  main: Reading trace from '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/fdtd2d/fdtd_step1_kernel.trc'  ####
+####  main: Writing distances to '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/fdtd2d/fdtd_step1_kernel.distance'  ####
+####  main: Reading model config from '/home/asic/Workspace/model_gpu_cache/script/../build/model_config/fermi_16k.config'  ####
+########  ModelConfig::Print  ########
+cache_line_size:    128
+cache_way_size:     4
+cache_set_size:     32
+
+allocate_on_miss:   1
+jam_instruction:    1
+
+latency_type:       0
+latency_mean:       100
+latency_dev:        5
+
+num_sms:            15
+max_active_blocks:  8
+max_active_threads: 1024
+
+num_running_threads:1
+
+mapping_type:       2
+
+mshr_check:         1
+num_mshrs:          64
+
+cache_line_bits:  7
+#############  Print End  ############
+####  main: Reading trace from '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/fdtd2d/fdtd_step2_kernel.trc'  ####
+####  main: Writing distances to '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/fdtd2d/fdtd_step2_kernel.distance'  ####
+####  main: Reading model config from '/home/asic/Workspace/model_gpu_cache/script/../build/model_config/fermi_16k.config'  ####
+########  ModelConfig::Print  ########
+cache_line_size:    128
+cache_way_size:     4
+cache_set_size:     32
+
+allocate_on_miss:   1
+jam_instruction:    1
+
+latency_type:       0
+latency_mean:       100
+latency_dev:        5
+
+num_sms:            15
+max_active_blocks:  8
+max_active_threads: 1024
+
+num_running_threads:1
+
+mapping_type:       2
+
+mshr_check:         1
+num_mshrs:          64
+
+cache_line_bits:  7
+#############  Print End  ############
+####  main: Reading trace from '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/fdtd2d/fdtd_step3_kernel.trc'  ####
+####  main: Writing distances to '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/fdtd2d/fdtd_step3_kernel.distance'  ####

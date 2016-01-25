@@ -1,0 +1,113 @@
+
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'fdtd_step1_kernel'...done
+### Blocksize: (32,8,1)
+### Total threads: 8192
+### Total memory accesses: 24384
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 6 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 532
+### %%% [0] => 131
+### %%% [1] => 97
+### %%% [4] => 1
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 762
+### 	 Of which are misses: 509 + 0 + 0 + 23 + 0 = 532 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 230
+### 	 Miss rate: 69.8163%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'fdtd_step2_kernel'...done
+### Blocksize: (32,8,1)
+### Total threads: 8184
+### Total memory accesses: 23040
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 6 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 1184
+### %%% [0] => 320
+### %%% [1] => 158
+### %%% [2] => 2
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 1664
+### 	 Of which are misses: 752 + 0 + 0 + 432 + 0 = 1184 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 480
+### 	 Miss rate: 71.1538%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################
+###################################################
+### 
+### Cache configuration:
+### 	 Cache size: ~16KB
+### 	 Line size: 128 bytes
+### 	 Layout: 4 ways, 32 sets
+### 
+###################################################
+### 
+### Reading the trace file for 'fdtd_step3_kernel'...done
+### Blocksize: (32,8,1)
+### Total threads: 8192
+### Total memory accesses: 40960
+### 
+### Assigning threads to warps/blocks/cores...done
+### 
+### [core 0]:
+### Running 6 block(s) at a time
+### Calculating the reuse distances............done
+### 
+### Printing results as [reuse_distance] => frequency: 
+### %%% [inf] => 1025
+### %%% [1] => 220
+### %%% [0] => 143
+### %%% [2] => 127
+### %%% [3] => 103
+### %%% [4] => 54
+### %%% [5] => 50
+### %%% [6] => 40
+### %%% [7] => 8
+### %%% [8] => 2
+### %%% [15] => 1
+### 
+### Modeled cache miss rate:
+### 	 Total accesses: 1776
+### 	 Of which are misses: 1025 + 72 + 32 + 0 + 0 = 1129 (compulsory + capacity + associativity + latency + mshr = total)
+### 	 Of which are hits: 647
+### 	 Miss rate: 63.5698%
+### 
+### No verifier data information available, skipping verification
+### 
+###################################################

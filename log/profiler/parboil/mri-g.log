@@ -14,10 +14,80 @@ Generating Look-Up Table
 Running gold version
 Running CUDA version
 
-IO        : 0.335510
-Kernel    : 22.577722
-Copy      : 0.042155
-Driver    : 22.578074
-Compute   : 0.021992
-CPU/Kernel Overlap: 22.576824
-Timer Wall Time: 25.515417
+####  binning_kernel memory_footprint:152098004  ####
+
+####  splitSort memory_footprint:21413312  ####
+
+####  splitRearrange memory_footprint:42660592  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:67108872  ####
+
+####  scan_inter1_kernel memory_footprint:262144  ####
+
+####  scan_inter2_kernel memory_footprint:262144  ####
+
+####  uniformAdd memory_footprint:67371016  ####
+
+IO        : 0.622265
+Kernel    : 32.951185
+Copy      : 0.042238
+Driver    : 32.950921
+Compute   : 0.022837
+CPU/Kernel Overlap: 32.951025
+Timer Wall Time: 36.173973

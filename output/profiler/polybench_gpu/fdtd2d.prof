@@ -1,16 +1,16 @@
-==5373== NVPROF is profiling process 5373, command: ./fdtd2d_profiler
-==5373== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
-==5373== Profiling application: ./fdtd2d_profiler
-==5373== Profiling result:
-==5373== Metric result:
+==12263== NVPROF is profiling process 12263, command: ./fdtd2d_profiler
+==12263== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==12263== Profiling application: ./fdtd2d_profiler
+==12263== Profiling result:
+==12263== Metric result:
 Invocations                     Metric Name              Metric Description         Min         Max         Avg
 Device "GeForce GTX 570 (0)"
 	Kernel: fdtd_step1_kernel(float*, float*, float*, float*, int)
-        500        l1_cache_global_hit_rate              L1 Global Hit Rate      29.51%      29.62%      29.56%
-        500             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)       5.30%       5.39%       5.34%
+        500        l1_cache_global_hit_rate              L1 Global Hit Rate      29.50%      29.62%      29.56%
+        500             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)       5.29%       5.38%       5.34%
 	Kernel: fdtd_step2_kernel(float*, float*, float*, int)
-        500        l1_cache_global_hit_rate              L1 Global Hit Rate      23.15%      24.12%      23.67%
-        500             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      46.91%      47.59%      47.22%
+        500        l1_cache_global_hit_rate              L1 Global Hit Rate      22.93%      24.26%      23.65%
+        500             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      46.91%      47.73%      47.23%
 	Kernel: fdtd_step3_kernel(float*, float*, float*, int)
-        500        l1_cache_global_hit_rate              L1 Global Hit Rate      37.85%      38.61%      38.26%
-        500             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      29.32%      29.89%      29.56%
+        500        l1_cache_global_hit_rate              L1 Global Hit Rate      37.86%      39.27%      38.26%
+        500             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      28.62%      29.93%      29.55%

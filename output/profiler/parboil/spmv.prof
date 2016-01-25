@@ -1,8 +1,8 @@
-==5186== NVPROF is profiling process 5186, command: ./spmv_profiler -i ../datasets/parboil/spmv/small/input/1138_bus.mtx,../datasets/parboil/spmv/small/input/vector.bin -o ../output/bench_output/parboil/spmv_small.out
-==5186== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
-==5186== Profiling application: ./spmv_profiler -i ../datasets/parboil/spmv/small/input/1138_bus.mtx,../datasets/parboil/spmv/small/input/vector.bin -o ../output/bench_output/parboil/spmv_small.out
-==5186== Profiling result:
-==5186== Metric result:
+==12063== NVPROF is profiling process 12063, command: ./spmv_profiler -i ../datasets/parboil/spmv/small/input/1138_bus.mtx,../datasets/parboil/spmv/small/input/vector.bin -o ../output/bench_output/parboil/spmv_small.out
+==12063== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==12063== Profiling application: ./spmv_profiler -i ../datasets/parboil/spmv/small/input/1138_bus.mtx,../datasets/parboil/spmv/small/input/vector.bin -o ../output/bench_output/parboil/spmv_small.out
+==12063== Profiling result:
+==12063== Metric result:
 Invocations                     Metric Name              Metric Description         Min         Max         Avg
 Device "GeForce GTX 570 (0)"
 	Kernel: spmv_jds(float*, float const *, int const *, int const *, float const *, int const *, int)

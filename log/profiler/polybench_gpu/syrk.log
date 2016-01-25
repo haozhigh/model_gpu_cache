@@ -1,3 +1,5 @@
-GPU Runtime: 0.007524s
-CPU Runtime: 0.004024s
+
+####  BFS_in_GPU_kernel memory_footprint:131072  ####
+GPU Runtime: 0.007446s
+CPU Runtime: 0.003974s
 Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 0

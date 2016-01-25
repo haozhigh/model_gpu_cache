@@ -1,8 +1,8 @@
-==5208== NVPROF is profiling process 5208, command: ./stencil_profiler -i ../datasets/parboil/stencil/small/input/128x128x32.bin -o ../output/bench_output/parboil/stencil_small.out -- 128 128 32 100
-==5208== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
-==5208== Profiling application: ./stencil_profiler -i ../datasets/parboil/stencil/small/input/128x128x32.bin -o ../output/bench_output/parboil/stencil_small.out -- 128 128 32 100
-==5208== Profiling result:
-==5208== Metric result:
+==12085== NVPROF is profiling process 12085, command: ./stencil_profiler -i ../datasets/parboil/stencil/small/input/128x128x32.bin -o ../output/bench_output/parboil/stencil_small.out -- 128 128 32 100
+==12085== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==12085== Profiling application: ./stencil_profiler -i ../datasets/parboil/stencil/small/input/128x128x32.bin -o ../output/bench_output/parboil/stencil_small.out -- 128 128 32 100
+==12085== Profiling result:
+==12085== Metric result:
 Invocations                     Metric Name              Metric Description         Min         Max         Avg
 Device "GeForce GTX 570 (0)"
 	Kernel: block2D_hybrid_coarsen_x(float, float, float*, float*, int, int, int)

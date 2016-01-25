@@ -159,6 +159,17 @@ void convolution3DCuda(DATA_TYPE* A, DATA_TYPE* B, DATA_TYPE* B_outputFromGpu)
 	
 	dim3 block(DIM_THREAD_BLOCK_X, DIM_THREAD_BLOCK_Y);
 	dim3 grid((size_t)(ceil( ((float)NK) / ((float)block.x) )), (size_t)(ceil( ((float)NJ) / ((float)block.y) )));
+
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * NI * NJ * NK;   //A_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NI * NJ * NK;   //B_gpu
+	printf("\n####  convolution3D_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
 	
 	t_start = rtclock();
 	int i;

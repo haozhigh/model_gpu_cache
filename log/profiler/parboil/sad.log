@@ -1,7 +1,13 @@
-IO        : 0.164056
-Kernel    : 0.019039
-Copy      : 0.135156
-Driver    : 0.019085
+
+####  mb_sad_calc memory_footprint:8948016  ####
+
+####  larger_sad_calc_8 memory_footprint:8897328  ####
+
+####  larger_sad_calc_16 memory_footprint:8897328  ####
+IO        : 0.175194
+Kernel    : 0.018366
+Copy      : 0.134245
+Driver    : 0.018413
 Compute   : 0.000141
-CPU/Kernel Overlap: 0.019096
-Timer Wall Time: 0.318466
+CPU/Kernel Overlap: 0.018423
+Timer Wall Time: 0.328021

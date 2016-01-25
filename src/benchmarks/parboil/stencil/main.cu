@@ -119,6 +119,16 @@ int main(int argc, char** argv) {
  
   
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += size*sizeof(float);   //d_A0
+	memory_footprint += size*sizeof(float);   //d_Anext
+	printf("\n####  block2D_hybrid_coarsen_x memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
 
 	//main execution
 	pb_SwitchToTimer(&timers, pb_TimerID_KERNEL);

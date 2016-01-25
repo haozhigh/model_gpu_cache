@@ -159,6 +159,30 @@ void mvtCuda(DATA_TYPE* a, DATA_TYPE* x1, DATA_TYPE* x2, DATA_TYPE* y_1, DATA_TY
 	
 	dim3 block(DIM_THREAD_BLOCK_X, DIM_THREAD_BLOCK_Y);
 	dim3 grid((size_t)ceil((float)N/ ((float)DIM_THREAD_BLOCK_X)), 1);
+
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * N * N;   //a_gpu
+	memory_footprint += sizeof(DATA_TYPE) * N;     //x1_gpu
+	memory_footprint += sizeof(DATA_TYPE) * N;     //y_1_gpu
+	printf("\n####  mvt_kernel1 memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * N * N;   //a_gpu
+	memory_footprint += sizeof(DATA_TYPE) * N;     //x2_gpu
+	memory_footprint += sizeof(DATA_TYPE) * N;     //y_2_gpu
+	printf("\n####  mvt_kernel2 memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
 	
 	t_start = rtclock();
 	mvt_kernel1<<<grid,block>>>(a_gpu,x1_gpu,y_1_gpu);

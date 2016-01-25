@@ -135,6 +135,17 @@ void convolution2DCuda(DATA_TYPE* A, DATA_TYPE* B, DATA_TYPE* B_outputFromGpu)
 	cudaMalloc((void **)&A_gpu, sizeof(DATA_TYPE) * NI * NJ);
 	cudaMalloc((void **)&B_gpu, sizeof(DATA_TYPE) * NI * NJ);
 	cudaMemcpy(A_gpu, A, sizeof(DATA_TYPE) * NI * NJ, cudaMemcpyHostToDevice);
+
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * NI * NJ;  //A_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NI * NJ;  //B_gpu
+	printf("\n####  Convolution2D_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
 	
 	dim3 block(DIM_THREAD_BLOCK_X, DIM_THREAD_BLOCK_Y);
 	dim3 grid((size_t)ceil( ((float)NI) / ((float)block.x) ), (size_t)ceil( ((float)NJ) / ((float)block.y)) );

@@ -1,12 +1,92 @@
 
-IO        : 0.146845
-Kernel    : 2.188303
- -PreScanKernel      : 0.808093
- -PostPreMems        : 0.002657
- -IntermediatesKernel: 0.450875
- -MainKernel         : 0.479655
- -FinalKernel        : 0.447011
-Driver    : 2.188209
-Compute   : 0.000137
-CPU/Kernel Overlap: 2.188303
-Timer Wall Time: 2.335352
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+
+####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:8286720  ####
+
+IO        : 0.200936
+Kernel    : 2.187235
+ -PreScanKernel      : 0.805616
+ -PostPreMems        : 0.002665
+ -IntermediatesKernel: 0.450407
+ -MainKernel         : 0.483900
+ -FinalKernel        : 0.444635
+Driver    : 2.187150
+Compute   : 0.000149
+CPU/Kernel Overlap: 2.187235
+Timer Wall Time: 2.388386

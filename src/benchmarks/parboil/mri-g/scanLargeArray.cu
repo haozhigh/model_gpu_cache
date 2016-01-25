@@ -221,6 +221,16 @@ void scanLargeArray( unsigned int gridNumElements, unsigned int* data_d) {
 
     cudaMalloc( (void**) &inter_d, current_max*sizeof(unsigned int));
     cudaMemset (inter_d, 0, current_max*sizeof(unsigned int));
+    
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += (gridNumElems+1)*sizeof(unsigned int); //data_d
+	printf("\n####  scan_L1_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
 
     for (unsigned int i=0; i < (size+GRID_SIZE-1)/GRID_SIZE; i++){
         unsigned int gridSize = ((size-(i*GRID_SIZE)) > GRID_SIZE) ? GRID_SIZE : (size-i*GRID_SIZE);
@@ -230,6 +240,16 @@ void scanLargeArray( unsigned int gridNumElements, unsigned int* data_d) {
         dim3 grid (gridSize);
         scan_L1_kernel<<<grid, block>>>(numElems, data_d+(i*GRID_SIZE*BLOCK_SIZE), inter_d+(i*GRID_SIZE));
     }
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += current_max*sizeof(unsigned int);  //inter_d
+	printf("\n####  scan_inter1_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
 
     unsigned int stride = 1;
     for (unsigned int d = current_max; d > 1; d /= dim_block)
@@ -244,6 +264,16 @@ void scanLargeArray( unsigned int gridNumElements, unsigned int* data_d) {
 
     cudaMemset(&(inter_d[current_max-1]), 0, sizeof(unsigned int));
 
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += current_max*sizeof(unsigned int);  //inter_d
+	printf("\n####  scan_inter2_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
     for (unsigned int d = dim_block; d <= current_max; d *= dim_block)
     {
         stride /= dim_block;
@@ -252,6 +282,17 @@ void scanLargeArray( unsigned int gridNumElements, unsigned int* data_d) {
 
         scan_inter2_kernel<<<grid, block, EXPANDED_SIZE(dim_block)*sizeof(unsigned int)>>>(inter_d, stride);
     }
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += (gridNumElems+1)*sizeof(unsigned int); //data_d
+	memory_footprint += current_max*sizeof(unsigned int);  //inter_d
+	printf("\n####  uniformAdd memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
 
     for (unsigned int i=0; i < (size+GRID_SIZE-1)/GRID_SIZE; i++){
         unsigned int gridSize = ((size-(i*GRID_SIZE)) > GRID_SIZE) ? GRID_SIZE : (size-i*GRID_SIZE);

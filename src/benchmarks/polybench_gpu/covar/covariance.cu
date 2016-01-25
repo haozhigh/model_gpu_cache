@@ -208,6 +208,28 @@ void covarianceCuda(DATA_TYPE* data, DATA_TYPE* symmat, DATA_TYPE* mean, DATA_TY
 	
 	t_start = rtclock();
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * (M+1);  //mean_gpu
+	memory_footprint += sizeof(DATA_TYPE) * (M+1) * (N+1);  //data_gpu
+	printf("\n####  mean_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * (M+1);  //mean_gpu
+	memory_footprint += sizeof(DATA_TYPE) * (M+1) * (N+1);  //data_gpu
+	printf("\n####  reduce_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
 	mean_kernel<<<grid1, block1>>>(mean_gpu,data_gpu);
 	cudaThreadSynchronize();
 	reduce_kernel<<<grid2, block2>>>(mean_gpu,data_gpu);

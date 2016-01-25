@@ -159,6 +159,18 @@ void gemmCuda(DATA_TYPE* A, DATA_TYPE* B, DATA_TYPE* C, DATA_TYPE* C_outputFromG
 
 	t_start = rtclock();
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * NI * NK;   //A_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NK * NJ;   //B_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NI * NJ;   //C_gpu
+	printf("\n####  gemm_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
 	gemm_kernel<<< grid, block >>>(A_gpu, B_gpu, C_gpu);
 	cudaThreadSynchronize();
 

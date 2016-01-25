@@ -1,8 +1,12 @@
 32768 pixels in output; 3072 samples in trajectory; using 3072 samples
-IO        : 0.000504
-Kernel    : 0.137935
-Copy      : 0.129112
-Driver    : 0.137927
-Compute   : 0.000090
-CPU/Kernel Overlap: 0.137931
-Timer Wall Time: 0.267673
+
+####  ComputePhiMag_GPU memory_footprint:36864  ####
+
+####  ComputeQ_GPU memory_footprint:655360  ####
+IO        : 0.020536
+Kernel    : 0.111855
+Copy      : 0.130627
+Driver    : 0.111850
+Compute   : 0.000101
+CPU/Kernel Overlap: 0.111854
+Timer Wall Time: 0.263153

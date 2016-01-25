@@ -2,10 +2,12 @@ Min distance: 1.000000 arcmin
 Max distance: 10000.000000 arcmin
 Bins per dec: 5
 Total bins  : 20
-IO        : 0.042745
-Kernel    : 0.050712
-Copy      : 0.130171
-Driver    : 0.050788
-Compute   : 0.000445
-CPU/Kernel Overlap: 0.050712
-Timer Wall Time: 0.224223
+
+####  gen_hists memory_footprint:622404  ####
+IO        : 0.122807
+Kernel    : 0.050131
+Copy      : 0.124625
+Driver    : 0.050211
+Compute   : 0.000490
+CPU/Kernel Overlap: 0.050131
+Timer Wall Time: 0.298210

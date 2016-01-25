@@ -270,6 +270,41 @@ void correlationCuda(DATA_TYPE* data, DATA_TYPE* mean, DATA_TYPE* stddev, DATA_T
 	dim3 block4(DIM_THREAD_BLOCK_KERNEL_4_X, DIM_THREAD_BLOCK_KERNEL_4_Y);
 	dim3 grid4((size_t)(ceil((float)(M)) / ((float)DIM_THREAD_BLOCK_KERNEL_4_X)), 1);
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * (M+1);  //mean_gpu
+	memory_footprint += sizeof(DATA_TYPE) * (M+1) * (N+1);  //data_gpu
+	printf("\n####  mean_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * (M+1);  //mean_gpu
+	memory_footprint += sizeof(DATA_TYPE) * (M+1) * (N+1);  //data_gpu
+	memory_footprint += sizeof(DATA_TYPE) * (M+1);   //stddev_gpu
+	printf("\n####  std_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * (M+1);  //mean_gpu
+	memory_footprint += sizeof(DATA_TYPE) * (M+1) * (N+1);  //data_gpu
+	memory_footprint += sizeof(DATA_TYPE) * (M+1);   //stddev_gpu
+	printf("\n####  reduce_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
 	t_start = rtclock();
 	mean_kernel<<< grid1, block1 >>>(mean_gpu,data_gpu);
 	cudaThreadSynchronize();

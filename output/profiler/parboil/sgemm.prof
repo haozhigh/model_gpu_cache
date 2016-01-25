@@ -2,13 +2,13 @@ Opening file:../datasets/parboil/sgemm/small/input/matrix1.txt
 Matrix dimension: 128x96
 Opening file:../datasets/parboil/sgemm/small/input/matrix2t.txt
 Matrix dimension: 160x96
-==5164== NVPROF is profiling process 5164, command: ./sgemm_profiler -i ../datasets/parboil/sgemm/small/input/matrix1.txt,../datasets/parboil/sgemm/small/input/matrix2.txt,../datasets/parboil/sgemm/small/input/matrix2t.txt -o ../output/bench_output/parboil/sgemm_small.out
-==5164== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==12041== NVPROF is profiling process 12041, command: ./sgemm_profiler -i ../datasets/parboil/sgemm/small/input/matrix1.txt,../datasets/parboil/sgemm/small/input/matrix2.txt,../datasets/parboil/sgemm/small/input/matrix2t.txt -o ../output/bench_output/parboil/sgemm_small.out
+==12041== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
 Opening file:../output/bench_output/parboil/sgemm_small.out for write.
 Matrix dimension: 128x160
-==5164== Profiling application: ./sgemm_profiler -i ../datasets/parboil/sgemm/small/input/matrix1.txt,../datasets/parboil/sgemm/small/input/matrix2.txt,../datasets/parboil/sgemm/small/input/matrix2t.txt -o ../output/bench_output/parboil/sgemm_small.out
-==5164== Profiling result:
-==5164== Metric result:
+==12041== Profiling application: ./sgemm_profiler -i ../datasets/parboil/sgemm/small/input/matrix1.txt,../datasets/parboil/sgemm/small/input/matrix2.txt,../datasets/parboil/sgemm/small/input/matrix2t.txt -o ../output/bench_output/parboil/sgemm_small.out
+==12041== Profiling result:
+==12041== Metric result:
 Invocations                     Metric Name              Metric Description         Min         Max         Avg
 Device "GeForce GTX 570 (0)"
 	Kernel: mysgemmNT(float const *, int, float const *, int, float*, int, int, float, float)

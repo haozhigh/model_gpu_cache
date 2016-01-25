@@ -178,6 +178,30 @@ void bicgCuda(DATA_TYPE* A, DATA_TYPE* r, DATA_TYPE* s, DATA_TYPE* p, DATA_TYPE*
 	dim3 grid1((size_t)(ceil( ((float)NY) / ((float)block.x) )), 1);
 	dim3 grid2((size_t)(ceil( ((float)NX) / ((float)block.x) )), 1);
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * NX * NY;   //A_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NX;     //r_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NY;    //s_gpu
+	printf("\n####  bicg_kernel1 memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * NX * NY;   //A_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NX;     //q_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NY;    //p_gpu
+	printf("\n####  bicg_kernel2 memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
 	t_start = rtclock();
 	bicg_kernel1<<< grid1, block >>>(A_gpu, r_gpu, s_gpu);
 	cudaThreadSynchronize();

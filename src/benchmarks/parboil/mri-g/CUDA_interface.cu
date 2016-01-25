@@ -170,6 +170,19 @@ void CUDA_interface (
   dim3 block1 (BLOCKSIZE);
   dim3 grid1 ((n+BLOCKSIZE-1)/BLOCKSIZE);
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += n*sizeof(ReconstructionSample);  //sample_d
+	memory_footprint += (((n+3)/4)*4)*sizeof(unsigned int); //idxKey_d
+	memory_footprint += (((n+3)/4)*4)*sizeof(unsigned int); //idxValue_d
+	memory_footprint += (gridNumElems+1)*sizeof(unsigned int); //binCount_d
+	printf("\n####  binning_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
   binning_kernel<<<grid1, block1>>>(n, sample_d, idxKey_d, idxValue_d, binCount_d, params.binsize, gridNumElems);
 
   /* STEP 2: Sort the index-value pair generate in the binning kernel */

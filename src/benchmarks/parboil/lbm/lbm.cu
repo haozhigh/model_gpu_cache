@@ -41,6 +41,18 @@ void CUDA_LBM_performStreamCollide( LBM_Grid srcGrid, LBM_Grid dstGrid ) {
 	dimGrid.x = SIZE_Y;
 	dimGrid.y = SIZE_Z;
 	dimBlock.y = dimBlock.z = dimGrid.z = 1;
+
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += TOTAL_PADDED_CELLS*N_CELL_ENTRIES*sizeof( float ) + 2*TOTAL_MARGIN*sizeof( float );  //srcGrid
+	memory_footprint += TOTAL_PADDED_CELLS*N_CELL_ENTRIES*sizeof( float ) + 2*TOTAL_MARGIN*sizeof( float );  //dstGrid
+	printf("\n####  performStreamCollide_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
 	performStreamCollide_kernel<<<dimGrid, dimBlock>>>(srcGrid, dstGrid);
   CUDA_ERRCK;
 }

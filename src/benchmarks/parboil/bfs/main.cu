@@ -206,6 +206,22 @@ int main(int argc, char** argv)
 
     if(k%2 == 0){
       if(num_of_blocks == 1){
+
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += sizeof(int)*num_of_nodes;	//d_q1
+	memory_footprint += sizeof(int)*num_of_nodes;	//d_q2
+	memory_footprint += sizeof(Node)*num_of_nodes;  //d_graph_nodes
+	memory_footprint += sizeof(Edge)*num_of_edges;  //d_graph_edges
+	memory_footprint += sizeof(int)*num_of_nodes;   //d_color
+	memory_footprint += sizeof(int)*num_of_nodes;   //d_cost
+	memory_footprint += sizeof(int);                //d_overflow
+	printf("\n####  BFS_in_GPU_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
         BFS_in_GPU_kernel<<< grid, threads >>>(d_q1,d_q2, d_graph_nodes, 
             d_graph_edges, d_color, d_cost,num_t , tail,GRAY0,k,d_overflow);
       }

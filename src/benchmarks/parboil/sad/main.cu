@@ -328,6 +328,17 @@ main(int argc, char **argv)
 
     pb_SwitchToTimer(&timers, pb_TimerID_KERNEL);
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += 41 * MAX_POS_PADDED * image_size_macroblocks * sizeof(unsigned short);   //d_sads
+	memory_footprint += image_size_bytes;   //d_cur_image
+	printf("\n####  mb_sad_calc memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
     /* Run the 4x4 kernel */
     mb_sad_calc<<<dim3(CEIL(ref_image->width / 4, THREADS_W),
 		       CEIL(ref_image->height / 4, THREADS_H)),
@@ -339,12 +350,32 @@ main(int argc, char **argv)
        image_height_macroblocks);
     CUDA_ERRCK
 
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += 41 * MAX_POS_PADDED * image_size_macroblocks * sizeof(unsigned short);   //d_sads
+	printf("\n####  larger_sad_calc_8 memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
     /* Run the larger-blocks kernels */
     larger_sad_calc_8<<<macroblock_grid, dim3(32, 4)>>>
       (d_sads,
        image_width_macroblocks,
        image_height_macroblocks);
     CUDA_ERRCK
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += 41 * MAX_POS_PADDED * image_size_macroblocks * sizeof(unsigned short);   //d_sads
+	printf("\n####  larger_sad_calc_16 memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
 
     larger_sad_calc_16<<<macroblock_grid, dim3(32, 1)>>>
       (d_sads,

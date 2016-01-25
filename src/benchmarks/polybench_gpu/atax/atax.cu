@@ -159,6 +159,30 @@ void ataxGpu(DATA_TYPE* A, DATA_TYPE* x, DATA_TYPE* y, DATA_TYPE* tmp, DATA_TYPE
 	dim3 grid1((size_t)(ceil( ((float)NX) / ((float)block.x) )), 1);
 	dim3 grid2((size_t)(ceil( ((float)NY) / ((float)block.x) )), 1);
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * NX * NY;    //A_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NY;      //x_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NX;    //tmp_gpu
+	printf("\n####  atax_kernel1 memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * NX * NY;    //A_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NY;      //y_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NX;    //tmp_gpu
+	printf("\n####  atax_kernel2 memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
 	t_start = rtclock();
 	atax_kernel1<<< grid1, block >>>(A_gpu,x_gpu,tmp_gpu);
 	cudaThreadSynchronize();

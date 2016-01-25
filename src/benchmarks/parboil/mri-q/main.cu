@@ -127,6 +127,18 @@ main (int argc, char *argv[]) {
     cudaThreadSynchronize();
     pb_SwitchToTimer(&timers, pb_TimerID_KERNEL);
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += numK * sizeof(float);     //phiR_d
+	memory_footprint += numK * sizeof(float);     //phiI_d
+	memory_footprint += numK * sizeof(float);     //phiMag_d
+	printf("\n####  ComputePhiMag_GPU memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
     computePhiMag_GPU(numK, phiR_d, phiI_d, phiMag_d);
 
     cudaThreadSynchronize();
@@ -168,6 +180,20 @@ main (int argc, char *argv[]) {
 
     cudaThreadSynchronize();
     pb_SwitchToTimer(&timers, pb_TimerID_KERNEL);
+
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += numX * sizeof(float);    //x_d
+	memory_footprint += numX * sizeof(float);    //y_d
+	memory_footprint += numX * sizeof(float);    //z_d
+	memory_footprint += numX * sizeof(float);    //Qr_d
+	memory_footprint += numX * sizeof(float);    //Qi_d
+	printf("\n####  ComputeQ_GPU memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
 
     computeQ_GPU(numK, numX, x_d, y_d, z_d, kVals, Qr_d, Qi_d);
 

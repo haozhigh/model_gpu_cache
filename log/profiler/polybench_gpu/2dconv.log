@@ -1,3 +1,5 @@
-GPU Runtime: 0.007355s
-CPU Runtime: 0.017048s
+
+####  Convolution2D_kernel memory_footprint:8388608  ####
+GPU Runtime: 0.007390s
+CPU Runtime: 0.016821s
 Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 0

@@ -25,12 +25,10 @@ class TraceGenerator : public trace::TraceGenerator {
         std::string trace_out_path;
         std::ofstream out_stream;
         std::string kernel_name;
-        std::vector<std::string> instructions;
 
         std::string demangle(std::string str_in);
         std::string strip_parameters(std::string full_name);
         void force_exit();
-        void write_instructions();
 
         //  Variables needed to limit the total number of accesses recorded
         bool num_access_within_limit;
@@ -150,10 +148,6 @@ void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
     total_num_accesses = 0;
     last_block_id = -1;
 
-    //  Init instructions to record instructions for this kernel
-    instructions.clear();
-    std::vector<std::string> ().swap(instructions);
-
     //  Assign memory space for last_load
     int block_size;
     block_size = block_dim.x * block_dim.y * block_dim.z;
@@ -194,15 +188,6 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
         }
     }
     
-    //  Record instructions
-    int pc = event.instruction->pc;
-    if (pc + 1 > instructions.size()) {
-        instructions.resize(pc + 1);
-    }
-    if (instructions[pc] == "") {
-        instructions[pc] = event.instruction->toString();
-    }
-
     //  Only handles global load instructions or Tex instructions
     if ((event.instruction->isLoad() && event.instruction->addressSpace == ir::PTXInstruction::Global) ||
         event.instruction->opcode == ir::PTXInstruction::Tex) {
@@ -235,9 +220,6 @@ void TraceGenerator::finish() {
 	if (this->out_stream.is_open())
 		out_stream.close();
 
-    //  Write instructions to file for this kernel
-    this->write_instructions();
-
     //  Write total number of threads to file
     this->write_total_num_threads_to_file();
 }
@@ -257,26 +239,6 @@ void TraceGenerator::write_total_num_threads_to_file() {
     total_blocks = total_threads / total_threads_per_block;
     out_stream << this->total_threads_per_block << " ";
     out_stream << total_blocks << "\n";
-
-    //  Close file
-    out_stream.close();
-}
-
-void TraceGenerator::write_instructions() {
-	std::ofstream out_stream;
-
-	//  Open the file to write traces
-	out_stream.open(trace_out_path + "/" + kernel_name + ".ptx", std::ofstream::out);
-	if (! out_stream.is_open()) {
-		std::cout << "####  TraceGenerator::write_instructions: Failed to open file to write code  ####" <<std::endl;
-		this->force_exit();
-	}
-
-    //  Write instructions to file
-    int i;
-    for (i = 0; i < instructions.size(); i++) {
-        out_stream << std::setw(5) << std::left << (i + 1) << instructions[i] << "\n";
-    }
 
     //  Close file
     out_stream.close();

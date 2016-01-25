@@ -1,3 +1,7 @@
-GPU Runtime: 0.014810s
-CPU Runtime: 0.000567s
+
+####  bicg_kernel1 memory_footprint:1052672  ####
+
+####  bicg_kernel2 memory_footprint:1052672  ####
+GPU Runtime: 0.014355s
+CPU Runtime: 0.000570s
 Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.50 Percent: 0

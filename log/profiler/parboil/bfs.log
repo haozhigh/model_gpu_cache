@@ -1,0 +1,12 @@
+Starting GPU kernel
+
+####  BFS_in_GPU_kernel memory_footprint:12425636  ####
+
+####  BFS_in_GPU_kernel memory_footprint:12425636  ####
+GPU kernel done
+IO        : 0.274135
+Kernel    : 0.133968
+Copy      : 0.188455
+Driver    : 0.133960
+CPU/Kernel Overlap: 0.133973
+Timer Wall Time: 0.596578

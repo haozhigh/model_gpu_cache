@@ -5,14 +5,36 @@ extent of domain is:
 padding domain by 0.5 Angstroms
 domain lengths are 40.972 by 40.941 by 40.935
 Invoking CUDA kernel on 11 region planes...
-  computing plane 0  computing plane 1  computing plane 2  computing plane 3  computing plane 4  computing plane 5  computing plane 6  computing plane 7  computing plane 8  computing plane 9  computing plane 10computing extra atoms on CPU
+  computing plane 0
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+  computing plane 1
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+  computing plane 2
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+  computing plane 3
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+  computing plane 4
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+  computing plane 5
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+  computing plane 6
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+  computing plane 7
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+  computing plane 8
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+  computing plane 9
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+  computing plane 10
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+computing extra atoms on CPU
 
 Finished CUDA kernel calls                        
 
-IO        : 0.009848
-Kernel    : 0.175652
-Copy      : 0.131576
-Driver    : 0.175639
-Compute   : 0.041115
-CPU/Kernel Overlap: 0.175652
-Timer Wall Time: 0.358198
+IO        : 0.028131
+Kernel    : 0.185086
+Copy      : 0.131366
+Driver    : 0.184914
+Compute   : 0.040332
+CPU/Kernel Overlap: 0.185086
+Timer Wall Time: 0.384762

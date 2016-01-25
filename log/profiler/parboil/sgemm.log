@@ -1,8 +1,10 @@
-GFLOPs = 0.663992
-IO        : 0.042258
-Kernel    : 0.005922
-Copy      : 0.000121
-Driver    : 0.005921
-Compute   : 0.129286
-CPU/Kernel Overlap: 0.005934
-Timer Wall Time: 0.177637
+
+####  mysgemmNT memory_footprint:192512  ####
+GFLOPs = 0.6521
+IO        : 0.047786
+Kernel    : 0.006030
+Copy      : 0.000122
+Driver    : 0.006029
+Compute   : 0.129872
+CPU/Kernel Overlap: 0.006030
+Timer Wall Time: 0.183857

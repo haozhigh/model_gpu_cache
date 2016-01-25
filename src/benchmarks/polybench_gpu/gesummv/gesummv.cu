@@ -143,6 +143,20 @@ void gesummvCuda(DATA_TYPE* A, DATA_TYPE* B, DATA_TYPE* x, DATA_TYPE* y, DATA_TY
 	dim3 grid((unsigned int)ceil( ((float)N) / ((float)block.x) ), 1);
 
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * N * N;  //A_gpu
+	memory_footprint += sizeof(DATA_TYPE) * N * N;  //B_gpu
+	memory_footprint += sizeof(DATA_TYPE) * N;  //x_gpu
+	memory_footprint += sizeof(DATA_TYPE) * N;  //y_gpu
+	memory_footprint += sizeof(DATA_TYPE) * N;  //tmp_gpu
+	printf("\n####  gesummv_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
 	t_start = rtclock();
 	gesummv_kernel<<< grid, block>>>(A_gpu,B_gpu,x_gpu, y_gpu, tmp_gpu);
 	cudaThreadSynchronize();

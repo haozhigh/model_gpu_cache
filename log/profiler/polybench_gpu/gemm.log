@@ -1,3 +1,5 @@
-GPU Runtime: 0.008349s
-CPU Runtime: 0.045132s
+
+####  gemm_kernel memory_footprint:786432  ####
+GPU Runtime: 0.007913s
+CPU Runtime: 0.043317s
 Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 0

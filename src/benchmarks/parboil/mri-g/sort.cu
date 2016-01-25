@@ -232,6 +232,32 @@ void sort (int numElems, unsigned int max_value, unsigned int* &dkeys, unsigned 
   cudaMalloc((void**)&dkeys_o, numElems*sizeof(unsigned int));
   cudaMalloc((void**)&dvalues_o, numElems*sizeof(unsigned int));
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += (((numElems+3)/4)*4)*sizeof(unsigned int); //idxKey_d    dkeys
+	memory_footprint += (((numElems+3)/4)*4)*sizeof(unsigned int); //idxValue_d  dvalues
+	memory_footprint += (1<<BITS)*grid.x*sizeof(unsigned int);  //dhisto
+	printf("\n####  splitSort memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += (((numElems+3)/4)*4)*sizeof(unsigned int); //idxKey_d    dkeys
+	memory_footprint += (((numElems+3)/4)*4)*sizeof(unsigned int); //idxValue_d  dvalues
+	memory_footprint += numElems*sizeof(unsigned int);   //dkeys_o
+	memory_footprint += numElems*sizeof(unsigned int);   //dvalues_o
+	memory_footprint += (1<<BITS)*grid.x*sizeof(unsigned int);  //dhisto
+	printf("\n####  splitRearrange memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
   for (int i=0; i<iterations; i++){
     splitSort<<<grid,block>>>(numElems, i, dkeys, dvalues, dhisto);
 

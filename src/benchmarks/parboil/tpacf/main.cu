@@ -112,6 +112,17 @@ main( int argc, char** argv)
   initBinB( &timers );
   CUDA_ERRCK
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += NUM_BINS*(NUM_SETS*2+1)*sizeof(hist_t);   //d_hists
+	memory_footprint += 3*f_mem_size;    //d_x_data
+	printf("\n####  gen_hists memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
   // **===------------------ Kick off TPACF on CUDA------------------===**
   pb_SwitchToTimer( &timers, pb_TimerID_COPY );
   cudaMemcpy(d_x_data, h_x_data, 3*f_mem_size, cudaMemcpyHostToDevice);

@@ -1,13 +1,13 @@
-==5434== NVPROF is profiling process 5434, command: ./mvt_profiler
-==5434== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
-==5434== Profiling application: ./mvt_profiler
-==5434== Profiling result:
-==5434== Metric result:
+==12325== NVPROF is profiling process 12325, command: ./mvt_profiler
+==12325== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==12325== Profiling application: ./mvt_profiler
+==12325== Profiling result:
+==12325== Metric result:
 Invocations                     Metric Name              Metric Description         Min         Max         Avg
 Device "GeForce GTX 570 (0)"
 	Kernel: mvt_kernel1(float*, float*, float*)
-          1        l1_cache_global_hit_rate              L1 Global Hit Rate       5.02%       5.02%       5.02%
-          1             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      97.27%      97.27%      97.27%
+          1        l1_cache_global_hit_rate              L1 Global Hit Rate       5.13%       5.13%       5.13%
+          1             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      96.94%      96.94%      96.94%
 	Kernel: mvt_kernel2(float*, float*, float*)
           1        l1_cache_global_hit_rate              L1 Global Hit Rate      49.76%      49.76%      49.76%
           1             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)       0.19%       0.19%       0.19%

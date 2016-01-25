@@ -9,10 +9,10 @@ Allocating data space: 4448 entries (8.857914% padding)
 Finished converting.
 JDS format has 1152 columns, 18 rows.
 nz_count_len = 36
-IO        : 0.002813
-Kernel    : 0.152678
-Copy      : 0.023993
-Driver    : 0.152668
-Compute   : 0.105693
-CPU/Kernel Overlap: 0.152678
-Timer Wall Time: 0.285188
+IO        : 0.004482
+Kernel    : 0.155315
+Copy      : 0.024759
+Driver    : 0.155305
+Compute   : 0.105949
+CPU/Kernel Overlap: 0.155322
+Timer Wall Time: 0.290521

@@ -86,6 +86,18 @@ main (int argc, char *argv[]) {
 
   pb_SwitchToTimer( &timers, pb_TimerID_KERNEL );
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += A_sz;        //dA A
+	memory_footprint += B_sz;        //dB B
+	memory_footprint += C_sz;        //dC C
+	printf("\n####  mysgemmNT memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
   // Use standard sgemm interface
   regtileSgemm('N', 'T', matArow, matBcol, matAcol, 1.0f, \
       dA, matArow, dB, matBcol, 0.0f, dC, matArow);

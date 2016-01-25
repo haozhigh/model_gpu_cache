@@ -157,6 +157,16 @@ int main(int argc, char* argv[]) {
     
     pb_SwitchToSubTimer(&timers, prescans , pb_TimerID_KERNEL);
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += even_width*(((img_height+UNROLL-1)/UNROLL)*UNROLL)*sizeof(unsigned int);  //input
+	memory_footprint += 2*sizeof(unsigned int);                                                   //ranges
+	printf("\n####  histo_prescan_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
     histo_prescan_kernel<<<dim3(PRESCAN_BLOCKS_X),dim3(PRESCAN_THREADS)>>>((unsigned int*)input, img_height*img_width, ranges);
     
     pb_SwitchToSubTimer(&timers, postpremems , pb_TimerID_KERNEL);
@@ -166,6 +176,17 @@ int main(int argc, char* argv[]) {
     cudaMemset(global_subhisto,0,img_width*histo_height*sizeof(unsigned int));
     
     pb_SwitchToSubTimer(&timers, intermediates, pb_TimerID_KERNEL);
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += even_width*(((img_height+UNROLL-1)/UNROLL)*UNROLL)*sizeof(unsigned int);  //input
+	memory_footprint += img_width*img_height*sizeof(uchar4);                                      //sm_mappings
+	printf("\n####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
 
     histo_intermediates_kernel<<<dim3((img_height + UNROLL-1)/UNROLL), dim3((img_width+1)/2)>>>(
                 (uint2*)(input),

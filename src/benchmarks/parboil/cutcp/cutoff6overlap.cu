@@ -597,6 +597,18 @@ extern "C" int gpu_compute_cutoff_potential_lattice6overlap(
   for (zRegionIndex = 0;  zRegionIndex < zRegionDim;  zRegionIndex++) {
     printf("  computing plane %d\r", zRegionIndex);
     fflush(stdout);
+
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += nbins * BIN_DEPTH * sizeof(float4);       //binZeroCuda
+	memory_footprint += lnall * sizeof(ener_t);                   //regionZeroCuda
+	printf("\n####  cuda_cutoff_potential_lattice6overlap memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
     cuda_cutoff_potential_lattice6overlap<<<gridDim, blockDim, 0>>>(binDim.x, binDim.y,
         binZeroCuda, h, cutoff2, inv_cutoff2, regionZeroCuda, zRegionIndex);
   }

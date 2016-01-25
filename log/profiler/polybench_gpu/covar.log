@@ -1,3 +1,7 @@
-GPU Runtime: 25.999092s
-CPU Runtime: 12.412622s
+
+####  mean_kernel memory_footprint:16801800  ####
+
+####  reduce_kernel memory_footprint:16801800  ####
+GPU Runtime: 25.977425s
+CPU Runtime: 12.467388s
 Non-Matching CPU-GPU Outputs Beyond Error Threshold of 1.05 Percent: 0

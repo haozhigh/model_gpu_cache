@@ -194,6 +194,43 @@ void fdtdCuda(DATA_TYPE* _fict_, DATA_TYPE* ex, DATA_TYPE* ey, DATA_TYPE* hz, DA
 
 	t_start = rtclock();
 
+/*
+std::cout memory footprint
+*/
+	int memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * tmax;  //_fict_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NX * (NY + 1);  //ex_gpu
+	memory_footprint += sizeof(DATA_TYPE) * (NX + 1) * NY;  //ey_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NX * NY;  //hz_gpu
+	printf("\n####  fdtd_step1_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * NX * (NY + 1);  //ex_gpu
+	memory_footprint += sizeof(DATA_TYPE) * (NX + 1) * NY;  //ey_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NX * NY;  //hz_gpu
+	printf("\n####  fdtd_step2_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += sizeof(DATA_TYPE) * NX * (NY + 1);  //ex_gpu
+	memory_footprint += sizeof(DATA_TYPE) * (NX + 1) * NY;  //ey_gpu
+	memory_footprint += sizeof(DATA_TYPE) * NX * NY;  //hz_gpu
+	printf("\n####  fdtd_step3_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
 	for(int t = 0; t< tmax; t++)
 	{
 		fdtd_step1_kernel<<<grid,block>>>(_fict_gpu, ex_gpu, ey_gpu, hz_gpu, t);

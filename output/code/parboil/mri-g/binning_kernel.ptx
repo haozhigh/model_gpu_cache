@@ -1,0 +1,54 @@
+1    mov.u32 %r0, %ctaid.x
+2    mov.u32 %r1, %ntid.x
+3    mul.lo.u32 %r2, %r0, %r1
+4    mov.u32 %r3, %tid.x
+5    add.u32 %r4, %r3, %r2
+6    ld.param.u32 %r5, [__cudaparm__Z14binning_kerneljP20ReconstructionSamplePjS1_S1_jj_n]
+7    setp.le.u32 %p6, %r5, %r4
+8    @%p6 bra BB_2_9
+9    cvt.u64.u32 %r7, %r4
+10   ld.param.u64 %r8, [__cudaparm__Z14binning_kerneljP20ReconstructionSamplePjS1_S1_jj_sample_g + 8]
+11   mul.wide.u32 %r9, %r4, 24
+12   add.u64 %r10, %r8, %r9
+13   ld.global.f32 %r11, [%r10 + 8]
+14   ld.global.f32 %r12, [%r10 + 12]
+15   ld.global.f32 %r13, [%r10 + 16]
+16   cvt.rzi.u32.f32 %r14, %r12
+17   cvt.rzi.u32.f32 %r15, %r13
+18   cvt.rzi.u32.f32 %r16, %r11
+19   ld.const.s32 %r17, [gridSize_c]
+20   mul.lo.u32 %r18, %r17, %r14
+21   ld.const.s32 %r19, [size_xy_c]
+22   mul.lo.u32 %r20, %r19, %r15
+23   add.u32 %r21, %r18, %r20
+24   add.u32 %r22, %r16, %r21
+25   ld.param.u64 %r23, [__cudaparm__Z14binning_kerneljP20ReconstructionSamplePjS1_S1_jj_binCount_g + 32]
+26   cvt.u64.u32 %r24, %r22
+27   mul.wide.u32 %r25, %r22, 4
+28   add.u64 %r26, %r23, %r25
+29   ld.param.u32 %r27, [__cudaparm__Z14binning_kerneljP20ReconstructionSamplePjS1_S1_jj_binsize + 40]
+30   ld.global.u32 %r28, [%r26]
+31   setp.ge.u32 %p29, %r28, %r27
+32   @%p29 bra BB_2_7
+33   mov.u32 %r30, 1
+34   atom.global.add.u32 %r31, [%r26], %r30
+35   mov.s32 %r32, %r31
+36   setp.ge.u32 %p33, %r32, %r27
+37   @%p33 bra BB_2_6
+38   mov.s32 %r34, %r22
+39   bra.uni BB_2_8
+40   ld.param.u32 %r34, [__cudaparm__Z14binning_kerneljP20ReconstructionSamplePjS1_S1_jj_gridNumElems + 44]
+41   reconverge
+42   mul.lo.u64 %r37, %r7, 4
+43   ld.param.u64 %r38, [__cudaparm__Z14binning_kerneljP20ReconstructionSamplePjS1_S1_jj_idxKey_g + 16]
+44   add.u64 %r39, %r38, %r37
+45   st.global.u32 [%r39], %r34
+46   ld.param.u64 %r40, [__cudaparm__Z14binning_kerneljP20ReconstructionSamplePjS1_S1_jj_idxValue_g + 24]
+47   add.u64 %r41, %r40, %r37
+48   st.global.u32 [%r41], %r4
+49   reconverge
+50   exit
+51   mov.s32 %r35, -1
+52   atom.global.add.u32 %r36, [%r26], %r35
+53   ld.param.u32 %r34, [__cudaparm__Z14binning_kerneljP20ReconstructionSamplePjS1_S1_jj_gridNumElems + 44]
+54   bra.uni BB_2_8

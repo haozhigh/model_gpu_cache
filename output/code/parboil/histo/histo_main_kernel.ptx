@@ -1,0 +1,359 @@
+1    mov.u32 %r0, %ntid.x
+2    mov.u32 %r1, %ctaid.x
+3    mul.lo.u32 %r2, %r0, %r1
+4    mov.u32 %r3, %tid.x
+5    add.u32 %r4, %r3, %r2
+6    mov.s32 %r5, %r4
+7    cvt.s32.u32 %r6, %tid.x
+8    mov.s32 %r7, %r6
+9    mov.s32 %r8, 6143
+10   setp.le.s32 %p9, %r6, %r8
+11   @!%p9 bra BB_5_5
+12   mov.u64 %r10, _Zcontext_14___cuda___cuda_local_var_40926_46_non_const_sub_histo56
+13   cvt.s64.s32 %r11, %r6
+14   cvt.s64.u32 %r12, %r0
+15   mul.wide.s32 %r13, %r6, 4
+16   mul.wide.u32 %r14, %r0, 4
+17   add.u64 %r15, %r13, %r10
+18   mov.u32 %r16, 0
+19   st.shared.u32 [%r15], %r16
+20   add.u32 %r7, %r7, %r0
+21   add.u64 %r15, %r15, %r14
+22   mov.u32 %r17, 6143
+23   setp.le.s32 %p18, %r7, %r17
+24   @%p18 bra BB_5_4
+25   reconverge
+26   mov.u64 %r10, _Zcontext_14___cuda___cuda_local_var_40926_46_non_const_sub_histo56
+27   bar.sync 0
+28   ld.param.u32 %r19, [__cudaparm__Z17histo_main_kernelP6uchar4jjjjjPjS1_S1__num_elements + 8]
+29   mov.u32 %r20, %ctaid.y
+30   mov.u32 %r21, 0
+31   setp.ne.u32 %p22, %r20, %r21
+32   @%p22 bra BB_5_36
+33   setp.ge.u32 %p23, %r4, %r19
+34   @%p23 bra BB_5_62
+35   cvt.u64.u32 %r24, %r4
+36   mov.u32 %r25, %nctaid.x
+37   mul.lo.u32 %r26, %r25, %r0
+38   ld.param.u32 %r27, [__cudaparm__Z17histo_main_kernelP6uchar4jjjjjPjS1_S1__sm_range_min + 12]
+39   add.u32 %r28, %r27, %r20
+40   mul.wide.u32 %r29, %r4, 4
+41   cvt.s64.u32 %r30, %r26
+42   ld.param.u64 %r31, [__cudaparm__Z17histo_main_kernelP6uchar4jjjjjPjS1_S1__sm_mappings]
+43   add.u64 %r32, %r31, %r29
+44   mul.wide.u32 %r33, %r26, 4
+45   ld.param.u32 %r34, [__cudaparm__Z17histo_main_kernelP6uchar4jjjjjPjS1_S1__sm_range_max + 16]
+46   ld.global.v4.u8 {%r35, %r36, %r37, %r38}, [%r32]
+47   add.u32 %r5, %r26, %r5
+48   add.u64 %r32, %r32, %r33
+49   setp.ne.u32 %p39, %r35, %r28
+50   @%p39 bra BB_5_31
+51   
+52   
+53   
+54   
+55   
+56   
+57   
+58   
+59   
+60   
+61   
+62   
+63   
+64   
+65   
+66   
+67   
+68   
+69   
+70   
+71   
+72   
+73   
+74   
+75   
+76   
+77   
+78   
+79   
+80   
+81   
+82   
+83   
+84   
+85   
+86   
+87   
+88   
+89   
+90   
+91   
+92   
+93   
+94   
+95   
+96   
+97   
+98   
+99   
+100  
+101  
+102  
+103  
+104  
+105  
+106  
+107  
+108  
+109  
+110  
+111  
+112  
+113  
+114  
+115  
+116  
+117  
+118  
+119  
+120  
+121  
+122  
+123  
+124  
+125  
+126  
+127  
+128  
+129  
+130  
+131  
+132  
+133  
+134  
+135  
+136  
+137  
+138  
+139  
+140  
+141  
+142  
+143  
+144  
+145  
+146  
+147  
+148  
+149  
+150  
+151  
+152  
+153  
+154  
+155  
+156  
+157  
+158  
+159  
+160  
+161  
+162  
+163  
+164  
+165  
+166  
+167  
+168  
+169  
+170  
+171  reconverge
+172  set.gt.u32.u32 %r136, %r35, %r34
+173  neg.s32 %r137, %r136
+174  set.lt.u32.u32 %r138, %r35, %r27
+175  neg.s32 %r139, %r138
+176  or.b32 %r140, %r137, %r139
+177  mov.u32 %r141, 0
+178  setp.eq.s32 %p142, %r140, %r141
+179  @%p142 bra BB_5_34
+180  
+181  
+182  
+183  
+184  
+185  
+186  
+187  
+188  
+189  
+190  
+191  
+192  
+193  
+194  
+195  
+196  
+197  
+198  
+199  
+200  
+201  
+202  
+203  
+204  
+205  
+206  
+207  
+208  reconverge
+209  setp.lt.u32 %p170, %r5, %r19
+210  @%p170 bra BB_5_8
+211  reconverge
+212  bra.uni BB_5_62
+213  
+214  
+215  
+216  
+217  
+218  
+219  
+220  
+221  
+222  
+223  
+224  
+225  
+226  
+227  
+228  
+229  
+230  
+231  
+232  
+233  
+234  
+235  
+236  
+237  
+238  
+239  
+240  
+241  
+242  
+243  
+244  
+245  
+246  
+247  
+248  
+249  
+250  
+251  
+252  
+253  
+254  
+255  
+256  
+257  
+258  
+259  
+260  
+261  
+262  
+263  
+264  
+265  
+266  
+267  
+268  
+269  
+270  
+271  
+272  
+273  
+274  
+275  reconverge
+276  setp.lt.u32 %p278, %r5, %r19
+277  @%p278 bra BB_5_38
+278  reconverge
+279  bar.sync 0
+280  mov.s32 %r279, %r6
+281  @!%p9 bra BB_5_65
+282  ld.param.u32 %r280, [__cudaparm__Z17histo_main_kernelP6uchar4jjjjjPjS1_S1__sm_range_min + 12]
+283  add.u32 %r28, %r280, %r20
+284  cvt.s64.s32 %r281, %r6
+285  cvt.s64.u32 %r282, %r0
+286  ld.param.u32 %r283, [__cudaparm__Z17histo_main_kernelP6uchar4jjjjjPjS1_S1__histo_height + 20]
+287  ld.param.u32 %r284, [__cudaparm__Z17histo_main_kernelP6uchar4jjjjjPjS1_S1__histo_width + 24]
+288  mul.lo.u32 %r285, %r283, %r284
+289  mul.lo.u32 %r286, %r28, 24576
+290  mul.wide.s32 %r287, %r6, 4
+291  mul.wide.u32 %r14, %r0, 4
+292  shr.u32 %r288, %r285, 2
+293  shr.u32 %r289, %r286, 2
+294  add.u64 %r290, %r287, %r10
+295  mul.lo.u32 %r291, %r288, %r1
+296  ld.param.u64 %r292, [__cudaparm__Z17histo_main_kernelP6uchar4jjjjjPjS1_S1__global_subhisto + 32]
+297  add.u32 %r293, %r289, %r291
+298  cvt.u64.u32 %r294, %r293
+299  mul.wide.u32 %r295, %r293, 4
+300  add.u64 %r296, %r292, %r295
+301  add.u64 %r297, %r287, %r296
+302  ld.shared.u32 %r298, [%r290]
+303  st.global.u32 [%r297], %r298
+304  add.u32 %r279, %r279, %r0
+305  add.u64 %r297, %r297, %r14
+306  add.u64 %r290, %r290, %r14
+307  mov.u32 %r299, 6143
+308  setp.le.s32 %p300, %r279, %r299
+309  @%p300 bra BB_5_64
+310  reconverge
+311  exit
+312  
+313  
+314  
+315  
+316  
+317  
+318  
+319  
+320  
+321  
+322  
+323  
+324  
+325  
+326  
+327  
+328  
+329  setp.ge.u32 %p171, %r4, %r19
+330  @%p171 bra BB_5_62
+331  cvt.u64.u32 %r172, %r4
+332  mov.u32 %r173, %nctaid.x
+333  mul.lo.u32 %r174, %r173, %r0
+334  ld.param.u32 %r175, [__cudaparm__Z17histo_main_kernelP6uchar4jjjjjPjS1_S1__sm_range_min + 12]
+335  add.u32 %r28, %r175, %r20
+336  mul.wide.u32 %r176, %r4, 4
+337  cvt.s64.u32 %r177, %r174
+338  ld.param.u64 %r178, [__cudaparm__Z17histo_main_kernelP6uchar4jjjjjPjS1_S1__sm_mappings]
+339  add.u64 %r32, %r178, %r176
+340  mul.wide.u32 %r179, %r174, 4
+341  ld.global.v4.u8 {%r180, %r181, %r182, %r183}, [%r32]
+342  add.u32 %r5, %r174, %r5
+343  add.u64 %r32, %r32, %r179
+344  setp.ne.u32 %p184, %r180, %r28
+345  @%p184 bra BB_5_61
+346  cvt.u64.u32 %r185, %r182
+347  cvt.u64.u32 %r186, %r181
+348  mul.wide.u32 %r187, %r181, 256
+349  add.u64 %r188, %r185, %r187
+350  mul.lo.u64 %r189, %r188, 4
+351  add.u64 %r190, %r10, %r189
+352  shl.b32 %r191, 1, %r183
+353  atom.shared.add.u32 %r192, [%r190], %r191
+354  mov.s32 %r193, %r192
+355  shr.u32 %r194, %r193, %r183
+356  and.b32 %r195, %r194, 255
+357  mov.u32 %r196, 255
+358  setp.eq.u32 %p197, %r195, %r196
+359  @!%p197 bra BB_5_61

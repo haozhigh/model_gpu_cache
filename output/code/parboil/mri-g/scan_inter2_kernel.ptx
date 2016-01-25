@@ -1,0 +1,84 @@
+1    mov.u64 %r0, s_data
+2    mov.u32 %r1, %ntid.x
+3    mov.u32 %r2, %ctaid.x
+4    mul.lo.u32 %r3, %r2, %r1
+5    mov.u32 %r4, %tid.x
+6    mul.lo.u32 %r5, %r4, 2
+7    add.u32 %r6, %r3, %r4
+8    add.s32 %r7, %r5, 4
+9    ld.param.u32 %r8, [__cudaparm__Z18scan_inter2_kernelPjj_iter + 8]
+10   mul.lo.u32 %r9, %r6, %r8
+11   shr.u32 %r10, %r5, %r7
+12   mul.lo.u32 %r11, %r9, 2
+13   shr.u32 %r12, %r10, 8
+14   add.u32 %r13, %r11, %r8
+15   ld.param.u64 %r14, [__cudaparm__Z18scan_inter2_kernelPjj_data]
+16   cvt.u64.u32 %r15, %r13
+17   mul.wide.u32 %r16, %r13, 4
+18   add.u64 %r17, %r14, %r16
+19   add.u32 %r18, %r5, %r12
+20   cvt.u64.u32 %r19, %r18
+21   mul.wide.u32 %r20, %r18, 4
+22   add.u64 %r21, %r0, %r20
+23   ld.global.u32 %r22, [%r17 + -4]
+24   st.shared.u32 [%r21], %r22
+25   add.u32 %r23, %r5, 1
+26   add.s32 %r24, %r5, 5
+27   shr.u32 %r25, %r23, %r24
+28   shr.u32 %r26, %r25, 8
+29   add.u32 %r27, %r5, %r26
+30   cvt.u64.u32 %r28, %r27
+31   mul.wide.u32 %r29, %r27, 4
+32   add.u64 %r30, %r0, %r29
+33   add.u32 %r31, %r13, %r8
+34   cvt.u64.u32 %r32, %r31
+35   mul.wide.u32 %r33, %r31, 4
+36   add.u64 %r34, %r14, %r33
+37   ld.global.u32 %r35, [%r34 + -4]
+38   st.shared.u32 [%r30 + 4], %r35
+39   mul.lo.u32 %r36, %r1, 2
+40   mov.u32 %r37, 1
+41   setp.lt.u32 %p38, %r1, %r37
+42   @%p38 bra BB_3_7
+43   mov.u32 %r39, 1
+44   shr.u32 %r36, %r36, 1
+45   bar.sync 0
+46   setp.le.u32 %p40, %r39, %r4
+47   @%p40 bra BB_3_6
+48   mul.lo.u32 %r41, %r36, %r4
+49   mul.lo.u32 %r42, %r41, 2
+50   add.u32 %r43, %r42, %r36
+51   sub.u32 %r44, %r43, 1
+52   add.s32 %r45, %r43, 3
+53   shr.u32 %r46, %r44, %r45
+54   shr.u32 %r47, %r46, 8
+55   add.u32 %r48, %r43, %r47
+56   cvt.u64.u32 %r49, %r48
+57   mul.wide.u32 %r50, %r48, 4
+58   add.u64 %r51, %r0, %r50
+59   ld.shared.u32 %r52, [%r51 + -4]
+60   add.u32 %r53, %r43, %r36
+61   sub.u32 %r54, %r53, 1
+62   add.s32 %r55, %r53, 3
+63   shr.u32 %r56, %r54, %r55
+64   shr.u32 %r57, %r56, 8
+65   add.u32 %r58, %r53, %r57
+66   cvt.u64.u32 %r59, %r58
+67   mul.wide.u32 %r60, %r58, 4
+68   add.u64 %r61, %r0, %r60
+69   ld.shared.u32 %r62, [%r61 + -4]
+70   st.shared.u32 [%r51 + -4], %r62
+71   ld.shared.u32 %r63, [%r61 + -4]
+72   add.u32 %r64, %r63, %r52
+73   st.shared.u32 [%r61 + -4], %r64
+74   reconverge
+75   mul.lo.u32 %r39, %r39, 2
+76   setp.le.u32 %p65, %r39, %r1
+77   @%p65 bra BB_3_4
+78   reconverge
+79   bar.sync 0
+80   ld.shared.u32 %r66, [%r21]
+81   st.global.u32 [%r17 + -4], %r66
+82   ld.shared.u32 %r67, [%r30 + 4]
+83   st.global.u32 [%r34 + -4], %r67
+84   exit

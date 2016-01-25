@@ -1,0 +1,85 @@
+1    ld.param.s32 %r0, [__cudaparm__Z20convolution3D_kernelPfS_i_i + 16]
+2    mov.u32 %r1, 254
+3    setp.gt.s32 %p2, %r0, %r1
+4    @%p2 bra BB_1_9
+5    mov.u32 %r3, %ctaid.y
+6    mov.u32 %r4, %ntid.y
+7    mul.lo.u32 %r5, %r3, %r4
+8    mov.u32 %r6, %tid.y
+9    add.u32 %r7, %r6, %r5
+10   mov.u32 %r8, 254
+11   setp.gt.s32 %p9, %r7, %r8
+12   @%p9 bra BB_1_9
+13   mov.u32 %r10, %ctaid.x
+14   mov.u32 %r11, %ntid.x
+15   mul.lo.u32 %r12, %r10, %r11
+16   mov.u32 %r13, %tid.x
+17   add.u32 %r14, %r13, %r12
+18   mov.u32 %r15, 254
+19   setp.gt.s32 %p16, %r14, %r15
+20   @%p16 bra BB_1_9
+21   mov.u32 %r17, 0
+22   setp.le.s32 %p18, %r0, %r17
+23   @%p18 bra BB_1_9
+24   mov.u32 %r19, 0
+25   setp.le.s32 %p20, %r7, %r19
+26   @%p20 bra BB_1_9
+27   mov.u32 %r21, 0
+28   setp.le.s32 %p22, %r14, %r21
+29   @%p22 bra BB_1_9
+30   mul.lo.s32 %r23, %r0, 256
+31   add.s32 %r24, %r23, %r7
+32   mul.lo.s32 %r25, %r24, 256
+33   add.s32 %r26, %r14, %r25
+34   cvt.s64.s32 %r27, %r26
+35   mul.wide.s32 %r28, %r26, 4
+36   ld.param.u64 %r29, [__cudaparm__Z20convolution3D_kernelPfS_i_A]
+37   add.u64 %r30, %r29, %r28
+38   add.u64 %r31, %r30, 262144
+39   sub.u64 %r32, %r30, 262144
+40   ld.global.f32 %r33, [%r31 + -1028]
+41   ld.global.f32 %r34, [%r32 + -1028]
+42   mov.f32 %r35, 0f40800000
+43   mul.f32 %r36, %r33, %r35
+44   mov.f32 %r37, 0f40000000
+45   fma.rn.f32 %r38, %r34, %r37, %r36
+46   mov.f32 %r39, 0f40a00000
+47   fma.rn.f32 %r40, %r34, %r39, %r38
+48   mov.f32 %r41, 0f40e00000
+49   fma.rn.f32 %r42, %r33, %r41, %r40
+50   mov.f32 %r43, 0fc1000000
+51   fma.rn.f32 %r44, %r34, %r43, %r42
+52   mov.f32 %r45, 0f41200000
+53   fma.rn.f32 %r46, %r33, %r45, %r44
+54   ld.global.f32 %r47, [%r30 + -1024]
+55   mov.f32 %r48, 0fc0400000
+56   fma.rn.f32 %r49, %r47, %r48, %r46
+57   ld.global.f32 %r50, [%r30]
+58   mov.f32 %r51, 0f40c00000
+59   fma.rn.f32 %r52, %r50, %r51, %r49
+60   ld.global.f32 %r53, [%r30 + 1024]
+61   mov.f32 %r54, 0fc1100000
+62   fma.rn.f32 %r55, %r53, %r54, %r52
+63   ld.global.f32 %r56, [%r32 + -1020]
+64   mov.f32 %r57, 0f40000000
+65   fma.rn.f32 %r58, %r56, %r57, %r55
+66   ld.global.f32 %r59, [%r31 + -1020]
+67   mov.f32 %r60, 0f40800000
+68   fma.rn.f32 %r61, %r59, %r60, %r58
+69   ld.global.f32 %r62, [%r32 + 4]
+70   mov.f32 %r63, 0f40a00000
+71   fma.rn.f32 %r64, %r62, %r63, %r61
+72   ld.global.f32 %r65, [%r31 + 4]
+73   mov.f32 %r66, 0f40e00000
+74   fma.rn.f32 %r67, %r65, %r66, %r64
+75   ld.global.f32 %r68, [%r32 + 1028]
+76   mov.f32 %r69, 0fc1000000
+77   fma.rn.f32 %r70, %r68, %r69, %r67
+78   ld.global.f32 %r71, [%r31 + 1028]
+79   mov.f32 %r72, 0f41200000
+80   fma.rn.f32 %r73, %r71, %r72, %r70
+81   ld.param.u64 %r74, [__cudaparm__Z20convolution3D_kernelPfS_i_B + 8]
+82   add.u64 %r75, %r74, %r28
+83   st.global.f32 [%r75], %r73
+84   reconverge
+85   exit

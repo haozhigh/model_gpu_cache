@@ -1,5 +1,0 @@
-####  Start Generating trace for mvt_kernel1  ####
-####  Start Generating trace for mvt_kernel2  ####
-GPU Runtime: 0.648452s
-CPU Runtime: 0.003440s
-Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 0

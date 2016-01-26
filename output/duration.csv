@@ -8,7 +8,6 @@ parboil#mri-q,222,99,105596,409821,338,5078208,parboil,mri-q
 parboil#sad,13541,482,10479,26919,452,540474,parboil,sad
 parboil#sgemm,1671,50,436,1147,264,20253,parboil,sgemm
 parboil#stencil,8106,145,1493,3524,552,51094,parboil,stencil
-parboil#tpacf,431,181,145182,502777,341,6021226,parboil,tpacf
 polybench_gpu#2dconv,249,2244,2039,6175,231,177110,polybench_gpu,2dconv
 polybench_gpu#3dconv,93,200,261,637,4378,25123,polybench_gpu,3dconv
 polybench_gpu#atax,17867,500,628,577,218,77895,polybench_gpu,atax

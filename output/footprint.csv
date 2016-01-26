@@ -20,7 +20,6 @@ parboil#sad#larger_sad_calc_8,8897328,2.0837920489296637,0.8624,parboil,sad,larg
 parboil#sad#mb_sad_calc,8948016,223.2632258064516,0.6159000000000001,parboil,sad,mb_sad_calc
 parboil#sgemm#mysgemmNT,192512,51.00714285714286,1.0,parboil,sgemm,mysgemmNT
 parboil#stencil#block2D_hybrid_coarsen_x,4194304,23.255397235224805,1.0,parboil,stencil,block2D_hybrid_coarsen_x
-parboil#tpacf#gen_hists,622404,3767.4987099632312,0.32609999999999995,parboil,tpacf,gen_hists
 polybench_gpu#2dconv#Convolution2D_kernel,8388608,4.606561134493204,0.3554999999999999,polybench_gpu,2dconv,Convolution2D_kernel
 polybench_gpu#3dconv#convolution3D_kernel,134217728,5.610654721309443,0.6327,polybench_gpu,3dconv,convolution3D_kernel
 polybench_gpu#atax#atax_kernel1,1052672,2.011711125569291,0.9485,polybench_gpu,atax,atax_kernel1

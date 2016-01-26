@@ -153,7 +153,7 @@ std::cout memory footprint
 	int memory_footprint = 0;
 	memory_footprint += sizeof(DATA_TYPE) * N * M;  //  A_gpu
 	memory_footprint += sizeof(DATA_TYPE) * N * N;  //  C_gpu
-	printf("\n####  BFS_in_GPU_kernel memory_footprint:%d  ####\n", memory_footprint);
+	printf("\n####  syrk_kernel memory_footprint:%d  ####\n", memory_footprint);
 /*
 std::cout memory footprint
 */

@@ -1,7 +1,7 @@
 ,base_model,model,base_trace,trace,profiler,sim,suite,bench
 parboil#bfs,17548,414,837,1976,1057,155368,parboil,bfs
 parboil#cutcp,3046,474,22460,72003,443,929441,parboil,cutcp
-parboil#histo,7655,2362,4824,15780,2464,420468,parboil,histo
+parboil#histo,7655,2362,4824,15780,2483,420468,parboil,histo
 parboil#lbm,1118,215,20979,31060,17278,2448234,parboil,lbm
 parboil#mri-g,713,3307,58068,185740,36315,4656623,parboil,mri-g
 parboil#mri-q,222,99,105596,409821,338,5078208,parboil,mri-q

@@ -1,19 +1,19 @@
-==11929== NVPROF is profiling process 11929, command: ./histo_profiler -i ../datasets/parboil/histo/default/input/img.bin -o ../output/bench_output/parboil/histo_default.out -- 20 4
-==11929== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
-==11929== Profiling application: ./histo_profiler -i ../datasets/parboil/histo/default/input/img.bin -o ../output/bench_output/parboil/histo_default.out -- 20 4
-==11929== Profiling result:
-==11929== Metric result:
+==3270== NVPROF is profiling process 3270, command: ./histo_profiler -i ../datasets/parboil/histo/default/input/img.bin -o ../output/bench_output/parboil/histo_default.out -- 20 4
+==3270== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==3270== Profiling application: ./histo_profiler -i ../datasets/parboil/histo/default/input/img.bin -o ../output/bench_output/parboil/histo_default.out -- 20 4
+==3270== Profiling result:
+==3270== Metric result:
 Invocations                     Metric Name              Metric Description         Min         Max         Avg
 Device "GeForce GTX 570 (0)"
 	Kernel: histo_prescan_kernel(unsigned int*, int, unsigned int*)
-         20        l1_cache_global_hit_rate              L1 Global Hit Rate      54.86%      58.37%      56.94%
-         20             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      40.33%      43.31%      41.72%
+         20        l1_cache_global_hit_rate              L1 Global Hit Rate      54.89%      58.14%      56.70%
+         20             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      41.11%      43.26%      42.08%
 	Kernel: histo_main_kernel(uchar4*, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int*, unsigned int*, unsigned int*)
          20        l1_cache_global_hit_rate              L1 Global Hit Rate       0.00%       0.00%       0.00%
-         20             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      45.04%      47.59%      46.27%
+         20             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      44.20%      48.46%      46.72%
 	Kernel: histo_final_kernel(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int*, unsigned int*, unsigned int*, unsigned int*)
          20        l1_cache_global_hit_rate              L1 Global Hit Rate       0.00%       0.00%       0.00%
          20             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)       0.00%       0.00%       0.00%
 	Kernel: histo_intermediates_kernel(uint2*, unsigned int, unsigned int, unsigned int, uchar4*)
-         20        l1_cache_global_hit_rate              L1 Global Hit Rate      42.00%      43.74%      42.77%
-         20             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)       2.95%       3.52%       3.20%
+         20        l1_cache_global_hit_rate              L1 Global Hit Rate      42.10%      43.57%      42.82%
+         20             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)       2.74%       3.46%       3.18%

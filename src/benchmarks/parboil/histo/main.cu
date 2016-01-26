@@ -183,7 +183,7 @@ std::cout memory footprint
 	memory_footprint = 0;
 	memory_footprint += even_width*(((img_height+UNROLL-1)/UNROLL)*UNROLL)*sizeof(unsigned int);  //input
 	memory_footprint += img_width*img_height*sizeof(uchar4);                                      //sm_mappings
-	printf("\n####  histo_intermediates_kernel histo_prescan_kernel memory_footprint:%d  ####\n", memory_footprint);
+	printf("\n####  histo_intermediates_kernel memory_footprint:%d  ####\n", memory_footprint);
 /*
 std::cout memory footprint
 */
@@ -198,6 +198,18 @@ std::cout memory footprint
     
     pb_SwitchToSubTimer(&timers, mains, pb_TimerID_KERNEL);
     
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += img_width*img_height*sizeof(uchar4);                                      //sm_mappings
+	memory_footprint += BLOCK_X*img_width*histo_height*sizeof(unsigned int);                      //global_subhisto
+	memory_footprint += img_width*histo_height*sizeof(unsigned short);                            //global_histo
+	memory_footprint += img_width*histo_height*sizeof(unsigned int);                              //global_overflow
+	printf("\n####  histo_main_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
     
     histo_main_kernel<<<dim3(BLOCK_X, ranges_h[1]-ranges_h[0]+1), dim3(THREADS)>>>(
                 (uchar4*)(sm_mappings),
@@ -211,6 +223,19 @@ std::cout memory footprint
     
     pb_SwitchToSubTimer(&timers, finals, pb_TimerID_KERNEL);
     
+/*
+std::cout memory footprint
+*/
+	memory_footprint = 0;
+	memory_footprint += BLOCK_X*img_width*histo_height*sizeof(unsigned int);                      //global_subhisto
+	memory_footprint += img_width*histo_height*sizeof(unsigned short);                            //global_histo
+	memory_footprint += img_width*histo_height*sizeof(unsigned int);                              //global_overflow
+	memory_footprint += img_width*histo_height*sizeof(unsigned char);                             //final_histo
+	printf("\n####  histo_final_kernel memory_footprint:%d  ####\n", memory_footprint);
+/*
+std::cout memory footprint
+*/
+
     histo_final_kernel<<<dim3(BLOCK_X*3), dim3(512)>>>(
                 ranges_h[0], ranges_h[1],
                 histo_height, histo_width,

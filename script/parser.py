@@ -333,6 +333,61 @@ def parse_duration_out(wide_bench_names, duration_out_dir):
 
     return durations
 
+
+##  Parse memory footprint for each kernel from modified profiler run log
+def parse_footprint_out(wide_kernel_names, footprint_out_dir):
+    footprint = Series(0, index = wide_kernel_names)
+
+    ##  Iterate over all kernels
+    for wide_kernel_name in wide_kernel_names:
+        
+        ##  Breakdown wide kernel name to (suite, bench, kernel)
+        (suite, bench, kernel) = breakdown_wide_kernel_name(wide_kernel_name)
+
+        ##  Set footprint out file for this kernel
+        out_file = path.join(footprint_out_dir, suite, bench + ".log")
+
+        ##  Check if the out_file exists
+        if path.isfile(out_file):
+
+            ##  Read file content
+            f_str = read_text_file(out_file)
+
+            ##  Parse footprint
+            pattern = re.compile(r'####  ' + kernel + ' memory_footprint:(\d*)  ####')
+            match = pattern.search(f_str)
+            if (match == None):
+                footprint[wide_kernel_name] = -1
+            else:
+                footprint[wide_kernel_name] = int(match.group(1))
+
+    return footprint
+
+##  Parse operation intensity for each kernel from code generation trace out file
+def parse_op_intensity_out(wide_kernel_names, op_intensity_out_dir):
+    op_intensity = Series(0.0, index = wide_kernel_names)
+
+    ##  Iterate over all kernels
+    for wide_kernel_name in wide_kernel_names:
+
+        ##  Breakdown wide kernel name to (suite, bench, kernel)
+        (suite, bench, kernel) = breakdown_wide_kernel_name(wide_kernel_name)
+
+        ##  Set operation out file for this kernel
+        out_file = path.join(op_intensity_out_dir, suite, bench, kernel + ".count")
+
+        ##  Check if the out file exists
+        if path.isfile(out_file):
+
+            ##  Read file content
+            f_str = read_text_file(out_file)
+
+            ##  Parse operaton intensity
+            compute_count = float(f_str.split(' ')[0])
+            memory_count = float(f_str.split(' ')[1])
+            op_intensity[wide_kernel_name] = compute_count / memory_count
+
+    return op_intensity
  
  
 

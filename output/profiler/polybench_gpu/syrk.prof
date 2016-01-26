@@ -1,10 +1,10 @@
-==12365== NVPROF is profiling process 12365, command: ./syrk_profiler
-==12365== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
-==12365== Profiling application: ./syrk_profiler
-==12365== Profiling result:
-==12365== Metric result:
+==3008== NVPROF is profiling process 3008, command: ./syrk_profiler
+==3008== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==3008== Profiling application: ./syrk_profiler
+==3008== Profiling result:
+==3008== Metric result:
 Invocations                     Metric Name              Metric Description         Min         Max         Avg
 Device "GeForce GTX 570 (0)"
 	Kernel: syrk_kernel(float, float, float*, float*)
-          1        l1_cache_global_hit_rate              L1 Global Hit Rate      90.31%      90.31%      90.31%
-          1             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      99.66%      99.66%      99.66%
+          1        l1_cache_global_hit_rate              L1 Global Hit Rate      90.05%      90.05%      90.05%
+          1             l2_l1_read_hit_rate          L2 Hit Rate (L1 Reads)      97.67%      97.67%      97.67%

@@ -15,6 +15,14 @@ def main():
     ##  Read miss rate DataFrame from csv file
     miss_frame = pandas.read_csv(path.join(dir_script, "../output/miss_rate.csv"))
 
+    ##  Read maxwell miss rate DataFrame from csv file
+    maxwell_miss_frame = pandas.read_csv(path.join(dir_script, "../output/maxwell_miss_rate.csv"))
+
+    ##  Draw maxwell profiler miss rate
+    draw_miss_rate(maxwell_miss_frame, 'MaxWell L1 cache miss rate for each kernel', path.join(dir_script, "../output/maxwell_miss_rate.png"))
+    
+    return
+
     ##  Get all suite names
     ##  Draw a Error comparison chart for each suite
     draw_error_comparison(miss_frame, "Miss Rate Error Comparison", path.join(dir_script, "../output/miss_rate_error_compare.png"))

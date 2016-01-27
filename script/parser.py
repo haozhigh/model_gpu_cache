@@ -243,6 +243,53 @@ def parse_profiler_out(wide_kernel_names, profiler_out_dir):
     ##  Return the Series
     return profiler_miss
 
+##  Parse the profiler out on Maxwell GPU
+def parse_maxwell_profiler_out(wide_kernel_names, maxwell_profiler_out_dir):
+    maxwell_profiler_miss = Series(0.0, index = wide_kernel_names)
+
+    ##  Iterate over all kernels
+    for wide_kernel_name in wide_kernel_names:
+
+        ##  Breakdown wide kernel name to (suite, bench, kernel)
+        (suite, bench, kernel) = breakdown_wide_kernel_name(wide_kernel_name)
+
+        ##  Set maxwell profiler miss rate output file for this kernel
+        out_file = path.join(maxwell_profiler_out_dir, suite, bench + ".prof")
+        
+        ##  Check if the out_file exists
+        if os.path.isfile(out_file):
+            
+            ##  Read file content
+            f_str = read_text_file(out_file)
+            
+            ##  Parse the miss rate for this kernel
+            ##  Set pattern1 to find the occurance of this kernel name
+            pattern1 = re.compile(r'Kernel:\s+' + kernel)
+            match1 = pattern1.search(f_str)
+            
+            ##  If pattern1 is not found, set miss rate to 0
+            if match1 == None:
+                print("####  parse_maxwell_profiler_out:: " + wide_kernel_name + " match1 is None, set miss rate to 0  ####")
+                maxwell_profiler_miss[wide_kernel_name] = 0
+            else:
+
+                ##  Set pattern2 to find the l1 cache avg miss rate after the end of match1
+                pattern2 = re.compile(r'tex_cache_hit_rate\s+Texture Cache Hit Rate\s+\S+%\s+\S+%\s+(\S+)%')
+                match2 = pattern2.search(f_str, pos = match1.end())
+
+                ##  If pattern2 is not found, set miss rate to 0
+                if match2 == None:
+                    print("####  parse_maxwell_profiler_out:: " + wide_kernel_name + " match2 is None, set miss rate to 0  ####")
+                    maxwell_profiler_miss[wide_kernel_name] = 0
+                else:
+                    ##  Get miss rate
+                    maxwell_profiler_miss[wide_kernel_name] = 1 - float(match2.group(1)) / 100.0
+
+    ##  Return the Series
+    return maxwell_profiler_miss
+
+
+
 def parse_sim_out(wide_kernel_names, sim_out_dir):
     sim_miss = Series(0.0, index = wide_kernel_names)
 

@@ -13,4 +13,7 @@ build/base_model
 datasets
 output/bench_output
 
+micro_benchmark/cache1_fermi/cache1
+micro_benchmark/cache1_maxwell/cache1
+
 __pycache__

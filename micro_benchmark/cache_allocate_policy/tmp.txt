@@ -1,0 +1,178 @@
+==3825== NVPROF is profiling process 3825, command: ./read_alloc
+==3825== Warning: Metric "shared_efficiency" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "shared_replay_overhead" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "global_cache_replay_overhead" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "tex_cache_hit_rate" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "tex_cache_throughput" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "dram_read_throughput" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "dram_write_throughput" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "gst_throughput" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "gld_throughput" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "gld_efficiency" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "gst_efficiency" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "local_replay_overhead" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "l2_texture_read_throughput" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "l2_l1_read_hit_rate" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "l2_texture_read_hit_rate" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "l2_l1_read_throughput" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "local_memory_overhead" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "sysmem_read_transactions" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "sysmem_write_transactions" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "l2_read_transactions" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "l2_write_transactions" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "tex_cache_transactions" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "dram_read_transactions" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "dram_write_transactions" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "l2_read_throughput" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "l2_write_throughput" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "sysmem_read_throughput" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "l1_cache_local_hit_rate" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "sysmem_write_throughput" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "sm_efficiency" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "l1_shared_utilization" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "ipc" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "sm_efficiency_instance" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "l2_utilization" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "tex_utilization" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "dram_utilization" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "sysmem_utilization" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "gld_transactions_per_request" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "gst_transactions_per_request" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "local_load_transactions_per_request" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "local_store_transactions_per_request" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "shared_load_transactions_per_request" cannot be profiled in non-aggregate mode
+==3825== Warning: Metric "shared_store_transactions_per_request" cannot be profiled in non-aggregate mode
+==3825== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==3825== Profiling application: ./read_alloc
+==3825== Profiling result:
+==3825== Event result:
+Invocations                      Event Name         Min         Max         Avg
+Device "GeForce GTX 570 (0)"
+	Kernel: read_alloc_kernel1(int*, int*, int*)
+          1       local_load (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1      local_store (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1      gld_request (15 instances)           -           -  [          9          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1      gst_request (15 instances)           -           -  [         12          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1      shared_load (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1     shared_store (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1           branch (15 instances)           -           -  [          1          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  divergent_branch (15 instances           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1    active_cycles (15 instances)           -           -  [       1230          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1      inst_issued (15 instances)           -           -  [         51          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1    inst_executed (15 instances)           -           -  [         49          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1   warps_launched (15 instances)           -           -  [          1          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  threads_launched (15 instances           -           -  [          1          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  thread_inst_executed_0 (15 ins           -           -  [         49          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  thread_inst_executed_1 (15 ins           -           -  [         49          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1     active_warps (15 instances)           -           -  [       1245          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  tex0_cache_sector_queries (4 i           -           -  [          0          0          0          0 ]
+          1  tex0_cache_sector_misses (4 in           -           -  [          0          0          0          0 ]
+          1   sm_cta_launched (4 instances)           -           -  [          1          0          0          0 ]
+          1  l1_local_load_hit (4 instances           -           -  [          0          0          0          0 ]
+          1  l1_local_load_miss (4 instance           -           -  [          0          0          0          0 ]
+          1  l1_local_store_hit (4 instance           -           -  [          0          0          0          0 ]
+          1  l1_local_store_miss (4 instanc           -           -  [          0          0          0          0 ]
+          1  l1_global_load_hit (4 instance           -           -  [          3          0          0          0 ]
+          1  l1_global_load_miss (4 instanc           -           -  [          6          0          0          0 ]
+          1  uncached_global_load_transacti           -           -  [          0          0          0          0 ]
+          1  global_store_transaction (4 in           -           -  [         12          0          0          0 ]
+          1  l1_shared_bank_conflict (4 ins           -           -  [          0          0          0          0 ]
+          1  prof_trigger_00 (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  prof_trigger_01 (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  prof_trigger_02 (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  prof_trigger_03 (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  prof_trigger_04 (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  prof_trigger_05 (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  prof_trigger_06 (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  prof_trigger_07 (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  fb_subp0_read_sectors (5 insta           -           -  [         19          0          4          0          0 ]
+          1  fb_subp1_read_sectors (5 insta           -           -  [          0          0          0          4          8 ]
+          1  fb_subp0_write_sectors (5 inst           -           -  [          0          0          0          0          0 ]
+          1  fb_subp1_write_sectors (5 inst           -           -  [          1          0          3          0          0 ]
+          1  l2_subp0_write_sector_misses (           -           -  [          0          0          0          0          0 ]
+          1  l2_subp1_write_sector_misses (           -           -  [          1          0          3          0          0 ]
+          1  l2_subp0_read_sector_misses (5           -           -  [         27          0          4          0          0 ]
+          1  l2_subp1_read_sector_misses (5           -           -  [          0          0          0          4          8 ]
+          1  l2_subp0_write_sector_queries            -           -  [          0          0          0          0          0 ]
+          1  l2_subp1_write_sector_queries            -           -  [          3          0          9          0          0 ]
+          1  l2_subp0_read_sector_queries (           -           -  [          4          0          4          0          0 ]
+          1  l2_subp1_read_sector_queries (           -           -  [          0          0          0          4         12 ]
+          1  l2_subp0_read_tex_sector_queri           -           -  [          0          0          0          0          0 ]
+          1  l2_subp1_read_tex_sector_queri           -           -  [          0          0          0          0          0 ]
+          1  l2_subp0_read_hit_sectors (5 i           -           -  [          0          0          0          0          0 ]
+          1  l2_subp1_read_hit_sectors (5 i           -           -  [          0          0          0          0          0 ]
+          1  l2_subp0_read_tex_hit_sectors            -           -  [          0          0          0          0          0 ]
+          1  l2_subp1_read_tex_hit_sectors            -           -  [          0          0          0          0          0 ]
+          1  elapsed_cycles_sm (4 instances           -           -  [       3286       3286       3286       3286 ]
+          1  l2_subp0_read_sysmem_sector_qu           -           -  [          0          0          0          0          0 ]
+          1  l2_subp1_read_sysmem_sector_qu           -           -  [          0          0          0          0          0 ]
+          1  l2_subp0_write_sysmem_sector_q           -           -  [          0          0          0          0          0 ]
+          1  l2_subp1_write_sysmem_sector_q           -           -  [          0          0          0          0          0 ]
+          1  l2_subp0_total_read_sector_que           -           -  [         28          0          4          0          0 ]
+          1  l2_subp1_total_read_sector_que           -           -  [          0          0          0          4         12 ]
+          1  l2_subp0_total_write_sector_qu           -           -  [          0          0          0          0          0 ]
+          1  l2_subp1_total_write_sector_qu           -           -  [          3          0          9          0          0 ]
+          1       atom_count (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1       gred_count (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1    gld_inst_8bit (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1   gld_inst_16bit (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1   gld_inst_32bit (15 instances)           -           -  [          9          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1   gld_inst_64bit (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  gld_inst_128bit (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1    gst_inst_8bit (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1   gst_inst_16bit (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1   gst_inst_32bit (15 instances)           -           -  [         12          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1   gst_inst_64bit (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  gst_inst_128bit (15 instances)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+
+==3825== Metric result:
+Invocations                     Metric Name              Metric Description         Min         Max         Avg
+Device "GeForce GTX 570 (0)"
+	Kernel: read_alloc_kernel1(int*, int*, int*)
+          1  l1_cache_global_hit_rate (4 in              L1 Global Hit Rate           -           -  [     33.33%      0.00%      0.00%      0.00% ]
+          1  branch_efficiency (15 instance               Branch Efficiency           -           -  [    100.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00% ]
+          1  achieved_occupancy (15 instanc              Achieved Occupancy           -           -  [   0.021172   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000 ]
+          1  gld_requested_throughput (15 i  Requested Global Load Throughp           -           -  [ 13.730MB/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s ]
+          1  gst_requested_throughput (15 i  Requested Global Store Through           -           -  [ 18.307MB/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s ]
+          1     ipc_instance (15 instances)                    Executed IPC           -           -  [   0.049847   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000 ]
+          1    inst_per_warp (15 instances)           Instructions per warp           -           -  [  49.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000 ]
+          1  gld_transactions (4 instances)        Global Load Transactions           -           -  [          9          0          0          0 ]
+          1  gst_transactions (4 instances)       Global Store Transactions           -           -  [         12          0          0          0 ]
+          1  local_load_transactions (4 ins         Local Load Transactions           -           -  [          0          0          0          0 ]
+          1  local_store_transactions (4 in        Local Store Transactions           -           -  [          0          0          0          0 ]
+          1  shared_load_transactions (4 in        Shared Load Transactions           -           -  [          0          0          0          0 ]
+          1  shared_store_transactions (4 i       Shared Store Transactions           -           -  [          0          0          0          0 ]
+          1  local_load_throughput (4 insta    Local Memory Load Throughput           -           -  [ 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s ]
+          1  local_store_throughput (4 inst   Local Memory Store Throughput           -           -  [ 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s ]
+          1  shared_load_throughput (4 inst   Shared Memory Load Throughput           -           -  [ 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s ]
+          1  shared_store_throughput (4 ins  Shared Memory Store Throughput           -           -  [ 0.00000B/s 0.00000B/s 0.00000B/s 0.00000B/s ]
+          1         flops_sp (15 instances)                   FLOPS(Single)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1     flops_sp_add (15 instances)               FLOPS(Single Add)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1     flops_sp_mul (15 instances)               FLOPS(Single Mul)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1     flops_sp_fma (15 instances)               FLOPS(Single FMA)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1         flops_dp (15 instances)                   FLOPS(Double)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1     flops_dp_add (15 instances)               FLOPS(Double Add)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1     flops_dp_mul (15 instances)               FLOPS(Double Mul)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1     flops_dp_fma (15 instances)               FLOPS(Double FMA)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  flops_sp_special (15 instances           FLOPS(Single Special)           -           -  [          0          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  stall_inst_fetch (15 instances  Issue Stall Reasons (Instructi           -           -  [     16.36%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00% ]
+          1  stall_exec_dependency (15 inst  Issue Stall Reasons (Execution           -           -  [     96.34%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00% ]
+          1  stall_data_request (15 instanc  Issue Stall Reasons (Data Requ           -           -  [      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00% ]
+          1       stall_sync (15 instances)  Issue Stall Reasons (Synchroni           -           -  [      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00% ]
+          1    inst_executed (15 instances)           Instructions Executed           -           -  [         49          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1    stall_texture (15 instances)   Issue Stall Reasons (Texture)           -           -  [      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00% ]
+          1      stall_other (15 instances)     Issue Stall Reasons (Other)           -           -  [     13.11%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00% ]
+          1  inst_replay_overhead (15 insta     Instruction Replay Overhead           -           -  [   0.040816   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000 ]
+          1  warp_execution_efficiency (15        Warp Execution Efficiency           -           -  [      3.12%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00% ]
+          1       issued_ipc (15 instances)                      Issued IPC           -           -  [   0.051777   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000 ]
+          1  issue_slot_utilization (15 ins          Issue Slot Utilization           -           -  [      2.62%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00%      0.00% ]
+          1        cf_issued (15 instances)  Issued Control-Flow Instructio           -           -  [          1          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1      cf_executed (15 instances)  Executed Control-Flow Instruct           -           -  [          1          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1      ldst_issued (15 instances)  Issued Load/Store Instructions           -           -  [         21          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1    ldst_executed (15 instances)  Executed Load/Store Instructio           -           -  [         21          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1  ldst_fu_utilization (15 instan  Load/Store Function Unit Utili           -           -  [    Low (1)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0) ]
+          1  alu_fu_utilization (15 instanc  Arithmetic Function Unit Utili           -           -  [    Low (1)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0) ]
+          1  cf_fu_utilization (15 instance  Control-Flow Function Unit Uti           -           -  [    Low (1)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0) ]
+          1  tex_fu_utilization (15 instanc  Texture Function Unit Utilizat           -           -  [   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0)   Idle (0) ]
+          1      inst_issued (15 instances)             Instructions Issued           -           -  [         51          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]
+          1      issue_slots (15 instances)                     Issue Slots           -           -  [         51          0          0          0          0          0          0          0          0          0          0          0          0          0          0 ]

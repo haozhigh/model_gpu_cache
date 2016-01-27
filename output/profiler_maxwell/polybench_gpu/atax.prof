@@ -1,0 +1,11 @@
+==8964== NVPROF is profiling process 8964, command: ./atax_profiler
+==8964== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==8964== Profiling application: ./atax_profiler
+==8964== Profiling result:
+==8964== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "GeForce GTX TITAN X (0)"
+	Kernel: atax_kernel1(float*, float*, float*)
+          1                        tex_cache_hit_rate                    Texture Cache Hit Rate      17.79%      17.79%      17.79%
+	Kernel: atax_kernel2(float*, float*, float*)
+          1                        tex_cache_hit_rate                    Texture Cache Hit Rate      59.91%      59.91%      59.91%

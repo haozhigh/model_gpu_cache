@@ -1,0 +1,7 @@
+
+####  atax_kernel1 memory_footprint:1052672  ####
+
+####  atax_kernel2 memory_footprint:1052672  ####
+GPU Runtime: 0.146266s
+CPU Runtime: 0.000452s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.50 Percent: 0

@@ -1,0 +1,9 @@
+==9093== NVPROF is profiling process 9093, command: ./gesummv_profiler
+==9093== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==9093== Profiling application: ./gesummv_profiler
+==9093== Profiling result:
+==9093== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "GeForce GTX TITAN X (0)"
+	Kernel: gesummv_kernel(float*, float*, float*, float*, float*)
+          1                        tex_cache_hit_rate                    Texture Cache Hit Rate      22.76%      22.76%      22.76%

@@ -1,0 +1,5 @@
+32768 pixels in output; 3072 samples in trajectory; using 3072 samples
+
+####  ComputePhiMag_GPU memory_footprint:36864  ####
+
+####  ComputeQ_GPU memory_footprint:655360  ####

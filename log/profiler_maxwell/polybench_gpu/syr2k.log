@@ -1,0 +1,5 @@
+
+####  syr2k_kernel memory_footprint:196608  ####
+GPU Runtime: 0.090415s
+CPU Runtime: 0.005227s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 0

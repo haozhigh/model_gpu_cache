@@ -1,0 +1,5 @@
+
+####  gesummv_kernel memory_footprint:527360  ####
+GPU Runtime: 0.069506s
+CPU Runtime: 0.000199s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 0

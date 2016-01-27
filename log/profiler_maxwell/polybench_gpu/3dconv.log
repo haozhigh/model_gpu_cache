@@ -1,0 +1,5 @@
+
+####  convolution3D_kernel memory_footprint:134217728  ####
+GPU Runtime: 10.665248s
+CPU Runtime: 0.088040s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.50 Percent: 0

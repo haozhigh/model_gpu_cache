@@ -1,0 +1,10 @@
+
+####  mysgemmNT memory_footprint:192512  ####
+GFLOPs = 0.0425909
+IO        : 0.031530
+Kernel    : 0.092324
+Copy      : 0.000141
+Driver    : 0.092326
+Compute   : 0.392399
+CPU/Kernel Overlap: 0.092324
+Timer Wall Time: 0.516483

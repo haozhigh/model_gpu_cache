@@ -1,0 +1,11 @@
+CUDA accelerated sparse matrix vector multiplication****
+Original version by Li-Wen Chang <lchang20@illinois.edu> and Shengzhao Wu<wu14@illinois.edu>
+This version maintained by Chris Rodrigues  ***********
+Converting COO to JDS format (1138x1138)
+4054 matrix entries, warp size = 32, row padding align = 1, pack size = 1
+
+Padding data....1152 rows, 36 groups
+Allocating data space: 4448 entries (8.857914% padding)
+Finished converting.
+JDS format has 1152 columns, 18 rows.
+nz_count_len = 36

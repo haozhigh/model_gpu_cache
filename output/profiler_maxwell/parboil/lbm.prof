@@ -1,0 +1,6 @@
+==8731== NVPROF is profiling process 8731, command: ./lbm_profiler -i ../datasets/parboil/lbm/short/input/120_120_150_ldc.of -o ../output/bench_output/parboil/lbm_short.out -- 100
+==8731== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==8731== Profiling application: ./lbm_profiler -i ../datasets/parboil/lbm/short/input/120_120_150_ldc.of -o ../output/bench_output/parboil/lbm_short.out -- 100
+==8731== Profiling result:
+No events/metrics were profiled.
+======== Error: Application received signal 139

@@ -1,0 +1,25 @@
+==8755== NVPROF is profiling process 8755, command: ./mri-g_profiler -i ../datasets/parboil/mri-gridding/small/input/small.uks -o ../output/bench_output/parboil/mri-g_small.out -- 32 0
+==8755== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==8755== Profiling application: ./mri-g_profiler -i ../datasets/parboil/mri-gridding/small/input/small.uks -o ../output/bench_output/parboil/mri-g_small.out -- 32 0
+==8755== Profiling result:
+==8755== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "GeForce GTX TITAN X (0)"
+	Kernel: reorder_kernel(int, unsigned int*, ReconstructionSample*, sampleArrayStruct)
+          1                        tex_cache_hit_rate                    Texture Cache Hit Rate      72.46%      72.46%      72.46%
+	Kernel: splitRearrange(int, int, unsigned int*, unsigned int*, unsigned int*, unsigned int*, unsigned int*)
+          7                        tex_cache_hit_rate                    Texture Cache Hit Rate       0.24%       1.06%       0.39%
+	Kernel: scan_inter1_kernel(unsigned int*, unsigned int)
+          9                        tex_cache_hit_rate                    Texture Cache Hit Rate       0.00%      25.00%      22.22%
+	Kernel: uniformAdd(unsigned int, unsigned int*, unsigned int*)
+          8                        tex_cache_hit_rate                    Texture Cache Hit Rate      49.90%      49.90%      49.90%
+	Kernel: scan_inter2_kernel(unsigned int*, unsigned int)
+          9                        tex_cache_hit_rate                    Texture Cache Hit Rate       0.00%      25.00%      22.22%
+	Kernel: binning_kernel(unsigned int, ReconstructionSample*, unsigned int*, unsigned int*, unsigned int*, unsigned int, unsigned int)
+          1                        tex_cache_hit_rate                    Texture Cache Hit Rate      63.26%      63.26%      63.26%
+	Kernel: gridding_GPU(sampleArrayStruct, unsigned int*, float2*, float*, float)
+          1                        tex_cache_hit_rate                    Texture Cache Hit Rate      73.91%      73.91%      73.91%
+	Kernel: splitSort(int, int, unsigned int*, unsigned int*, unsigned int*)
+          7                        tex_cache_hit_rate                    Texture Cache Hit Rate       0.00%       0.78%       0.60%
+	Kernel: scan_L1_kernel(unsigned int, unsigned int*, unsigned int*)
+          8                        tex_cache_hit_rate                    Texture Cache Hit Rate      49.90%      49.90%      49.90%

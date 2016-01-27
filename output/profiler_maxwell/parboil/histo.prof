@@ -1,0 +1,6 @@
+==8707== NVPROF is profiling process 8707, command: ./histo_profiler -i ../datasets/parboil/histo/default/input/img.bin -o ../output/bench_output/parboil/histo_default.out -- 20 4
+==8707== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==8707== Profiling application: ./histo_profiler -i ../datasets/parboil/histo/default/input/img.bin -o ../output/bench_output/parboil/histo_default.out -- 20 4
+==8707== Profiling result:
+No events/metrics were profiled.
+======== Error: Application received signal 139

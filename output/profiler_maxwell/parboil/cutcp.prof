@@ -1,0 +1,11 @@
+==8683== NVPROF is profiling process 8683, command: ./cutcp_profiler -i ../datasets/parboil/cutcp/small/input/watbox.sl40.pqr -o ../output/bench_output/parboil/cutcp_small.out
+==8683== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+Cannot open output file
+==8683== Profiling application: ./cutcp_profiler -i ../datasets/parboil/cutcp/small/input/watbox.sl40.pqr -o ../output/bench_output/parboil/cutcp_small.out
+==8683== Profiling result:
+==8683== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "GeForce GTX TITAN X (0)"
+	Kernel: cuda_cutoff_potential_lattice6overlap(int, int, float4*, float, float, float, float*, int)
+         11                        tex_cache_hit_rate                    Texture Cache Hit Rate      51.62%      53.18%      52.34%
+======== Error: Application returned non-zero code 1

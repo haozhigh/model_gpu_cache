@@ -1,0 +1,11 @@
+==8875== NVPROF is profiling process 8875, command: ./stencil_profiler -i ../datasets/parboil/stencil/small/input/128x128x32.bin -o ../output/bench_output/parboil/stencil_small.out -- 128 128 32 100
+==8875== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+Cannot open output file
+==8875== Profiling application: ./stencil_profiler -i ../datasets/parboil/stencil/small/input/128x128x32.bin -o ../output/bench_output/parboil/stencil_small.out -- 128 128 32 100
+==8875== Profiling result:
+==8875== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "GeForce GTX TITAN X (0)"
+	Kernel: block2D_hybrid_coarsen_x(float, float, float*, float*, int, int, int)
+        100                        tex_cache_hit_rate                    Texture Cache Hit Rate      48.82%      48.82%      48.82%
+======== Error: Application returned non-zero code 255

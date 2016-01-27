@@ -1,0 +1,9 @@
+
+####  fdtd_step1_kernel memory_footprint:50350032  ####
+
+####  fdtd_step2_kernel memory_footprint:50348032  ####
+
+####  fdtd_step3_kernel memory_footprint:50348032  ####
+GPU Runtime: 55.034891s
+CPU Runtime: 8.442914s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 10.05 Percent: 2

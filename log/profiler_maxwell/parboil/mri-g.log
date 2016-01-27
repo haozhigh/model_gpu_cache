@@ -1,0 +1,94 @@
+
+Reading parameters
+  Number of samples = 2655910
+  Grid Size = 256x256x256
+  Input Matrix Size = 60x60x60
+  Recon Matrix Size = 60x60x60
+  Kernel Width = 5.000000
+  KMax = 150.00 150.00 150.00
+  Oversampling = 5.000000
+  GPU Binsize = 32
+  Use LUT = Yes
+Reading input data from files
+Generating Look-Up Table
+Running gold version
+Running CUDA version
+
+####  binning_kernel memory_footprint:152098004  ####
+
+####  splitSort memory_footprint:21413312  ####
+
+####  splitRearrange memory_footprint:42660592  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+
+####  uniformAdd memory_footprint:166532  ####
+
+####  scan_L1_kernel memory_footprint:67108872  ####
+
+####  scan_inter1_kernel memory_footprint:262144  ####
+
+####  scan_inter2_kernel memory_footprint:262144  ####
+
+####  uniformAdd memory_footprint:67371016  ####
+Cannot open output file!
+
+IO        : 1.006336
+Kernel    : 9.430674
+Copy      : 0.043622
+Driver    : 9.431818
+Compute   : 0.018302
+CPU/Kernel Overlap: 9.430674
+Timer Wall Time: 12.732407

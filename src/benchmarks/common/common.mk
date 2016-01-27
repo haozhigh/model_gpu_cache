@@ -6,7 +6,7 @@ CXX				:= /usr/bin/g++-4.4
 
 INCLUDE_FLAGS	:= -I./ -I../../common/ -I/usr/local/include/ocelot/api/interface -I$(CUDA_HOME)/include
 DEBUG_FLAG      := -g
-NVCC_FLAGS		:= -O3 -m64 -arch=sm_20 $(INCLUDE_FLAGS) $(DEBUG_FLAG)
+NVCC_FLAGS		:= -O3 -m64 -arch=sm_20 $(INCLUDE_FLAGS) $(DEBUG_FLAG) --ptxas-options -dlcm=ca
 C_FLAGS			:= -O3 -m64 $(INCLUDE_FLAGS) $(DEBUG_FLAG)
 CXX_FLAGS		:= -O3 -m64 -std=c++0x $(INCLUDE_FLAGS) $(DEBUG_FLAG)
 

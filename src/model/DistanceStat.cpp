@@ -107,7 +107,8 @@ void DistanceStat::write_miss_rate_to_file(std::string file_path) {
     std::string miss_rate_file_path;
 
     //  Get miss rate output file path
-    miss_rate_file_path = file_path.substr(0, file_path.size() - 9) + ".miss_rate";
+    //miss_rate_file_path = file_path.substr(0, file_path.size() - 9) + ".miss_rate";
+    miss_rate_file_path = file_path + ".miss_rate";
 
     //  Open the file for writing
     out_stream.open(miss_rate_file_path, std::ofstream::out);

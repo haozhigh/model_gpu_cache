@@ -132,7 +132,7 @@ def parse_model_out(wide_kernel_names, model_out_dir):
         (suite, bench, kernel) = breakdown_wide_kernel_name(wide_kernel_name)
 
         ##  Set model miss rate output file for this kernel
-        out_file = path.join(model_out_dir, suite, bench, kernel + ".miss_rate")
+        out_file = path.join(model_out_dir, suite, bench, kernel + ".distance.miss_rate")
 
         ##  Check if the out_file exists
         if os.path.isfile(out_file):

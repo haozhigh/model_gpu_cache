@@ -1,5 +1,5 @@
 
-####  main: Reading model config from '/home/asic/Workspace/model_gpu_cache/script/../build/model_config/fermi_16k.config'  ####
+####  main: Reading model config from '/home/haozhi/Workspace/model_gpu_cache/script/../build/model_config/fermi_16k.config'  ####
 ########  ModelConfig::Print  ########
 cache_line_size:    128
 cache_way_size:     4
@@ -25,9 +25,9 @@ num_mshrs:          64
 
 cache_line_bits:  7
 #############  Print End  ############
-####  main: Reading trace from '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/corr/mean_kernel.trc'  ####
-####  main: Writing distances to '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/corr/mean_kernel.distance'  ####
-####  main: Reading model config from '/home/asic/Workspace/model_gpu_cache/script/../build/model_config/fermi_16k.config'  ####
+####  main: Reading trace from '/home/haozhi/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/corr/mean_kernel.trc'  ####
+####  main: Writing distances to '/home/haozhi/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/corr/mean_kernel.distance'  ####
+####  main: Reading model config from '/home/haozhi/Workspace/model_gpu_cache/script/../build/model_config/fermi_16k.config'  ####
 ########  ModelConfig::Print  ########
 cache_line_size:    128
 cache_way_size:     4
@@ -53,9 +53,9 @@ num_mshrs:          64
 
 cache_line_bits:  7
 #############  Print End  ############
-####  main: Reading trace from '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/corr/reduce_kernel.trc'  ####
-####  main: Writing distances to '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/corr/reduce_kernel.distance'  ####
-####  main: Reading model config from '/home/asic/Workspace/model_gpu_cache/script/../build/model_config/fermi_16k.config'  ####
+####  main: Reading trace from '/home/haozhi/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/corr/reduce_kernel.trc'  ####
+####  main: Writing distances to '/home/haozhi/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/corr/reduce_kernel.distance'  ####
+####  main: Reading model config from '/home/haozhi/Workspace/model_gpu_cache/script/../build/model_config/fermi_16k.config'  ####
 ########  ModelConfig::Print  ########
 cache_line_size:    128
 cache_way_size:     4
@@ -81,5 +81,5 @@ num_mshrs:          64
 
 cache_line_bits:  7
 #############  Print End  ############
-####  main: Reading trace from '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/corr/std_kernel.trc'  ####
-####  main: Writing distances to '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/corr/std_kernel.distance'  ####
+####  main: Reading trace from '/home/haozhi/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/corr/std_kernel.trc'  ####
+####  main: Writing distances to '/home/haozhi/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/corr/std_kernel.distance'  ####

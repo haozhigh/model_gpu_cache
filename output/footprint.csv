@@ -1,7 +1,9 @@
 ,footprint,op_intensity,profiler_miss,suite,bench,kernel
 parboil#bfs#BFS_in_GPU_kernel,12425636,29.692616981924427,0.5821000000000001,parboil,bfs,BFS_in_GPU_kernel
 parboil#cutcp#cuda_cutoff_potential_lattice6overlap,3354752,13.557211389496496,0.42289999999999994,parboil,cutcp,cuda_cutoff_potential_lattice6overlap
+parboil#histo#histo_final_kernel,257015808,10.567610062893081,1.0,parboil,histo,histo_final_kernel
 parboil#histo#histo_intermediates_kernel,8286720,12.583333333333334,0.5718,parboil,histo,histo_intermediates_kernel
+parboil#histo#histo_main_kernel,257079552,5.004064649904563,1.0,parboil,histo,histo_main_kernel
 parboil#histo#histo_prescan_kernel,4143368,10.255003706449221,0.43299999999999994,parboil,histo,histo_prescan_kernel
 parboil#lbm#performStreamCollide_kernel,388300800,5.661677765906933,1.0,parboil,lbm,performStreamCollide_kernel
 parboil#mri-g#binning_kernel,152098004,5.574170646479548,0.7022999999999999,parboil,mri-g,binning_kernel

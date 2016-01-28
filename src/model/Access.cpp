@@ -15,7 +15,7 @@ ThreadDim::ThreadDim() {
 
 void ThreadDim::reset(int block_size, int grid_size) {
     threads_per_warp = 32;
-    warps_per_block = block_size / threads_per_warp;
+    warps_per_block = (block_size - 1) / threads_per_warp + 1;
 
     num_blocks = grid_size;
     num_warps = num_blocks * warps_per_block;

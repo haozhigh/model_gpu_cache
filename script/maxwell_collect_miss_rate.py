@@ -22,6 +22,14 @@ def main():
     maxwell_profiler_out_dir = path.join(dir_script, "../output/maxwell_profiler")
     maxwell_miss_frame['profiler_miss'] = parse_maxwell_profiler_out(wide_kernel_names, maxwell_profiler_out_dir)
 
+    ##  Set maxwell model out dir, and call the parsing function
+    ##  Write maxwell model miss rate to the data frame
+    maxwell_model_out_dir = path.join(dir_script, "../output/trace")
+    (maxwell_model_comp_miss, maxwell_model_uncomp_miss) = parse_maxwell_model_out(wide_kernel_names, maxwell_model_out_dir)
+    maxwell_miss_frame['model_comp_miss'] = maxwell_model_comp_miss
+    maxwell_miss_frame['model_uncomp_miss'] = maxwell_model_uncomp_miss
+    maxwell_miss_frame['model_miss'] = maxwell_model_comp_miss + maxwell_model_uncomp_miss
+
     breakdown_frame_index_wide_kernel_name(maxwell_miss_frame)
 
 

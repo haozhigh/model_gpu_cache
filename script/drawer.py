@@ -28,7 +28,58 @@ def draw_error_comparison(miss_frame, title, save_path):
     ##  Figure options set
     plt.xlim(0, len(kernels))
     plt.xticks(index + 0.5, kernels.values, rotation = 'vertical')
-    plt.title('Miss Rate Error Comparison')
+    plt.title(title)
+    plt.xlabel('Kernel Name')
+    plt.ylabel('Miss Rate Error(%)')
+    plt.legend()
+
+    ##  Write figure to file and clear plot
+    fig = plt.gcf()
+    fig.set_size_inches(14, 8)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
+def draw_architecture_compare(fermi_miss_frame, maxwell_miss_frame, title, save_path):
+    kernels = fermi_miss_frame['kernel']
+    index = np.arange(len(kernels))
+
+    ##  Do the plot
+    plt.plot(index + 0.5, fermi_miss_frame['profiler_miss'], linestyle = "-", color = "k", marker = 'o', label = "Fermi Profiler Miss Rate")
+    plt.plot(index + 0.5, maxwell_miss_frame['profiler_miss'], linestyle = "-", color = "k", marker = 's', label = "MaxWell Profiler Miss Rate")
+
+    ##  Figure options set
+    plt.xlim(0, len(kernels))
+    plt.xticks(index + 0.5, kernels.values, rotation = 'vertical')
+    plt.title(title)
+    plt.xlabel('Kernel Name')
+    plt.ylabel('Miss Rate Error(%)')
+    plt.legend()
+
+    ##  Write figure to file and clear plot
+    fig = plt.gcf()
+    fig.set_size_inches(14, 8)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
+
+def draw_error_model(miss_frame, title, save_path):
+    kernels = miss_frame['kernel']
+    index = np.arange(len(kernels))
+
+    ##  Calculate errors
+    error_model = (miss_frame['model_miss'] - miss_frame['profiler_miss']).abs() * 100
+
+    ##  Do the plot
+    plt.plot(index + 0.5, error_model, linestyle = "-", color = "k", marker = 'o', label = "My Model")
+
+    ##  Figure options set
+    plt.xlim(0, len(kernels))
+    plt.xticks(index + 0.5, kernels.values, rotation = 'vertical')
+    plt.title(title)
     plt.xlabel('Kernel Name')
     plt.ylabel('Miss Rate Error(%)')
     plt.legend()

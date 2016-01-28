@@ -147,6 +147,32 @@ def parse_model_out(wide_kernel_names, model_out_dir):
     ##  Return the Series
     return (model_comp_miss, model_uncomp_miss)
 
+def parse_maxwell_model_out(wide_kernel_names, maxwell_model_out_dir):
+    model_comp_miss = Series(0.0, index = wide_kernel_names)
+    model_uncomp_miss = Series(0.0, index = wide_kernel_names)
+
+    ##  Iterat over all kernels
+    for wide_kernel_name in wide_kernel_names:
+
+        ##  Abstract info from wide_kernel_name
+        (suite, bench, kernel) = breakdown_wide_kernel_name(wide_kernel_name)
+
+        ##  Set model miss rate output file for this kernel
+        out_file = path.join(maxwell_model_out_dir, suite, bench, kernel + ".maxwell.distance.miss_rate")
+
+        ##  Check if the out_file exists
+        if os.path.isfile(out_file):
+
+            ##  Read miss rate info from the file
+            f_str = read_text_file(out_file)
+
+            ##  Write miss rate to Series
+            model_comp_miss[wide_kernel_name] = float(f_str.split(' ')[0])
+            model_uncomp_miss[wide_kernel_name] = float(f_str.split(' ')[1])
+
+    ##  Return the Series
+    return (model_comp_miss, model_uncomp_miss)
+
 def parse_base_model_out(wide_kernel_names, base_model_out_dir):
     base_model_comp_miss = Series(0.0, index = wide_kernel_names)
     base_model_uncomp_miss = Series(0.0, index = wide_kernel_names)

@@ -1,10 +1,9 @@
-==8898== NVPROF is profiling process 8898, command: ./tpacf_profiler -i ../datasets/parboil/tpacf/small/input/Datapnts.1,../datasets/parboil/tpacf/small/input/Randompnts.1,../datasets/parboil/tpacf/small/input/Randompnts.2,../datasets/parboil/tpacf/small/input/Randompnts.3,../datasets/parboil/tpacf/small/i
-==8898== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
-Unable to open output file ../output/bench_output/parboil/tpacf_small.out for writing, assuming stdout
-==8898== Profiling application: ./tpacf_profiler -i ../datasets/parboil/tpacf/small/input/Datapnts.1,../datasets/parboil/tpacf/small/input/Randompnts.1,../datasets/parboil/tpacf/small/input/Randompnts.2,../datasets/parboil/tpacf/small/input/Randompnts.3,../datasets/parboil/tpacf/small/i
-==8898== Profiling result:
-==8898== Metric result:
+==7556== NVPROF is profiling process 7556, command: ./tpacf_profiler -i ../datasets/parboil/tpacf/small/input/Datapnts.1,../datasets/parboil/tpacf/small/input/Randompnts.1,../datasets/parboil/tpacf/small/input/Randompnts.2,../datasets/parboil/tpacf/small/input/Randompnts.3,../datasets/parboil/tpacf/small/i
+==7556== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==7556== Profiling application: ./tpacf_profiler -i ../datasets/parboil/tpacf/small/input/Datapnts.1,../datasets/parboil/tpacf/small/input/Randompnts.1,../datasets/parboil/tpacf/small/input/Randompnts.2,../datasets/parboil/tpacf/small/input/Randompnts.3,../datasets/parboil/tpacf/small/i
+==7556== Profiling result:
+==7556== Metric result:
 Invocations                               Metric Name                        Metric Description         Min         Max         Avg
 Device "GeForce GTX TITAN X (0)"
 	Kernel: gen_hists(unsigned long*, float*, float*, float*, int, int)
-          1                        tex_cache_hit_rate                    Texture Cache Hit Rate      80.27%      80.27%      80.27%
+          1                        tex_cache_hit_rate                    Texture Cache Hit Rate      80.32%      80.32%      80.32%

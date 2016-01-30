@@ -1,8 +1,8 @@
-==9114== NVPROF is profiling process 9114, command: ./mvt_profiler
-==9114== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
-==9114== Profiling application: ./mvt_profiler
-==9114== Profiling result:
-==9114== Metric result:
+==7818== NVPROF is profiling process 7818, command: ./mvt_profiler
+==7818== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==7818== Profiling application: ./mvt_profiler
+==7818== Profiling result:
+==7818== Metric result:
 Invocations                               Metric Name                        Metric Description         Min         Max         Avg
 Device "GeForce GTX TITAN X (0)"
 	Kernel: mvt_kernel1(float*, float*, float*)

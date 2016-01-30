@@ -1,6 +1,11 @@
-==8659== NVPROF is profiling process 8659, command: ./bfs_profiler -i ../datasets/parboil/bfs/NY/input/graph_input.dat -o ../output/bench_output/parboil/bfs_NY.out
-==8659== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
-==8659== Profiling application: ./bfs_profiler -i ../datasets/parboil/bfs/NY/input/graph_input.dat -o ../output/bench_output/parboil/bfs_NY.out
-==8659== Profiling result:
-No events/metrics were profiled.
-======== Error: Application received signal 139
+==7322== NVPROF is profiling process 7322, command: ./bfs_profiler -i ../datasets/parboil/bfs/NY/input/graph_input.dat -o ../output/bench_output/parboil/bfs_NY.out
+==7322== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==7322== Profiling application: ./bfs_profiler -i ../datasets/parboil/bfs/NY/input/graph_input.dat -o ../output/bench_output/parboil/bfs_NY.out
+==7322== Profiling result:
+==7322== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "GeForce GTX TITAN X (0)"
+	Kernel: BFS_kernel_multi_blk_inGPU(int*, int*, int2*, int2*, int*, int*, int*, int*, int, int, int*, int*, int*, int*)
+          3                        tex_cache_hit_rate                    Texture Cache Hit Rate      42.14%      66.25%      51.44%
+	Kernel: BFS_in_GPU_kernel(int*, int*, int2*, int2*, int*, int*, int, int*, int, int, int*)
+          4                        tex_cache_hit_rate                    Texture Cache Hit Rate      43.47%      49.59%      45.76%

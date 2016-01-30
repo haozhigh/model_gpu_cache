@@ -1,9 +1,9 @@
-==9072== NVPROF is profiling process 9072, command: ./gemm_profiler
-==9072== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
-==9072== Profiling application: ./gemm_profiler
-==9072== Profiling result:
-==9072== Metric result:
+==7776== NVPROF is profiling process 7776, command: ./gemm_profiler
+==7776== Warning: Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==7776== Profiling application: ./gemm_profiler
+==7776== Profiling result:
+==7776== Metric result:
 Invocations                               Metric Name                        Metric Description         Min         Max         Avg
 Device "GeForce GTX TITAN X (0)"
 	Kernel: gemm_kernel(float*, float*, float*)
-          1                        tex_cache_hit_rate                    Texture Cache Hit Rate      78.30%      78.30%      78.30%
+          1                        tex_cache_hit_rate                    Texture Cache Hit Rate      78.24%      78.24%      78.24%

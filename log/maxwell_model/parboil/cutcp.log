@@ -1,9 +1,9 @@
 
 ####  main: Reading model config from '/home/asic/Workspace/model_gpu_cache/script/../build/model_config/maxwell.config'  ####
 ########  ModelConfig::Print  ########
-cache_line_size:    128
-cache_way_size:     6
-cache_set_size:     32
+cache_line_size:    32
+cache_way_size:     192
+cache_set_size:     4
 
 allocate_on_miss:   1
 jam_instruction:    1
@@ -18,12 +18,12 @@ max_active_threads: 2048
 
 num_running_threads:4
 
-mapping_type:       2
+mapping_type:       3
 
 mshr_check:         1
 num_mshrs:          64
 
-cache_line_bits:  7
+cache_line_bits:  5
 #############  Print End  ############
 ####  main: Reading trace from '/home/asic/Workspace/model_gpu_cache/script/../output/trace/parboil/cutcp/cuda_cutoff_potential_lattice6overlap.trc'  ####
 ####  main: Writing distances to '/home/asic/Workspace/model_gpu_cache/script/../output/trace/parboil/cutcp/cuda_cutoff_potential_lattice6overlap.maxwell.distance'  ####

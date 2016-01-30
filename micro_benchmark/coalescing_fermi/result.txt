@@ -1,0 +1,9 @@
+==6387== NVPROF is profiling process 6387, command: ./main
+==6387== Profiling application: ./main
+==6387== Profiling result:
+==6387== Event result:
+Invocations                      Event Name         Min         Max         Avg
+Device "GeForce GTX 570 (0)"
+	Kernel: copy_kernel(int*, int*)
+          1  l1_global_load_hit (4 instance           -           -  [          0          0          0          0 ]
+          1  l1_global_load_miss (4 instanc           -           -  [          1          0          0          0 ]

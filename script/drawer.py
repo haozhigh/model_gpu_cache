@@ -179,6 +179,29 @@ def draw_miss_rate(footprint_frame, title, save_path):
     fig.savefig(save_path)
     fig.clf()
 
+def draw_distance_histo(distance_values, distance_counts, title, save_path):
+    index = np.arange(len(distance_values))
+
+    rects = plt.bar(index + 0.1, distance_counts, 0.8, color = 'w')
+
+    for i in range(0, len(rects)):
+        rect = rects[i]
+        plt.text(rect.get_x() + rect.get_width() / 2, rect.get_height() * 1.01, '%d'%(distance_counts[i]), ha = 'center', va = 'baseline')
+
+    plt.xlim(0, len(distance_values))
+    plt.ylim(0, max(distance_counts) * 1.2)
+    #plt.xticks(index + 0.5, distance_values, rotation = 'vertical')
+    plt.xticks(index + 0.5, distance_values)
+    plt.title(title)
+    plt.xlabel('Reuse Distance')
+    plt.ylabel('Occurance Count')
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 3)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
 
 def main():
     print("This is an empty main function.")

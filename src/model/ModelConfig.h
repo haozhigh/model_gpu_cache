@@ -25,6 +25,7 @@ class ModelConfig {
     int num_running_threads;
     
     int mapping_type;
+    int coalescing_type;
 
     int mshr_check;
     int num_mshrs;

@@ -51,6 +51,7 @@ void ModelConfig::print() {
     std::cout << "num_running_threads:" << num_running_threads << std::endl;
     std::cout << std::endl;
     std::cout << "mapping_type:       " << mapping_type << std::endl;
+    std::cout << "coalescing_type:    " << coalescing_type << std::endl;
     std::cout << std::endl;
     std::cout << "mshr_check:         " << mshr_check << std::endl;
     std::cout << "num_mshrs:          " << num_mshrs << std::endl;

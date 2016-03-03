@@ -114,10 +114,11 @@ int calculate_cache_set(addr_type line_addr, ModelConfig & model_config) {
 		set = (b01234 ^ b678AC) + bits[5]*32;
 	}
     
-    //  Maxwell texture cache hashing function
+/*    //  Maxwell texture cache hashing function
     else if (model_config.mapping_type == 3) {
         set = (line_addr >> 2) % model_config.cache_set_size;
     }
+*/
 	
 	// Return the result modulo the number of sets
 	return (set % model_config.cache_set_size);

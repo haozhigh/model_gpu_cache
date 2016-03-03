@@ -179,20 +179,19 @@ def draw_miss_rate(footprint_frame, title, save_path):
     fig.savefig(save_path)
     fig.clf()
 
-def draw_distance_histo(distance_values, distance_counts, title, save_path):
+def draw_distance_histo(distance_values, distance_counts, save_path):
     index = np.arange(len(distance_values))
 
     rects = plt.bar(index + 0.1, distance_counts, 0.8, color = 'w')
 
-    for i in range(0, len(rects)):
-        rect = rects[i]
-        plt.text(rect.get_x() + rect.get_width() / 2, rect.get_height() * 1.01, '%d'%(distance_counts[i]), ha = 'center', va = 'baseline')
+#    for i in range(0, len(rects)):
+#        rect = rects[i]
+#        plt.text(rect.get_x() + rect.get_width() / 2, rect.get_height() * 1.01, '%d'%(distance_counts[i]), ha = 'center', va = 'baseline')
 
     plt.xlim(0, len(distance_values))
     plt.ylim(0, max(distance_counts) * 1.2)
     #plt.xticks(index + 0.5, distance_values, rotation = 'vertical')
     plt.xticks(index + 0.5, distance_values)
-    plt.title(title)
     plt.xlabel('Reuse Distance')
     plt.ylabel('Occurance Count')
 
@@ -202,6 +201,53 @@ def draw_distance_histo(distance_values, distance_counts, title, save_path):
     fig.set_tight_layout(True)
     fig.savefig(save_path)
     fig.clf()
+
+def draw_pc_histo(pcs, pc_hit_counts, pc_miss_counts, save_path):
+    index = np.arange(len(pcs))
+
+    plt.bar(index + 0.1, pc_miss_counts, 0.4, color = 'w', label = "Miss Count", hatch = "//")
+    plt.bar(index + 0.5, pc_hit_counts, 0.4, color = 'w', label = "Hit Count", hatch = "..")
+
+    plt.xlim(0, len(pcs))
+    plt.ylim(0, max(max(pc_miss_counts), max(pc_hit_counts)) * 1.2)
+    #plt.xticks(index + 0.5, distance_values, rotation = 'vertical')
+    plt.xticks(index + 0.5, pcs)
+    plt.title("-")
+    plt.xlabel('Program Counter')
+    plt.ylabel('Cache Miss/Hit Count')
+    plt.legend(loc = 'lower left', fontsize = 'small', ncol = 2, bbox_to_anchor = (0, 1))
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 3)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
+def draw_miss_breakdown(miss_frame, save_path):
+    kernels = miss_frame['kernel']
+    index = np.arange(len(kernels))
+
+    plt.bar(index + 0.15, miss_frame['model_comp_miss'], 0.35, label = 'compulsory miss', color = 'w', hatch = '//')
+    plt.bar(index + 0.50, miss_frame['model_uncomp_miss'], 0.35, label = 'uncompulsory miss', color = 'w', hatch = '..', bottom = miss_frame['model_comp_miss'])
+
+    ##  Figure options set
+    plt.xlim(0, len(kernels))
+    plt.xticks(index + 0.5, kernels.values, rotation = 'vertical')
+    plt.title('-')
+    plt.xlabel('Kernel Name')
+    plt.ylabel('Miss Rate(%)')
+    plt.legend(loc = 'lower left', fontsize = 'small', ncol = 2, bbox_to_anchor = (0, 1))
+
+    ##  Write figure to file and clear plot
+    fig = plt.gcf()
+    fig.set_size_inches(14, 8)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
+
 
 def main():
     print("This is an empty main function.")

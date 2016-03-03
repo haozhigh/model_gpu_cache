@@ -19,6 +19,10 @@ def main():
     ##  Draw a Error comparison chart for each suite
     draw_error_comparison(miss_frame, "Miss Rate Error Comparison", path.join(dir_script, "../output/miss_rate_error_compare.png"))
 
+
+    ##  Draw cache miss break down to compulsory miss and uncompulsory miss
+    draw_miss_breakdown(miss_frame, path.join(dir_script, "../output/miss_breakdown.png")
+
     ##  Divide duration time by profiler duration for the same bench
     #duration_frame['base_model'] = duration_frame['base_model'] / duration_frame['profiler']
     #duration_frame['model'] = duration_frame['model'] / duration_frame['profiler']

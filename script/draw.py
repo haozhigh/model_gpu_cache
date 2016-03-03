@@ -21,7 +21,7 @@ def main():
 
 
     ##  Draw cache miss break down to compulsory miss and uncompulsory miss
-    draw_miss_breakdown(miss_frame, path.join(dir_script, "../output/miss_breakdown.png")
+    draw_miss_breakdown(miss_frame, path.join(dir_script, "../output/miss_breakdown.png"))
 
     ##  Divide duration time by profiler duration for the same bench
     #duration_frame['base_model'] = duration_frame['base_model'] / duration_frame['profiler']

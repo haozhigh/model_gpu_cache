@@ -228,8 +228,8 @@ def draw_miss_breakdown(miss_frame, save_path):
     kernels = miss_frame['kernel']
     index = np.arange(len(kernels))
 
-    plt.bar(index + 0.15, miss_frame['model_comp_miss'], 0.35, label = 'compulsory miss', color = 'w', hatch = '//')
-    plt.bar(index + 0.50, miss_frame['model_uncomp_miss'], 0.35, label = 'uncompulsory miss', color = 'w', hatch = '..', bottom = miss_frame['model_comp_miss'])
+    plt.bar(index + 0.15, miss_frame['model_comp_miss'], 0.7, label = 'compulsory miss', color = 'w', hatch = '//')
+    plt.bar(index + 0.15, miss_frame['model_uncomp_miss'], 0.7, label = 'uncompulsory miss', color = 'w', hatch = '..', bottom = miss_frame['model_comp_miss'])
 
     ##  Figure options set
     plt.xlim(0, len(kernels))

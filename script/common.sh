@@ -66,6 +66,7 @@ script_dir="$( cd "$( dirname $0 )" && pwd )"
 ##  Set the specific dirs
 build_dir="$script_dir/../build"
 
+##  Dirs to store running log and duration
 log_dir="$script_dir/../log"
 log_dir_trace="$log_dir/trace"
 log_dir_base_trace="$log_dir/base_trace"
@@ -77,6 +78,7 @@ log_dir_sim="$log_dir/sim"
 log_dir_maxwell_model="$log_dir/maxwell_model"
 log_dir_analyze="$log_dir/analyze"
 
+##  Dirs to store all kinds of output
 trace_dir="$script_dir/../output/trace"
 base_trace_dir="$script_dir/../output/base_trace"
 code_dir="$script_dir/../output/code"
@@ -84,6 +86,7 @@ out_profiler_dir="$script_dir/../output/profiler"
 out_sim_dir="$script_dir/../output/sim"
 out_analyze_dir="$script_dir/../output/analyze"
 
+##  Other dirs
 benchmarks_dir="$script_dir/../src/benchmarks"
 model_dir="$script_dir/../src/model"
 base_model_dir="$script_dir/../src/base_model"
@@ -96,7 +99,9 @@ makesure_dir_exists "$log_dir_trace"
 makesure_dir_exists "$log_dir_base_trace"
 makesure_dir_exists "$log_dir_code"
 makesure_dir_exists "$log_dir_model"
+makesure_dir_exists "$log_dir_base_model"
 makesure_dir_exists "$log_dir_profiler"
+makesure_dir_exists "$log_dir_sim"
 makesure_dir_exists "$log_dir_maxwell_model"
 makesure_dir_exists "$log_dir_analyze"
 
@@ -104,4 +109,5 @@ makesure_dir_exists "$trace_dir"
 makesure_dir_exists "$base_trace_dir"
 makesure_dir_exists "$code_dir"
 makesure_dir_exists "$out_profiler_dir"
+makesure_dir_exists "$out_sim_dir"
 makesure_dir_exists "$out_analyze_dir"

@@ -13,23 +13,23 @@ for suite in $suites; do
 			cd "$build_dir"
 
 			##  Make sure the dir to store trace exists
-			trace_dir_bench="$trace_dir/$suite/$bench"
-			makesure_dir_exists "$trace_dir_bench"
+			out_dir_bench="$trace_dir/$suite/$bench"
+			makesure_dir_exists "$out_dir_bench"
 
             ##  Make sure the dir to store log for this suite exists
             ##  Set the file path to store log info and duration info
-            log_dir_trace_suite="$log_dir_trace/$suite"
-            makesure_dir_exists "$log_dir_trace_suite"
+            log_dir_suite="$log_dir_trace/$suite"
+            makesure_dir_exists "$log_dir_suite"
 
 			##  Generating trace
             ##  Get the time stamp before and after execution
             stamp0=$( get_time_ms )
-			./${bench}_trace "$trace_dir_bench" $( get_bench_args $suite $bench ) | tee "$$log_dir_trace_suite/$bench.log"
+			./${bench}_trace "$out_dir_bench" $( get_bench_args $suite $bench ) | tee "$log_dir_suite/$bench.log"
             stamp1=$( get_time_ms )
 
             ##  Calculate time duration and write to corresponding file
             duration=$((stamp1 - stamp0))
-            echo $duration > "$log_dir_trace_suite/$bench.duration"
+            echo $duration > "$log_dir_suite/$bench.duration"
 		fi
     done
 done

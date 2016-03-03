@@ -20,16 +20,17 @@ for suite in $suites; do
 
             ##  Make sure the dir to store log for this suite exists
             ##  Set the file path to store log info and duration info
-            log_dir_model_suite="$log_dir_model/$suite"
-            makesure_dir_exists "$log_dir_model_suite"
+            log_dir_suite="$log_dir_model/$suite"
+            makesure_dir_exists "$log_dir_suite"
 
             ##  Make log_file empty
             ##  One log file to store all kernel modeling log
-            echo "" > "$log_dir_model_suite/$bench.log"
+            echo "" > "$log_dir_suite/$bench.log"
 
             ##  Get all kernel name of this bench
-			trace_dir_bench="$trace_dir/$suite/$bench"
-            cd "$trace_dir_bench"
+            ##  Input and output files are in the same directory
+			out_dir_bench="$trace_dir/$suite/$bench"
+            cd "$out_dir_bench"
             trace_file_names=$( ls *.trc )
             kernel_names=$( strip_extensions "$trace_file_names" )
 
@@ -40,13 +41,13 @@ for suite in $suites; do
             for kernel_name in $kernel_names; do
                 
                 ##  Run the model
-                ./model "$trace_dir_bench/${kernel_name}.trc" "$trace_dir_bench/${kernel_name}.distance" "$model_config_file" | tee -a "$log_dir_model_suite/$bench.log"
+                ./model "$out_dir_bench/${kernel_name}.trc" "$out_dir_bench/${kernel_name}.distance" "$model_config_file" | tee -a "$log_dir_suite/$bench.log"
             done
 
             ##  Calculate time duration and write to corresponding file
             stamp1=$( get_time_ms )
             duration=$((stamp1 - stamp0))
-            echo $duration > "$log_dir_model_suite/$bench.duration"
+            echo $duration > "$log_dir_suite/$bench.duration"
 		fi
     done
 done

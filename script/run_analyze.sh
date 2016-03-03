@@ -16,8 +16,8 @@ for suite in $suites; do
             stamp0=$( get_time_ms )
 
             ##  Make sure the dir to store analysis result for this suite exists
-            out_analyze_dir_bench="$out_analyze_dir/$suite/$bench"
-            makesure_dir_exists "$out_analyze_dir_bench"
+            out_dir_bench="$out_analyze_dir/$suite/$bench"
+            makesure_dir_exists "$out_dir_bench"
 
             ##  Make sure the dir to store log for this suite exists
             ##  Set the file path to store log info and duration info
@@ -41,7 +41,7 @@ for suite in $suites; do
             for kernel_name in $kernel_names; do
 
                 ##  Run the analysis
-                ./analyze.py $suite $bench $kernel_name
+                ./analyze.py "$trace_dir_bench/$kernel_name.distance" "$out_dir_bench" "$kernel_name"
             done
 
             ##  Calculate time duration and write to corresponding file

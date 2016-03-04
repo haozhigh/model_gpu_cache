@@ -38,7 +38,7 @@ class TraceGenerator : public trace::TraceGenerator {
         void force_exit();
 
         //  Variables needed to limit the total number of accesses recorded
-        bool num_access_within_limit;
+        bool sampling_within_limit;
         int total_num_accesses;
         int last_block_id;
 
@@ -151,7 +151,7 @@ void TraceGenerator::initialize(const executive::ExecutableKernel & kernel) {
     //this->out_stream << block_dim.z << "\n";
 
     //  Reset variables to limit total number of accesses
-    num_access_within_limit = true;;
+    sampling_within_limit = true;;
     total_num_accesses = 0;
     last_block_id = -1;
 
@@ -165,33 +165,13 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
     int block_id;
     int block_dim;
 
+    //  If current event is out of limit, just return
+    if (! sampling_within_limit)
+        return;
+
     //  Compute block_id and block_dim
     block_id = event.blockId.x * event.gridDim.y * event.gridDim.z + event.blockId.y * event.gridDim.z + event.blockId.z;
     block_dim = event.blockDim.x * event.blockDim.y * event.blockDim.z;
-
-    //  Choose between two different type of limits
-    //  If current event is out of limit, just return
-    if (choose_num_access_limit == 1) {
-        //  If the number of accesses already exceeds limit, do not record any more
-        if (! num_access_within_limit)
-            return;
-    }
-    else {
-        //  For the first block out of limit
-        //  cout informantion
-        if (block_id == TOTAL_NUM_THREAD_LIMIT / block_dim) {
-            std::cout<< "####  TraceGenerator::event: Total number of threads exceeds " << TOTAL_NUM_THREAD_LIMIT << "  ####" << std::endl;
-            int grid_dim = event.gridDim.x * event.gridDim.y * event.gridDim.z;
-            std::cout<< "####  TraceGenerator::event: Please wait while " << (grid_dim - block_id) << "(out of " << grid_dim << ") blocks are still running ####" << std::endl;
-
-            //  update total_threads to the restricted value
-            total_threads = block_id * block_dim;
-
-            return;
-        }
-        if (block_id >= TOTAL_NUM_THREAD_LIMIT / block_dim)
-            return;
-    }
 
     // At the start of each thread block
     if (block_id > last_block_id) {
@@ -200,12 +180,27 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
         //  If last_load of the last thread block is not empty, write it to file
         last_load.write_to_file(this->out_stream);
 
-        //  Check if number of access limit is chosen
+        //  Chick which kind of sampling limit is chosen
         if (choose_num_access_limit == 1) {
-        // Check if the number of accesses exceeds limit
+            // Check if the number of accesses exceeds limit
             if (total_num_accesses > TOTAL_NUM_ACCESS_LIMIT) {
-                num_access_within_limit = false;
+                sampling_within_limit = false;
                 std::cout<< "####  TraceGenerator::event: Total number of accesses exceeds " << TOTAL_NUM_ACCESS_LIMIT << "  ####" << std::endl;
+                int grid_dim = event.gridDim.x * event.gridDim.y * event.gridDim.z;
+                std::cout<< "####  TraceGenerator::event: Please wait while " << (grid_dim - block_id) << "(out of " << grid_dim << ") blocks are still running ####" << std::endl;
+
+                //  Reset total number of theads to the restricted value
+                total_threads = block_dim * block_id;
+
+                //  Return for the first event that number of accesses exceeds limit
+                return;
+            }
+        }
+        else {
+            //  Check if the number of threads exceeds limit
+            if (block_id >= TOTAL_NUM_THREAD_LIMIT / block_dim) {
+                sampling_within_limit = false;
+                std::cout<< "####  TraceGenerator::event: Total number of threads exceeds " << TOTAL_NUM_THREAD_LIMIT << "  ####" << std::endl;
                 int grid_dim = event.gridDim.x * event.gridDim.y * event.gridDim.z;
                 std::cout<< "####  TraceGenerator::event: Please wait while " << (grid_dim - block_id) << "(out of " << grid_dim << ") blocks are still running ####" << std::endl;
 

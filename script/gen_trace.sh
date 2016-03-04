@@ -24,7 +24,7 @@ for suite in $suites; do
 			##  Generating trace
             ##  Get the time stamp before and after execution
             stamp0=$( get_time_ms )
-			./${bench}_trace "$out_dir_bench" $( get_bench_args $suite $bench ) | tee "$log_dir_suite/$bench.log"
+			./${bench}_trace "$out_dir_bench" 1 $( get_bench_args $suite $bench ) | tee "$log_dir_suite/$bench.log"
             stamp1=$( get_time_ms )
 
             ##  Calculate time duration and write to corresponding file

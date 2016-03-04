@@ -18,6 +18,13 @@
 
 
 #define TOTAL_NUM_ACCESS_LIMIT 10000000
+#define TOTAL_NUM_THREAD_LIMIT 8192
+
+//  choose_num_access_limit to config use number of access limit or
+//  number of threads limit
+//  1:  use number of access limit
+//  0:  use number of threads limit
+static int choose_num_access_limit = 1;
 
 
 class TraceGenerator : public trace::TraceGenerator {
@@ -158,13 +165,33 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
     int block_id;
     int block_dim;
 
-    //  If the number of accesses already exceeds limit, do not record any more
-    if (! num_access_within_limit)
-        return;
-
     //  Compute block_id and block_dim
     block_id = event.blockId.x * event.gridDim.y * event.gridDim.z + event.blockId.y * event.gridDim.z + event.blockId.z;
     block_dim = event.blockDim.x * event.blockDim.y * event.blockDim.z;
+
+    //  Choose between two different type of limits
+    //  If current event is out of limit, just return
+    if (choose_num_access_limit == 1) {
+        //  If the number of accesses already exceeds limit, do not record any more
+        if (! num_access_within_limit)
+            return;
+    }
+    else {
+        //  For the first block out of limit
+        //  cout informantion
+        if (block_id == TOTAL_NUM_THREAD_LIMIT / block_dim) {
+            std::cout<< "####  TraceGenerator::event: Total number of threads exceeds " << TOTAL_NUM_THREAD_LIMIT << "  ####" << std::endl;
+            int grid_dim = event.gridDim.x * event.gridDim.y * event.gridDim.z;
+            std::cout<< "####  TraceGenerator::event: Please wait while " << (grid_dim - block_id) << "(out of " << grid_dim << ") blocks are still running ####" << std::endl;
+
+            //  update total_threads to the restricted value
+            total_threads = block_id * block_dim;
+
+            return;
+        }
+        if (block_id >= TOTAL_NUM_THREAD_LIMIT / block_dim)
+            return;
+    }
 
     // At the start of each thread block
     if (block_id > last_block_id) {
@@ -173,24 +200,27 @@ void TraceGenerator::event(const trace::TraceEvent & event) {
         //  If last_load of the last thread block is not empty, write it to file
         last_load.write_to_file(this->out_stream);
 
+        //  Check if number of access limit is chosen
+        if (choose_num_access_limit == 1) {
         // Check if the number of accesses exceeds limit
-        if (total_num_accesses > TOTAL_NUM_ACCESS_LIMIT) {
-            num_access_within_limit = false;
-            std::cout<< "####  TraceGenerator::event: Total number of accesses exceeds " << TOTAL_NUM_ACCESS_LIMIT << "  ####" << std::endl;
-            int grid_dim = event.gridDim.x * event.gridDim.y * event.gridDim.z;
-            std::cout<< "####  TraceGenerator::event: Please wait while " << (grid_dim - block_id) << "(out of " << grid_dim << ") blocks are still running ####" << std::endl;
+            if (total_num_accesses > TOTAL_NUM_ACCESS_LIMIT) {
+                num_access_within_limit = false;
+                std::cout<< "####  TraceGenerator::event: Total number of accesses exceeds " << TOTAL_NUM_ACCESS_LIMIT << "  ####" << std::endl;
+                int grid_dim = event.gridDim.x * event.gridDim.y * event.gridDim.z;
+                std::cout<< "####  TraceGenerator::event: Please wait while " << (grid_dim - block_id) << "(out of " << grid_dim << ") blocks are still running ####" << std::endl;
 
-            //  Reset total number of theads to the restricted value
-            total_threads = block_dim * block_id;
+                //  Reset total number of theads to the restricted value
+                total_threads = block_dim * block_id;
 
-            //  Return for the first event that number of accesses exceeds limit
-            return;
+                //  Return for the first event that number of accesses exceeds limit
+                return;
+            }
         }
     }
-    
+
     //  Only handles global load instructions or Tex instructions
     if ((event.instruction->isLoad() && event.instruction->addressSpace == ir::PTXInstruction::Global) ||
-        event.instruction->opcode == ir::PTXInstruction::Tex) {
+            event.instruction->opcode == ir::PTXInstruction::Tex) {
 
         //  If last_load is not empty, write it to file
         //  Only write warps that are going to be affected by current event
@@ -247,8 +277,14 @@ void TraceGenerator::write_total_num_threads_to_file() {
 extern int original_main(int, char**);
 
 int main(int argc, char** argv) {
+    //  Read choose_num_access_limit from argv[2]
+    if (argv[2][0] == '0')
+        choose_num_access_limit = 0;
+    else
+        choose_num_access_limit = 1;
+
 	TraceGenerator generator(argv[1]);
 	ocelot::addTraceGenerator(generator);
-	original_main(argc - 1, argv + 1);
+	original_main(argc - 2, argv + 2);
 	return 0;
 }

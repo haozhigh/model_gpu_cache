@@ -62,34 +62,34 @@ def main():
 
 
 
-    ##  Calculate even values
-    model_miss_error = miss_frame['model_miss'] - miss_frame['profiler_miss']
-    model_miss_error = model_miss_error.abs()
-    base_model_miss_error = miss_frame['base_model_miss'] - miss_frame['profiler_miss']
-    base_model_miss_error = base_model_miss_error.abs()
-    sim_miss_error = miss_frame['sim_miss'] - miss_frame['profiler_miss']
-    sim_miss_error = sim_miss_error.abs()
-
-    print("model miss error mean : " + str(model_miss_error.mean()))
-    print("base_model miss error mean : " + str(base_model_miss_error.mean()))
-    print("sim miss error mean : " + str(sim_miss_error.mean()))
-
-    model_duration = duration_frame['model'] + duration_frame['trace']
-    base_model_duration = duration_frame['base_model'] + duration_frame['base_trace']
-    sim_duration = duration_frame['sim']
-
-    print("model duration mean: " + str(model_duration.mean()))
-    print("base model duration mean: " + str(base_model_duration.mean()))
-    print("sim duration mean: " + str(sim_duration.mean()))
-
-    ##  Exclude trace generation time
-    model_duration = duration_frame['model']
-    base_model_duration = duration_frame['base_model']
-    sim_duration = duration_frame['sim']
-
-    print("model duration mean: " + str(model_duration.mean()))
-    print("base model duration mean: " + str(base_model_duration.mean()))
-    print("sim duration mean: " + str(sim_duration.mean()))
+#    ##  Calculate even values
+#    model_miss_error = miss_frame['model_miss'] - miss_frame['profiler_miss']
+#    model_miss_error = model_miss_error.abs()
+#    base_model_miss_error = miss_frame['base_model_miss'] - miss_frame['profiler_miss']
+#    base_model_miss_error = base_model_miss_error.abs()
+#    sim_miss_error = miss_frame['sim_miss'] - miss_frame['profiler_miss']
+#    sim_miss_error = sim_miss_error.abs()
+#
+#    print("model miss error mean : " + str(model_miss_error.mean()))
+#    print("base_model miss error mean : " + str(base_model_miss_error.mean()))
+#    print("sim miss error mean : " + str(sim_miss_error.mean()))
+#
+#    model_duration = duration_frame['model'] + duration_frame['trace']
+#    base_model_duration = duration_frame['base_model'] + duration_frame['base_trace']
+#    sim_duration = duration_frame['sim']
+#
+#    print("model duration mean: " + str(model_duration.mean()))
+#    print("base model duration mean: " + str(base_model_duration.mean()))
+#    print("sim duration mean: " + str(sim_duration.mean()))
+#
+#    ##  Exclude trace generation time
+#    model_duration = duration_frame['model']
+#    base_model_duration = duration_frame['base_model']
+#    sim_duration = duration_frame['sim']
+#
+#    print("model duration mean: " + str(model_duration.mean()))
+#    print("base model duration mean: " + str(base_model_duration.mean()))
+#    print("sim duration mean: " + str(sim_duration.mean()))
 
 
 

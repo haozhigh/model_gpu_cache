@@ -142,6 +142,10 @@ void calculate_reuse_distance(AnalyseTask & task, ModelConfig & model_config, Di
                 task.set_last_warptrace_jam(fake_stamp + max_latency);
             }
         }
+        else {
+            //  Original version: jam every access
+            task.set_last_warptrace_jam(fake_stamp + max_latency);
+        }
 
         //  Increast fake_stamp
         fake_stamp ++;

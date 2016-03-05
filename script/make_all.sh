@@ -9,6 +9,9 @@ if [ "$1" = "clean" ]; then
     bench_specified=$2
 fi
 
+##  Make sure that the above dirs exist
+makesure_dir_exists "$build_dir"
+
 ##  Do the make one bench by another
 ##  No blank characters should exist in suite names or bench names
 suites=$( get_suite_names )

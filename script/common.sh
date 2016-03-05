@@ -78,6 +78,7 @@ log_dir_profiler="$log_dir/profiler"
 log_dir_sim="$log_dir/sim"
 log_dir_maxwell_model="$log_dir/maxwell_model"
 log_dir_analyze="$log_dir/analyze"
+log_dir_opt_break="$log_dir/opt_break"
 
 ##  Dirs to store all kinds of output
 trace_dir="$script_dir/../output/trace"
@@ -87,31 +88,9 @@ code_dir="$script_dir/../output/code"
 out_profiler_dir="$script_dir/../output/profiler"
 out_sim_dir="$script_dir/../output/sim"
 out_analyze_dir="$script_dir/../output/analyze"
+out_opt_break_dir="$script_dir/../output/opt_break"
 
 ##  Other dirs
 benchmarks_dir="$script_dir/../src/benchmarks"
 model_dir="$script_dir/../src/model"
 base_model_dir="$script_dir/../src/base_model"
-
-##  Make sure that the above dirs exist
-makesure_dir_exists "$build_dir"
-
-makesure_dir_exists "$log_dir"
-makesure_dir_exists "$log_dir_trace"
-makesure_dir_exists "$log_dir_base_trace"
-makesure_dir_exists "$log_dir_thread_limit_trace"
-makesure_dir_exists "$log_dir_code"
-makesure_dir_exists "$log_dir_model"
-makesure_dir_exists "$log_dir_base_model"
-makesure_dir_exists "$log_dir_profiler"
-makesure_dir_exists "$log_dir_sim"
-makesure_dir_exists "$log_dir_maxwell_model"
-makesure_dir_exists "$log_dir_analyze"
-
-makesure_dir_exists "$trace_dir"
-makesure_dir_exists "$thread_limit_trace_dir"
-makesure_dir_exists "$base_trace_dir"
-makesure_dir_exists "$code_dir"
-makesure_dir_exists "$out_profiler_dir"
-makesure_dir_exists "$out_sim_dir"
-makesure_dir_exists "$out_analyze_dir"

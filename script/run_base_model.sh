@@ -25,8 +25,8 @@ for suite in $suites; do
             echo "" > "$log_dir_suite/$bench.log"
 
             ##  Get all kernel name of this bench
-			out_dir_bench="$base_trace_dir/$suite/$bench"
-            cd "$out_dir_bench"
+			base_trace_dir_bench="$base_trace_dir/$suite/$bench"
+            cd "$base_trace_dir_bench"
             trace_file_names=$( ls *.trc )
             kernel_names=$( strip_extensions "$trace_file_names" )
 

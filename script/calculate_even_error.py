@@ -60,7 +60,7 @@ def main():
     print("sim duration mean: " + str(sim_duration.mean()))
     print("")
 
-    ##  Calculate even errors for opt_break versions
+    ##  Calculate even errors for opt_break one_option_off versions
     opt_break_trace_off_miss_error = miss_frame['opt_break_trace_off_miss'] - miss_frame['profiler_miss']
     opt_break_trace_off_miss_error = opt_break_trace_off_miss_error.abs()
     opt_break_jam_off_miss_error = miss_frame['opt_break_jam_off_miss'] - miss_frame['profiler_miss']
@@ -70,6 +70,16 @@ def main():
     opt_break_latency_off_miss_error = miss_frame['opt_break_latency_off_miss'] - miss_frame['profiler_miss']
     opt_break_latency_off_miss_error = opt_break_latency_off_miss_error.abs()
 
+    ##  Calculate even errors for opt_break one_option_on versions
+    opt_break_trace_on_miss_error = miss_frame['opt_break_trace_on_miss'] - miss_frame['profiler_miss']
+    opt_break_trace_on_miss_error = opt_break_trace_on_miss_error.abs()
+    opt_break_jam_on_miss_error = miss_frame['opt_break_jam_on_miss'] - miss_frame['profiler_miss']
+    opt_break_jam_on_miss_error = opt_break_jam_on_miss_error.abs()
+    opt_break_stack_on_miss_error = miss_frame['opt_break_stack_on_miss'] - miss_frame['profiler_miss']
+    opt_break_stack_on_miss_error = opt_break_stack_on_miss_error.abs()
+    opt_break_latency_on_miss_error = miss_frame['opt_break_latency_on_miss'] - miss_frame['profiler_miss']
+    opt_break_latency_on_miss_error = opt_break_latency_on_miss_error.abs()
+
     print("##  Even erros for opt_break model versions  ##")
     print("opt_break_trace_off error mean : " + str(opt_break_trace_off_miss_error.mean()))
     print("opt_break_jam_off error mean : " + str(opt_break_jam_off_miss_error.mean()))
@@ -77,7 +87,31 @@ def main():
     print("opt_break_latency_off error mean : " + str(opt_break_latency_off_miss_error.mean()))
     print("")
 
+    print("##  Even erros for opt_break model versions  ##")
+    print("opt_break_trace_on error mean : " + str(opt_break_trace_on_miss_error.mean()))
+    print("opt_break_jam_on error mean : " + str(opt_break_jam_on_miss_error.mean()))
+    print("opt_break_stack_on error mean : " + str(opt_break_stack_on_miss_error.mean()))
+    print("opt_break_latency_on error mean : " + str(opt_break_latency_on_miss_error.mean()))
+    print("")
 
+
+    ##  Write even results to a csv file
+    even_error_index = [0]
+    even_error_frame = DataFrame(index = even_error_index)
+    even_error_frame['model'] = model_miss_error.mean()
+    even_error_frame['base_model'] = base_model_miss_error.mean()
+    even_error_frame['trace_off'] = opt_break_trace_off_miss_error.mean()
+    even_error_frame['jam_off'] = opt_break_jam_off_miss_error.mean()
+    even_error_frame['stack_off'] = opt_break_stack_off_miss_error.mean()
+    even_error_frame['latency_off'] = opt_break_latency_off_miss_error.mean()
+    even_error_frame['trace_on'] = opt_break_trace_on_miss_error.mean()
+    even_error_frame['jam_on'] = opt_break_jam_on_miss_error.mean()
+    even_error_frame['stack_on'] = opt_break_stack_on_miss_error.mean()
+    even_error_frame['latency_on'] = opt_break_latency_on_miss_error.mean()
+
+    ##  Write to file
+    even_error_out_file = path.join(dir_script, "../output/even_error.csv")
+    even_error_frame.to_csv(even_error_out_file)
 
 if __name__ == '__main__':
     main()

@@ -247,6 +247,40 @@ def draw_miss_breakdown(miss_frame, save_path):
     fig.savefig(save_path)
     fig.clf()
 
+def draw_even_error(even_error_frame, title, save_path):
+    index = np.arange(8)
+    x_labels = ['jam_on', 'jam_off', 'stack_on', 'stack_off', 'trace_on', 'trace_off', 'latency_on', 'latency_off']
+
+
+    plt.bar(0.2, even_error_frame['jam_on'] * 100, 0.8, color = 'w')
+    plt.bar(1, even_error_frame['jam_off'] * 100, 0.8, color = 'w')
+    plt.bar(2.2, even_error_frame['stack_on'] * 100, 0.8, color = 'w')
+    plt.bar(3, even_error_frame['stack_off'] * 100, 0.8, color = 'w')
+    plt.bar(4.2, even_error_frame['trace_on'] * 100, 0.8, color = 'w')
+    plt.bar(5, even_error_frame['trace_off'] * 100, 0.8, color = 'w')
+    plt.bar(6.2, even_error_frame['latency_on'] * 100, 0.8, color = 'w')
+    plt.bar(7, even_error_frame['latency_off'] * 100, 0.8, color = 'w')
+
+    ##  Do the plot
+    plt.plot(index + 0.5, [even_error_frame['model'] * 100] * 8, label = 'model')
+    plt.plot(index + 0.5, [even_error_frame['base_model'] * 100] * 8, label = 'base_model')
+
+    ##  Figure options set
+    plt.xlim(0, 8)
+    plt.xticks(index + 0.5, x_labels)
+    plt.title(title)
+    #plt.xlabel('Kernel Name')
+    plt.ylabel('even error(%)')
+    plt.legend()
+
+    ##  Write figure to file and clear plot
+    fig = plt.gcf()
+    fig.set_size_inches(14, 8)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
 
 
 def main():

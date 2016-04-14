@@ -50,12 +50,26 @@ def main():
     miss_frame['opt_break_trace_off_uncomp_miss'] = opt_break_trace_off_uncomp_miss
     miss_frame['opt_break_trace_off_miss'] = opt_break_trace_off_comp_miss + opt_break_trace_off_uncomp_miss
 
+    ##  Collect miss rate for opt_break_trace_on version
+    opt_break_trace_on_out_dir = path.join(dir_script, "../output/opt_break/trace_on")
+    (opt_break_trace_on_comp_miss, opt_break_trace_on_uncomp_miss) = parse_model_out(wide_kernel_names, opt_break_trace_on_out_dir)
+    miss_frame['opt_break_trace_on_comp_miss'] = opt_break_trace_on_comp_miss
+    miss_frame['opt_break_trace_on_uncomp_miss'] = opt_break_trace_on_uncomp_miss
+    miss_frame['opt_break_trace_on_miss'] = opt_break_trace_on_comp_miss + opt_break_trace_on_uncomp_miss
+
     ##  Collect miss rate for opt_break_jam_off version
     opt_break_jam_off_out_dir = path.join(dir_script, "../output/opt_break/jam_off")
     (opt_break_jam_off_comp_miss, opt_break_jam_off_uncomp_miss) = parse_model_out(wide_kernel_names, opt_break_jam_off_out_dir)
     miss_frame['opt_break_jam_off_comp_miss'] = opt_break_jam_off_comp_miss
     miss_frame['opt_break_jam_off_uncomp_miss'] = opt_break_jam_off_uncomp_miss
     miss_frame['opt_break_jam_off_miss'] = opt_break_jam_off_comp_miss + opt_break_jam_off_uncomp_miss
+
+    ##  Collect miss rate for opt_break_jam_on version
+    opt_break_jam_on_out_dir = path.join(dir_script, "../output/opt_break/jam_on")
+    (opt_break_jam_on_comp_miss, opt_break_jam_on_uncomp_miss) = parse_model_out(wide_kernel_names, opt_break_jam_on_out_dir)
+    miss_frame['opt_break_jam_on_comp_miss'] = opt_break_jam_on_comp_miss
+    miss_frame['opt_break_jam_on_uncomp_miss'] = opt_break_jam_on_uncomp_miss
+    miss_frame['opt_break_jam_on_miss'] = opt_break_jam_on_comp_miss + opt_break_jam_on_uncomp_miss
 
     ##  Collect miss rate for opt_break_stack_off version
     opt_break_stack_off_out_dir = path.join(dir_script, "../output/opt_break/stack_off")
@@ -64,12 +78,26 @@ def main():
     miss_frame['opt_break_stack_off_uncomp_miss'] = opt_break_stack_off_uncomp_miss
     miss_frame['opt_break_stack_off_miss'] = opt_break_stack_off_comp_miss + opt_break_stack_off_uncomp_miss
 
+    ##  Collect miss rate for opt_break_stack_on version
+    opt_break_stack_on_out_dir = path.join(dir_script, "../output/opt_break/stack_on")
+    (opt_break_stack_on_comp_miss, opt_break_stack_on_uncomp_miss) = parse_model_out(wide_kernel_names, opt_break_stack_on_out_dir)
+    miss_frame['opt_break_stack_on_comp_miss'] = opt_break_stack_on_comp_miss
+    miss_frame['opt_break_stack_on_uncomp_miss'] = opt_break_stack_on_uncomp_miss
+    miss_frame['opt_break_stack_on_miss'] = opt_break_stack_on_comp_miss + opt_break_stack_on_uncomp_miss
+
     ##  Collect miss rate for opt_break_latency_off version
     opt_break_latency_off_out_dir = path.join(dir_script, "../output/opt_break/latency_off")
     (opt_break_latency_off_comp_miss, opt_break_latency_off_uncomp_miss) = parse_model_out(wide_kernel_names, opt_break_latency_off_out_dir)
     miss_frame['opt_break_latency_off_comp_miss'] = opt_break_latency_off_comp_miss
     miss_frame['opt_break_latency_off_uncomp_miss'] = opt_break_latency_off_uncomp_miss
     miss_frame['opt_break_latency_off_miss'] = opt_break_latency_off_comp_miss + opt_break_latency_off_uncomp_miss
+
+    ##  Collect miss rate for opt_break_latency_on version
+    opt_break_latency_on_out_dir = path.join(dir_script, "../output/opt_break/latency_on")
+    (opt_break_latency_on_comp_miss, opt_break_latency_on_uncomp_miss) = parse_model_out(wide_kernel_names, opt_break_latency_on_out_dir)
+    miss_frame['opt_break_latency_on_comp_miss'] = opt_break_latency_on_comp_miss
+    miss_frame['opt_break_latency_on_uncomp_miss'] = opt_break_latency_on_uncomp_miss
+    miss_frame['opt_break_latency_on_miss'] = opt_break_latency_on_comp_miss + opt_break_latency_on_uncomp_miss
 
 
     breakdown_frame_index_wide_kernel_name(miss_frame)

@@ -7,9 +7,28 @@ from pandas import Series, DataFrame
 import pandas
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
 
 
 from parser import *
+
+
+##  cn_font is shared among all function in this file
+cn_font = FontProperties(fname = r"./fonts/simsun.ttc", size = 10)
+
+def get_bench_index(frame):
+    benches = frame['bench'].values
+    benches.sort()
+
+    for i in range(0, len(benches) - 1):
+        j = i + 1
+        while ((j < len(benches)) and (benches[j] == benches[i])):
+            benches[j] = benches[j] + str(j - i)
+            j = j + 1
+        if (j > i + 1):
+            benches[i] = benches[i] + str(0)
+
+    return benches
 
 def draw_error_comparison(miss_frame, title, save_path):
     kernels = miss_frame['kernel']
@@ -41,6 +60,48 @@ def draw_error_comparison(miss_frame, title, save_path):
     fig.savefig(save_path)
     fig.clf()
 
+def draw_error_comparison_v2(miss_frame, title, save_path):
+    suites = list(set(miss_frame['suite'].values))
+    suites.sort()
+
+    num_suites = len(suites)
+    suite_id = 0
+    for suite in suites:
+        suite_id = suite_id + 1
+        ax = plt.subplot(num_suites, 1, suite_id)
+        sub_frame = miss_frame.ix[miss_frame['suite'] == suite]
+
+        ##  Calculate errors
+        error_model = (sub_frame['model_miss'] - sub_frame['profiler_miss']).abs() * 100
+        error_base_model = (sub_frame['base_model_miss'] - sub_frame['profiler_miss']).abs() * 100
+        error_sim = (sub_frame['sim_miss'] - sub_frame['profiler_miss']).abs() * 100
+
+        bench_index = get_bench_index(sub_frame)
+        index = np.arange(len(bench_index))
+
+        ##  Do the plot
+        ax.plot(index + 0.5, error_model, linestyle = "-", color = "k", marker = 'o', label = "本文模型")
+        ax.plot(index + 0.5, error_base_model, linestyle = "-", color = "k", marker = 's', label = "Nugteren模型")
+        ax.plot(index + 0.5, error_sim, linestyle = "-", color = "k", marker = '^', label = "GPGPU-Sim")
+
+        ax.tick_params(axis='both', which='both', labelsize=10)
+        ax.set_xlim(0, len(bench_index))
+        ax.set_xticks(index + 0.5)
+        ax.set_xticklabels(bench_index, rotation = 45)
+        ##ax.set_xlabel('Kernel_nmaes', fontproperties = cn_font)
+        ax.set_ylabel("缓存缺失率误差（%）", fontproperties = cn_font)
+        ax.set_title(suite + "测试集", fontproperties = cn_font)
+
+        if suite_id == num_suites:
+            ax.legend(loc = 'upper left', fontsize = 'small', ncol = 3, bbox_to_anchor = (0, -0.45), prop = cn_font)
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 4)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
 def draw_architecture_compare(fermi_miss_frame, maxwell_miss_frame, title, save_path):
     kernels = fermi_miss_frame['kernel']
     index = np.arange(len(kernels))
@@ -65,6 +126,120 @@ def draw_architecture_compare(fermi_miss_frame, maxwell_miss_frame, title, save_
     fig.savefig(save_path)
     fig.clf()
 
+def draw_architecture_compare_v2(fermi_miss_frame, maxwell_miss_frame, title, save_path):
+    suites = list(set(fermi_miss_frame['suite'].values))
+    suites.sort()
+
+    num_suites = len(suites)
+    suite_id = 0
+    for suite in suites:
+        suite_id = suite_id + 1
+        ax = plt.subplot(num_suites, 1, suite_id)
+        fermi_sub_frame = fermi_miss_frame.ix[fermi_miss_frame['suite'] == suite]
+        maxwell_sub_frame = maxwell_miss_frame.ix[maxwell_miss_frame['suite'] == suite]
+
+        bench_index = get_bench_index(fermi_sub_frame)
+        index = np.arange(len(bench_index))
+
+        ##  Do the plot
+        ax.plot(index + 0.5, fermi_sub_frame['profiler_miss'], linestyle = "-", color = "k", marker = 'o', label = "费米架构")
+        ax.plot(index + 0.5, maxwell_sub_frame['profiler_miss'], linestyle = "-", color = "k", marker = 's', label = "麦克斯韦架构")
+        
+        ax.tick_params(axis='both', which='both', labelsize=10)
+        ax.set_xlim(0, len(bench_index))
+        ax.set_xticks(index + 0.5)
+        ax.set_xticklabels(bench_index, rotation = 45)
+        ##ax.set_xlabel('Kernel_nmaes', fontproperties = cn_font)
+        ax.set_ylabel("缓存缺失率（%）", fontproperties = cn_font)
+        ax.set_title(suite + "测试集", fontproperties = cn_font)
+
+        if suite_id == num_suites:
+            ax.legend(loc = 'upper left', fontsize = 'small', ncol = 2, bbox_to_anchor = (0, -0.45), prop = cn_font)
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 4)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
+def draw_architecture_model_compare_v2(fermi_miss_frame, maxwell_miss_frame, title, save_path):
+    suites = list(set(fermi_miss_frame['suite'].values))
+    suites.sort()
+
+    num_suites = len(suites)
+    suite_id = 0
+    for suite in suites:
+        suite_id = suite_id + 1
+        ax = plt.subplot(num_suites, 1, suite_id)
+        fermi_sub_frame = fermi_miss_frame.ix[fermi_miss_frame['suite'] == suite]
+        maxwell_sub_frame = maxwell_miss_frame.ix[maxwell_miss_frame['suite'] == suite]
+
+        bench_index = get_bench_index(fermi_sub_frame)
+        index = np.arange(len(bench_index))
+
+        ##  Do the plot
+        ax.plot(index + 0.5, fermi_sub_frame['model_miss'], linestyle = "-", color = "k", marker = 'o', label = "费米架构")
+        ax.plot(index + 0.5, maxwell_sub_frame['model_miss'], linestyle = "-", color = "k", marker = 's', label = "麦克斯韦架构")
+        
+        ax.tick_params(axis='both', which='both', labelsize=10)
+        ax.set_xlim(0, len(bench_index))
+        ax.set_xticks(index + 0.5)
+        ax.set_xticklabels(bench_index, rotation = 45)
+        ##ax.set_xlabel('Kernel_nmaes', fontproperties = cn_font)
+        ax.set_ylabel("模型缓存缺失率（%）", fontproperties = cn_font)
+        ax.set_title(suite + "测试集", fontproperties = cn_font)
+
+        if suite_id == num_suites:
+            ax.legend(loc = 'upper left', fontsize = 'small', ncol = 2, bbox_to_anchor = (0, -0.45), prop = cn_font)
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 4)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
+def draw_architecture_error_compare_v2(fermi_miss_frame, maxwell_miss_frame, title, save_path):
+    suites = list(set(fermi_miss_frame['suite'].values))
+    suites.sort()
+
+    num_suites = len(suites)
+    suite_id = 0
+    for suite in suites:
+        suite_id = suite_id + 1
+        ax = plt.subplot(num_suites, 1, suite_id)
+        fermi_sub_frame = fermi_miss_frame.ix[fermi_miss_frame['suite'] == suite]
+        maxwell_sub_frame = maxwell_miss_frame.ix[maxwell_miss_frame['suite'] == suite]
+
+        bench_index = get_bench_index(fermi_sub_frame)
+        index = np.arange(len(bench_index))
+
+        ##  Calculate errors
+        fermi_error_model = (fermi_sub_frame['model_miss'] - fermi_sub_frame['profiler_miss']).abs() * 100
+        maxwell_error_model = (maxwell_sub_frame['model_miss'] - maxwell_sub_frame['profiler_miss']).abs() * 100
+
+        ##  Do the plot
+        ax.plot(index + 0.5, fermi_error_model, linestyle = "-", color = "k", marker = 'o', label = "费米架构")
+        ax.plot(index + 0.5, maxwell_error_model, linestyle = "-", color = "k", marker = 's', label = "麦克斯韦架构")
+        
+        ax.tick_params(axis='both', which='both', labelsize=10)
+        ax.set_xlim(0, len(bench_index))
+        ax.set_xticks(index + 0.5)
+        ax.set_xticklabels(bench_index, rotation = 45)
+        ##ax.set_xlabel('Kernel_nmaes', fontproperties = cn_font)
+        ax.set_ylabel("缓存缺失率误差（%）", fontproperties = cn_font)
+        ax.set_title(suite + "测试集", fontproperties = cn_font)
+
+        if suite_id == num_suites:
+            ax.legend(loc = 'upper left', fontsize = 'small', ncol = 2, bbox_to_anchor = (0, -0.45), prop = cn_font)
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 4)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
 
 def draw_error_model(miss_frame, title, save_path):
     kernels = miss_frame['kernel']
@@ -92,6 +267,40 @@ def draw_error_model(miss_frame, title, save_path):
     fig.savefig(save_path)
     fig.clf()
 
+def draw_error_model_v2(miss_frame, title, save_path):
+    suites = list(set(miss_frame['suite'].values))
+    suites.sort()
+
+    num_suites = len(suites)
+    suite_id = 0
+    for suite in suites:
+        suite_id = suite_id + 1
+        ax = plt.subplot(num_suites, 1, suite_id)
+        sub_frame = miss_frame.ix[miss_frame['suite'] == suite]
+
+        bench_index = get_bench_index(sub_frame)
+        index = np.arange(len(bench_index))
+
+        ##  Calculate errors
+        error_model = (sub_frame['model_miss'] - sub_frame['profiler_miss']).abs() * 100
+
+        ##  Do the plot
+        ax.plot(index + 0.5, error_model, linestyle = "-", color = "k", marker = 'o', label = "My Model")
+
+        ax.tick_params(axis='both', which='both', labelsize=10)
+        ax.set_xlim(0, len(bench_index))
+        ax.set_xticks(index + 0.5)
+        ax.set_xticklabels(bench_index, rotation = 45)
+        ##ax.set_xlabel('Kernel_nmaes', fontproperties = cn_font)
+        ax.set_ylabel("模型缓存缺失率误差（%）", fontproperties = cn_font)
+        ax.set_title(suite + "测试集", fontproperties = cn_font)
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 4)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
 
 def draw_duration(duration_frame, title, save_path):
     benches = duration_frame['bench']
@@ -117,6 +326,41 @@ def draw_duration(duration_frame, title, save_path):
     fig.savefig(save_path)
     fig.clf()
 
+def draw_reuse_distance_duration_comparison_v2(duration_frame, title, save_path):
+    suites = list(set(duration_frame['suite'].values))
+    suites.sort()
+
+    num_suites = len(suites)
+    suite_id = 0
+    for suite in suites:
+        suite_id = suite_id + 1
+        ax = plt.subplot(num_suites, 1, suite_id)
+        sub_frame = duration_frame.ix[duration_frame['suite'] == suite]
+
+        bench_index = get_bench_index(sub_frame)
+        index = np.arange(len(bench_index))
+
+        ##  Plot lines for each
+        plt.plot(index + 0.5, sub_frame['model'], linestyle = "-", color = "k", marker = 'o', label = "本文模型")
+        plt.plot(index + 0.5, sub_frame['base_model'], linestyle = "-", color = "k", marker = 's', label = "Nugteren模型")
+        
+        ax.tick_params(axis='both', which='both', labelsize=10)
+        ax.set_xlim(0, len(bench_index))
+        ax.set_xticks(index + 0.5)
+        ax.set_xticklabels(bench_index, rotation = 45)
+        ##ax.set_xlabel('Kernel_nmaes', fontproperties = cn_font)
+        ax.set_ylabel("时间开销（ms）", fontproperties = cn_font)
+        ax.set_title(suite + "测试集", fontproperties = cn_font)
+
+        if suite_id == num_suites:
+            ax.legend(loc = 'upper left', fontsize = 'small', ncol = 2, bbox_to_anchor = (0, -0.45), prop = cn_font)
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 4)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
 
 def draw_footprint(footprint_frame, title, save_path):
     kernels = footprint_frame['kernel']
@@ -137,6 +381,38 @@ def draw_footprint(footprint_frame, title, save_path):
     fig.set_tight_layout(True)
     fig.savefig(save_path)
     fig.clf()
+
+def draw_footprint_v2(footprint_frame, title, save_path):
+    suites = list(set(footprint_frame['suite'].values))
+    suites.sort()
+
+    num_suites = len(suites)
+    suite_id = 0
+    for suite in suites:
+        suite_id = suite_id + 1
+        ax = plt.subplot(num_suites, 1, suite_id)
+        sub_frame = footprint_frame.ix[footprint_frame['suite'] == suite]
+
+        bench_index = get_bench_index(sub_frame)
+        index = np.arange(len(bench_index))
+
+        ax.plot(index + 0.5, sub_frame['footprint'] / (1024 * 1024), linestyle = "-", color = "k", marker = "o", label = "Operation Intensity")
+        
+        ax.tick_params(axis='both', which='both', labelsize=10)
+        ax.set_xlim(0, len(bench_index))
+        ax.set_xticks(index + 0.5)
+        ax.set_xticklabels(bench_index, rotation = 45)
+        ##ax.set_xlabel('Kernel_nmaes', fontproperties = cn_font)
+        ax.set_ylabel("内存印记（MB）", fontproperties = cn_font)
+        ax.set_title(suite + "测试集", fontproperties = cn_font)
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 4)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
 
 
 def draw_op_intensity(footprint_frame, title, save_path):
@@ -159,6 +435,37 @@ def draw_op_intensity(footprint_frame, title, save_path):
     fig.savefig(save_path)
     fig.clf()
 
+def draw_op_intensity_v2(footprint_frame, title, save_path):
+    suites = list(set(footprint_frame['suite'].values))
+    suites.sort()
+
+    num_suites = len(suites)
+    suite_id = 0
+    for suite in suites:
+        suite_id = suite_id + 1
+        ax = plt.subplot(num_suites, 1, suite_id)
+        sub_frame = footprint_frame.ix[footprint_frame['suite'] == suite]
+
+        bench_index = get_bench_index(sub_frame)
+        index = np.arange(len(bench_index))
+
+        ax.plot(index + 0.5, sub_frame['op_intensity'], linestyle = "-", color = "k", marker = "o", label = "Operation Intensity")
+        
+        ax.tick_params(axis='both', which='both', labelsize=10)
+        ax.set_xlim(0, len(bench_index))
+        ax.set_xticks(index + 0.5)
+        ax.set_xticklabels(bench_index, rotation = 45)
+        ##ax.set_xlabel('Kernel_nmaes', fontproperties = cn_font)
+        ax.set_ylabel("运算访存比", fontproperties = cn_font)
+        ax.set_title(suite + "测试集", fontproperties = cn_font)
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 4)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
 def draw_miss_rate(footprint_frame, title, save_path):
     kernels = footprint_frame['kernel']
     index = np.arange(len(kernels))
@@ -174,6 +481,37 @@ def draw_miss_rate(footprint_frame, title, save_path):
 
     fig = plt.gcf()
     fig.set_size_inches(14, 8)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
+def draw_miss_rate_v2(footprint_frame, title, save_path):
+    suites = list(set(footprint_frame['suite'].values))
+    suites.sort()
+
+    num_suites = len(suites)
+    suite_id = 0
+    for suite in suites:
+        suite_id = suite_id + 1
+        ax = plt.subplot(num_suites, 1, suite_id)
+        sub_frame = footprint_frame.ix[footprint_frame['suite'] == suite]
+
+        bench_index = get_bench_index(sub_frame)
+        index = np.arange(len(bench_index))
+
+        ax.plot(index + 0.5, sub_frame['profiler_miss'] * 100, linestyle = "-", color = "k", marker = "o", label = "Miss Rate")
+        
+        ax.tick_params(axis='both', which='both', labelsize=10)
+        ax.set_xlim(0, len(bench_index))
+        ax.set_xticks(index + 0.5)
+        ax.set_xticklabels(bench_index, rotation = 45)
+        ##ax.set_xlabel('Kernel_nmaes', fontproperties = cn_font)
+        ax.set_ylabel("缓存缺失率（%）", fontproperties = cn_font)
+        ax.set_title(suite + "测试集", fontproperties = cn_font)
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 4)
     fig.set_dpi(72)
     fig.set_tight_layout(True)
     fig.savefig(save_path)

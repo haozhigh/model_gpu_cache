@@ -99,6 +99,12 @@ def main():
     miss_frame['opt_break_latency_on_uncomp_miss'] = opt_break_latency_on_uncomp_miss
     miss_frame['opt_break_latency_on_miss'] = opt_break_latency_on_comp_miss + opt_break_latency_on_uncomp_miss
 
+    ##  Collect miss rate for opt_break_stack_trace_on version
+    opt_break_stack_trace_on_out_dir = path.join(dir_script, "../output/opt_break/stack_trace_on")
+    (opt_break_stack_trace_on_comp_miss, opt_break_stack_trace_on_uncomp_miss) = parse_model_out(wide_kernel_names, opt_break_stack_trace_on_out_dir)
+    miss_frame['opt_break_stack_trace_on_comp_miss'] = opt_break_stack_trace_on_comp_miss
+    miss_frame['opt_break_stack_trace_on_uncomp_miss'] = opt_break_stack_trace_on_uncomp_miss
+    miss_frame['opt_break_stack_trace_on_miss'] = opt_break_stack_trace_on_comp_miss + opt_break_stack_trace_on_uncomp_miss
 
     breakdown_frame_index_wide_kernel_name(miss_frame)
 

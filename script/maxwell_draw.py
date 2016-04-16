@@ -21,27 +21,18 @@ def main():
     ##  Draw maxwell profiler miss rate
     draw_miss_rate(maxwell_miss_frame, 'MaxWell L1 cache miss rate for each kernel', path.join(dir_script, "../output/maxwell_miss_rate.png"))
 
-    ##  Temp fake error fix of maxwell model
-    ####  parboil#bfs#BFS_in_GPU_kernel match1 is None, set miss rate to 0  ####
-    ####  parse_maxwell_profiler_out:: parboil#histo#histo_final_kernel match1 is None, set miss rate to 0  ####
-    ####  parse_maxwell_profiler_out:: parboil#histo#histo_intermediates_kernel match1 is None, set miss rate to 0  ####
-    ####  parse_maxwell_profiler_out:: parboil#histo#histo_main_kernel match1 is None, set miss rate to 0  ####
-    ####  parse_maxwell_profiler_out:: parboil#histo#histo_prescan_kernel match1 is None, set miss rate to 0  ####
-    ####  parse_maxwell_profiler_out:: parboil#lbm#performStreamCollide_kernel match1 is None, set miss rate to 0  ####
-    maxwell_miss_frame['model_miss'][0] = 0.10
-    maxwell_miss_frame['model_miss'][2] = 0.10
-    maxwell_miss_frame['model_miss'][3] = 0.10
-    maxwell_miss_frame['model_miss'][4] = 0.10
-    maxwell_miss_frame['model_miss'][5] = 0.10
-    maxwell_miss_frame['model_miss'][6] = 0.10
-
-
     ##  Draw maxwell model error
-    draw_error_model(maxwell_miss_frame, "MaxWell Model Error", path.join(dir_script, "../output/maxwell_model_error.png"))
+    draw_error_model_v2(maxwell_miss_frame, "MaxWell Model Error", path.join(dir_script, "../output/maxwell_model_error.png"))
 
 
     ##  Draw architecture miss rate comparison
-    draw_architecture_compare(fermi_miss_frame, maxwell_miss_frame, "Architecture Miss Rate Comparison", path.join(dir_script, "../output/maxwell_architecture_compare.png"))
+    draw_architecture_compare_v2(fermi_miss_frame, maxwell_miss_frame, "Architecture Miss Rate Comparison", path.join(dir_script, "../output/maxwell_architecture_compare.png"))
+
+    ##  Draw architecture model miss rate comparison
+    draw_architecture_model_compare_v2(fermi_miss_frame, maxwell_miss_frame, "Architecture Model Miss Rate Comparison", path.join(dir_script, "../output/maxwell_architecture_model_compare.png"))
+
+    ##  Draw architecture miss rate error comparison
+    draw_architecture_error_compare_v2(fermi_miss_frame, maxwell_miss_frame, "Architecture Miss Rate Comparison", path.join(dir_script, "../output/maxwell_architecture_error_compare.png"))
     
 
     ##  Calculate even values

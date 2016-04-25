@@ -1,0 +1,13 @@
+choose_num_access_limit: 0
+
+####  mean_kernel memory_footprint:16801800  ####
+
+####  reduce_kernel memory_footprint:16801800  ####
+####  TraceGenerator::initialize: Start Generating trace for mean_kernel  ####
+####  TraceGenerator::initialize: Start Generating trace for reduce_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 4032(out of 4096) blocks are still running ####
+####  TraceGenerator::initialize: Start Generating trace for covar_kernel  ####
+####  TraceGenerator::initialize: covar_kernel encountered  ####
+####  TraceGenerator::initialize: Program exiting ####
+#### TraceGenerator::force_exit: Force Exit ####

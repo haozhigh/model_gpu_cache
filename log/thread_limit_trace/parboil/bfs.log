@@ -1,0 +1,9 @@
+choose_num_access_limit: 0
+Starting GPU kernel
+
+####  BFS_in_GPU_kernel memory_footprint:12425636  ####
+####  TraceGenerator::initialize: Start Generating trace for BFS_in_GPU_kernel  ####
+####  TraceGenerator::initialize: Start Generating trace for BFS_kernel_multi_blk_inGPU  ####
+####  TraceGenerator::initialize: BFS_kernel_multi_blk_inGPU encountered  ####
+####  TraceGenerator::initialize: Program exiting ####
+#### TraceGenerator::force_exit: Force Exit ####

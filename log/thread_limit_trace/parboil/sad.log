@@ -1,0 +1,21 @@
+choose_num_access_limit: 0
+
+####  mb_sad_calc memory_footprint:8948016  ####
+####  TraceGenerator::initialize: Start Generating trace for mb_sad_calc  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 1440(out of 1584) blocks are still running ####
+
+####  larger_sad_calc_8 memory_footprint:8897328  ####
+####  TraceGenerator::initialize: Start Generating trace for larger_sad_calc_8  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 27(out of 99) blocks are still running ####
+
+####  larger_sad_calc_16 memory_footprint:8897328  ####
+####  TraceGenerator::initialize: Start Generating trace for larger_sad_calc_16  ####
+IO        : 0.182277
+Kernel    : 9.963567
+Copy      : 0.014772
+Driver    : 9.963568
+Compute   : 0.000153
+CPU/Kernel Overlap: 9.963567
+Timer Wall Time: 10.160806

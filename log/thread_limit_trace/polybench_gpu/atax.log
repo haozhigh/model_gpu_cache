@@ -1,0 +1,10 @@
+choose_num_access_limit: 0
+
+####  atax_kernel1 memory_footprint:1052672  ####
+
+####  atax_kernel2 memory_footprint:1052672  ####
+####  TraceGenerator::initialize: Start Generating trace for atax_kernel1  ####
+####  TraceGenerator::initialize: Start Generating trace for atax_kernel2  ####
+GPU Runtime: 0.592423s
+CPU Runtime: 0.000406s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.50 Percent: 1

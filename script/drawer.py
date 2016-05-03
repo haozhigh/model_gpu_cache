@@ -142,8 +142,8 @@ def draw_architecture_compare_v2(fermi_miss_frame, maxwell_miss_frame, title, sa
         index = np.arange(len(bench_index))
 
         ##  Do the plot
-        ax.plot(index + 0.5, fermi_sub_frame['profiler_miss'], linestyle = "-", color = "k", marker = 'o', label = "费米架构")
-        ax.plot(index + 0.5, maxwell_sub_frame['profiler_miss'], linestyle = "-", color = "k", marker = 's', label = "麦克斯韦架构")
+        ax.plot(index + 0.5, fermi_sub_frame['profiler_miss'] * 100, linestyle = "-", color = "k", marker = 'o', label = "费米架构")
+        ax.plot(index + 0.5, maxwell_sub_frame['profiler_miss'] * 100, linestyle = "-", color = "k", marker = 's', label = "麦克斯韦架构")
         
         ax.tick_params(axis='both', which='both', labelsize=10)
         ax.set_xlim(0, len(bench_index))
@@ -179,8 +179,8 @@ def draw_architecture_model_compare_v2(fermi_miss_frame, maxwell_miss_frame, tit
         index = np.arange(len(bench_index))
 
         ##  Do the plot
-        ax.plot(index + 0.5, fermi_sub_frame['model_miss'], linestyle = "-", color = "k", marker = 'o', label = "费米架构")
-        ax.plot(index + 0.5, maxwell_sub_frame['model_miss'], linestyle = "-", color = "k", marker = 's', label = "麦克斯韦架构")
+        ax.plot(index + 0.5, fermi_sub_frame['model_miss'] * 100, linestyle = "-", color = "k", marker = 'o', label = "费米架构")
+        ax.plot(index + 0.5, maxwell_sub_frame['model_miss'] * 100, linestyle = "-", color = "k", marker = 's', label = "麦克斯韦架构")
         
         ax.tick_params(axis='both', which='both', labelsize=10)
         ax.set_xlim(0, len(bench_index))
@@ -554,7 +554,7 @@ def draw_miss_type(hit_count, comp_miss_count, uncomp_miss_count, save_path):
     plt.ylabel('统计次数', fontproperties = cn_font)
 
     fig = plt.gcf()
-    fig.set_size_inches(6, 3)
+    fig.set_size_inches(5, 2.5)
     fig.set_dpi(72)
     fig.set_tight_layout(True)
     fig.savefig(save_path)
@@ -578,7 +578,7 @@ def draw_distance_histo(distance_values, distance_counts, save_path):
     plt.ylabel('出现次数', fontproperties = cn_font)
 
     fig = plt.gcf()
-    fig.set_size_inches(6, 3)
+    fig.set_size_inches(5, 2.5)
     fig.set_dpi(72)
     fig.set_tight_layout(True)
     fig.savefig(save_path)
@@ -600,7 +600,7 @@ def draw_pc_histo(pcs, pc_hit_counts, pc_miss_counts, save_path):
     plt.legend(loc = 'lower left', fontsize = 'small', ncol = 2, bbox_to_anchor = (0, 1), prop = cn_font)
 
     fig = plt.gcf()
-    fig.set_size_inches(6, 3)
+    fig.set_size_inches(5, 2.5)
     fig.set_dpi(72)
     fig.set_tight_layout(True)
     fig.savefig(save_path)

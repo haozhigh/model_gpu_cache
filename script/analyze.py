@@ -80,6 +80,27 @@ def get_sorted_pcs(distance_records):
     ##  Return the sorted distances
     return pcs_list
 
+##  Do miss type analysis
+def miss_type_analyze(distance_records, out_file_path):
+    hit_count = 0
+    comp_miss_count = 0
+    uncomp_miss_count = 0
+
+    ##  Iterate over each record
+    for record in distance_records:
+        distance = record[1]
+        count = record[2]
+        if distance < 0:
+            comp_miss_count = comp_miss_count + count
+        else:
+            if distance < 4:
+                hit_count = hit_count + count
+            else:
+                uncomp_miss_count = uncomp_miss_count + count
+
+    ##  Call the function to do drawing
+    draw_miss_type(hit_count, comp_miss_count, uncomp_miss_count, out_file_path)
+
 ##  Do distance histo analsis
 def distance_histo_analyze(distance_records, out_file_path):
     ##  Get sorted distances
@@ -165,6 +186,9 @@ def main():
             continue
         str_nums = line.split(' ')
         distance_records.append((int(str_nums[0]), int(str_nums[1]), int(str_nums[2])))
+
+    ##  Call the function to do miss type analysis
+    miss_type_analyze(distance_records, path.join(out_dir_bench, kernel + "_miss_type.png"))
 
     ##  Call the function to do distance histo analysis
     distance_histo_analyze(distance_records, path.join(out_dir_bench, kernel + "_distance_histo.png"))

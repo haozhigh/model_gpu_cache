@@ -341,7 +341,7 @@ def draw_reuse_distance_duration_comparison_v2(duration_frame, title, save_path)
         index = np.arange(len(bench_index))
 
         ##  Plot lines for each
-        plt.plot(index + 0.5, sub_frame['model'], linestyle = "-", color = "k", marker = 'o', label = "本文模型")
+        plt.plot(index + 0.5, sub_frame['model_compare'], linestyle = "-", color = "k", marker = 'o', label = "本文模型")
         plt.plot(index + 0.5, sub_frame['base_model'], linestyle = "-", color = "k", marker = 's', label = "Nugteren模型")
         
         ax.tick_params(axis='both', which='both', labelsize=10)
@@ -517,6 +517,27 @@ def draw_miss_rate_v2(footprint_frame, title, save_path):
     fig.savefig(save_path)
     fig.clf()
 
+def draw_miss_type(hit_count, comp_miss_count, uncomp_miss_count, save_path):
+    index = np.arange(3)
+    labels = ("命中", "强制型缺失", "非强制型缺失")
+    d = (hit_count, comp_miss_count, uncomp_miss_count)
+
+    rects = plt.bar(index + 0.1, d, 0.8, color = 'w')
+
+    plt.xlim(0, 3)
+    plt.ylim(0, max(d) * 1.2)
+    plt.xticks(index + 0.5, labels, fontproperties = cn_font)
+    #plt.xlabel('Reuse Distance', fontproperties = cn_font)
+    plt.ylabel('统计次数', fontproperties = cn_font)
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 3)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
+
 def draw_distance_histo(distance_values, distance_counts, save_path):
     index = np.arange(len(distance_values))
 
@@ -530,8 +551,8 @@ def draw_distance_histo(distance_values, distance_counts, save_path):
     plt.ylim(0, max(distance_counts) * 1.2)
     #plt.xticks(index + 0.5, distance_values, rotation = 'vertical')
     plt.xticks(index + 0.5, distance_values)
-    plt.xlabel('Reuse Distance')
-    plt.ylabel('Occurance Count')
+    plt.xlabel('重用距离值', fontproperties = cn_font)
+    plt.ylabel('出现次数', fontproperties = cn_font)
 
     fig = plt.gcf()
     fig.set_size_inches(6, 3)
@@ -543,17 +564,17 @@ def draw_distance_histo(distance_values, distance_counts, save_path):
 def draw_pc_histo(pcs, pc_hit_counts, pc_miss_counts, save_path):
     index = np.arange(len(pcs))
 
-    plt.bar(index + 0.1, pc_miss_counts, 0.4, color = 'w', label = "Miss Count", hatch = "//")
-    plt.bar(index + 0.5, pc_hit_counts, 0.4, color = 'w', label = "Hit Count", hatch = "..")
+    plt.bar(index + 0.1, pc_miss_counts, 0.4, color = 'w', label = "缺失数", hatch = "//")
+    plt.bar(index + 0.5, pc_hit_counts, 0.4, color = 'w', label = "命中数", hatch = "..")
 
     plt.xlim(0, len(pcs))
     plt.ylim(0, max(max(pc_miss_counts), max(pc_hit_counts)) * 1.2)
     #plt.xticks(index + 0.5, distance_values, rotation = 'vertical')
     plt.xticks(index + 0.5, pcs)
     plt.title("-")
-    plt.xlabel('Program Counter')
-    plt.ylabel('Cache Miss/Hit Count')
-    plt.legend(loc = 'lower left', fontsize = 'small', ncol = 2, bbox_to_anchor = (0, 1))
+    plt.xlabel('程序计数器值（PC）', fontproperties = cn_font)
+    plt.ylabel('Cache 缺失数/命中数', fontproperties = cn_font)
+    plt.legend(loc = 'lower left', fontsize = 'small', ncol = 2, bbox_to_anchor = (0, 1), prop = cn_font)
 
     fig = plt.gcf()
     fig.set_size_inches(6, 3)

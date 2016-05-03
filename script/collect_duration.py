@@ -22,6 +22,7 @@ def main():
 
     duration_frame['base_model'] = parse_duration_out(wide_bench_names, path.join(duration_root_dir, 'base_model'))
     duration_frame['model'] = parse_duration_out(wide_bench_names, path.join(duration_root_dir, 'model'))
+    duration_frame['model_compare'] = parse_duration_out(wide_bench_names, path.join(duration_root_dir, 'opt_break/trace_off'))
     duration_frame['base_trace'] = parse_duration_out(wide_bench_names, path.join(duration_root_dir, 'base_trace'))
     duration_frame['trace'] = parse_duration_out(wide_bench_names, path.join(duration_root_dir, 'trace'))
     duration_frame['profiler'] = parse_duration_out(wide_bench_names, path.join(duration_root_dir, 'profiler'))

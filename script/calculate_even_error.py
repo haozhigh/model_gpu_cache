@@ -19,8 +19,8 @@ def main():
     duration_frame = pandas.read_csv(path.join(dir_script, "../output/duration.csv"))
 
     ##  Add trace generation time to total model time
-    duration_frame['base_model'] = duration_frame['base_model'] + duration_frame['base_trace']
-    duration_frame['model'] = duration_frame['model'] + duration_frame['trace']
+    #duration_frame['base_model'] = duration_frame['base_model'] + duration_frame['base_trace']
+    #duration_frame['model'] = duration_frame['model'] + duration_frame['trace']
 
 
 
@@ -51,11 +51,13 @@ def main():
 
     ##  Calculate event duration values excluding trace generating time, and print out
     model_duration = duration_frame['model']
+    model_compare_duration = duration_frame['model_compare']
     base_model_duration = duration_frame['base_model']
     sim_duration = duration_frame['sim']
 
     print("##  Even duration for model, base_model, and GPGPU-Sim excluding trace generating time ##")
     print("model duration mean: " + str(model_duration.mean()))
+    print("model compare_duration mean: " + str(model_compare_duration.mean()))
     print("base model duration mean: " + str(base_model_duration.mean()))
     print("sim duration mean: " + str(sim_duration.mean()))
     print("")

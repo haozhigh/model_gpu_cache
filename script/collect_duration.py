@@ -27,6 +27,8 @@ def main():
     duration_frame['trace'] = parse_duration_out(wide_bench_names, path.join(duration_root_dir, 'trace'))
     duration_frame['profiler'] = parse_duration_out(wide_bench_names, path.join(duration_root_dir, 'profiler'))
     duration_frame['sim'] = parse_duration_out(wide_bench_names, path.join(duration_root_dir, 'sim'))
+    
+    duration_frame['opt_break_trace_off'] = parse_duration_out(wide_bench_names, path.join(duration_root_dir, 'opt_break/trace_off'))
 
     breakdown_frame_index_wide_bench_name(duration_frame)
 

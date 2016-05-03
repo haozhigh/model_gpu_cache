@@ -310,7 +310,7 @@ def draw_duration(duration_frame, title, save_path):
     ##  Plot lines for each
     plt.plot(index + 0.5, duration_frame['model'], linestyle = "-", color = "k", marker = 'o', label = "My Model")
     plt.plot(index + 0.5, duration_frame['base_model'], linestyle = "-", color = "k", marker = 's', label = "Base Model")
-    plt.plot(index + 0.5, duration_frame['sim'], linestyle = "-", color = "k", marker = '^', label = "GPGPU-Sim")
+    #plt.plot(index + 0.5, duration_frame['sim'], linestyle = "-", color = "k", marker = '^', label = "GPGPU-Sim")
 
     plt.xlim(0, len(benches))
     plt.xticks(index + 0.5, benches, rotation = 'vertical')
@@ -321,6 +321,29 @@ def draw_duration(duration_frame, title, save_path):
 
     fig = plt.gcf()
     fig.set_size_inches(14, 8)
+    fig.set_dpi(72)
+    fig.set_tight_layout(True)
+    fig.savefig(save_path)
+    fig.clf()
+
+def draw_duration_v2(duration_frame, title, save_path):
+    benches = duration_frame['bench']
+    index = np.arange(len(benches))
+
+
+    ##  Plot lines for each
+    plt.plot(index + 0.5, duration_frame['model'], linestyle = "-", color = "k", marker = 'o', label = "本文模型")
+    plt.plot(index + 0.5, duration_frame['base_model'], linestyle = "-", color = "k", marker = 's', label = "Nugteren模型")
+
+    plt.tick_params(axis='both', which='both', labelsize=10)
+    plt.xlim(0, len(benches))
+    plt.xticks(index + 0.5, benches, rotation = 45)
+    plt.title("重用距离计算时间开销比较", fontproperties = cn_font)
+    plt.ylabel("时间开销（毫秒)", fontproperties = cn_font)
+    plt.legend(loc = 'upper left', fontsize = 'small', ncol = 1, bbox_to_anchor = (0, 0.98), prop = cn_font)
+
+    fig = plt.gcf()
+    fig.set_size_inches(6, 3)
     fig.set_dpi(72)
     fig.set_tight_layout(True)
     fig.savefig(save_path)

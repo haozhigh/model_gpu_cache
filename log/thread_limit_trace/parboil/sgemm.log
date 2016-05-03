@@ -1,0 +1,12 @@
+choose_num_access_limit: 0
+
+####  mysgemmNT memory_footprint:192512  ####
+####  TraceGenerator::initialize: Start Generating trace for mysgemmNT  ####
+GFLOPs = 0.00386846
+IO        : 0.041376
+Kernel    : 1.016466
+Copy      : 0.000073
+Driver    : 1.016467
+Compute   : 0.000548
+CPU/Kernel Overlap: 1.016466
+Timer Wall Time: 1.058498

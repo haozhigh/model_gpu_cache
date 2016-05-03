@@ -1,0 +1,9 @@
+choose_num_access_limit: 0
+
+####  syrk_kernel memory_footprint:131072  ####
+####  TraceGenerator::initialize: Start Generating trace for syrk_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 32(out of 64) blocks are still running ####
+GPU Runtime: 0.885005s
+CPU Runtime: 0.002012s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 0

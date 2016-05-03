@@ -1,0 +1,9 @@
+choose_num_access_limit: 0
+
+####  Convolution2D_kernel memory_footprint:8388608  ####
+####  TraceGenerator::initialize: Start Generating trace for Convolution2D_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 3968(out of 4096) blocks are still running ####
+GPU Runtime: 1.931631s
+CPU Runtime: 0.017240s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 0

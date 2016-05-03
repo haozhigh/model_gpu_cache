@@ -1,0 +1,20 @@
+choose_num_access_limit: 0
+
+####  fdtd_step1_kernel memory_footprint:50350032  ####
+
+####  fdtd_step2_kernel memory_footprint:50348032  ####
+
+####  fdtd_step3_kernel memory_footprint:50348032  ####
+####  TraceGenerator::initialize: Start Generating trace for fdtd_step1_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 16128(out of 16384) blocks are still running ####
+####  TraceGenerator::initialize: Start Generating trace for fdtd_step2_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 16128(out of 16384) blocks are still running ####
+####  TraceGenerator::initialize: Start Generating trace for fdtd_step3_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 16128(out of 16384) blocks are still running ####
+####  TraceGenerator::initialize: Start Generating trace for fdtd_step1_kernel  ####
+####  TraceGenerator::initialize: Repeated fdtd_step1_kernel encountered  ####
+####  TraceGenerator::initialize: Program exiting ####
+#### TraceGenerator::force_exit: Force Exit ####

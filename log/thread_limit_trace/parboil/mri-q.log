@@ -1,0 +1,14 @@
+choose_num_access_limit: 0
+32768 pixels in output; 3072 samples in trajectory; using 3072 samples
+
+####  ComputePhiMag_GPU memory_footprint:36864  ####
+####  TraceGenerator::initialize: Start Generating trace for ComputePhiMag_GPU  ####
+
+####  ComputeQ_GPU memory_footprint:655360  ####
+####  TraceGenerator::initialize: Start Generating trace for ComputeQ_GPU  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 96(out of 128) blocks are still running ####
+####  TraceGenerator::initialize: Start Generating trace for ComputeQ_GPU  ####
+####  TraceGenerator::initialize: Repeated ComputeQ_GPU encountered  ####
+####  TraceGenerator::initialize: Program exiting ####
+#### TraceGenerator::force_exit: Force Exit ####

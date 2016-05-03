@@ -278,6 +278,8 @@ int main(int argc, char** argv) {
     else
         choose_num_access_limit = 1;
 
+    std::cout<<"choose_num_access_limit: "<<choose_num_access_limit<<std::endl;
+
 	TraceGenerator generator(argv[1]);
 	ocelot::addTraceGenerator(generator);
 	original_main(argc - 2, argv + 2);

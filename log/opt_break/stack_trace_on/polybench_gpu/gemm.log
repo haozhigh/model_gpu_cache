@@ -1,0 +1,29 @@
+
+####  main: Reading model config from '/home/asic/Workspace/model_gpu_cache/script/../build/model_config/opt_break_jam_off_fermi_16k.config'  ####
+########  ModelConfig::Print  ########
+cache_line_size:    128
+cache_way_size:     4
+cache_set_size:     32
+
+allocate_on_miss:   1
+jam_instruction:    0
+
+latency_type:       0
+latency_mean:       150
+latency_dev:        1
+
+num_sms:            15
+max_active_blocks:  8
+max_active_threads: 1024
+
+num_running_threads:1
+
+mapping_type:       2
+
+mshr_check:         1
+num_mshrs:          64
+
+cache_line_bits:  7
+#############  Print End  ############
+####  main: Reading trace from '/home/asic/Workspace/model_gpu_cache/script/../output/trace/polybench_gpu/gemm/gemm_kernel.trc'  ####
+####  main: Writing distances to '/home/asic/Workspace/model_gpu_cache/script/../output/opt_break/stack_trace_on/polybench_gpu/gemm/gemm_kernel.distance'  ####

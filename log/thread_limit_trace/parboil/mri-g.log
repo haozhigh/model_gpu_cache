@@ -1,0 +1,51 @@
+choose_num_access_limit: 0
+
+Reading parameters
+  Number of samples = 2655910
+  Grid Size = 256x256x256
+  Input Matrix Size = 60x60x60
+  Recon Matrix Size = 60x60x60
+  Kernel Width = 5.000000
+  KMax = 150.00 150.00 150.00
+  Oversampling = 5.000000
+  GPU Binsize = 32
+  Use LUT = Yes
+Reading input data from files
+Generating Look-Up Table
+Running gold version
+Running CUDA version
+
+####  binning_kernel memory_footprint:152098004  ####
+####  TraceGenerator::initialize: Start Generating trace for binning_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 5172(out of 5188) blocks are still running ####
+
+####  splitSort memory_footprint:21413312  ####
+
+####  splitRearrange memory_footprint:42660592  ####
+####  TraceGenerator::initialize: Start Generating trace for splitSort  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 2562(out of 2594) blocks are still running ####
+
+####  scan_L1_kernel memory_footprint:166020  ####
+####  TraceGenerator::initialize: Start Generating trace for scan_L1_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 25(out of 41) blocks are still running ####
+
+####  scan_inter1_kernel memory_footprint:512  ####
+####  TraceGenerator::initialize: Start Generating trace for scan_inter1_kernel  ####
+
+####  scan_inter2_kernel memory_footprint:512  ####
+####  TraceGenerator::initialize: Start Generating trace for scan_inter2_kernel  ####
+
+####  uniformAdd memory_footprint:166532  ####
+####  TraceGenerator::initialize: Start Generating trace for uniformAdd  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 25(out of 41) blocks are still running ####
+####  TraceGenerator::initialize: Start Generating trace for splitRearrange  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 2562(out of 2594) blocks are still running ####
+####  TraceGenerator::initialize: Start Generating trace for splitSort  ####
+####  TraceGenerator::initialize: Repeated splitSort encountered  ####
+####  TraceGenerator::initialize: Program exiting ####
+#### TraceGenerator::force_exit: Force Exit ####

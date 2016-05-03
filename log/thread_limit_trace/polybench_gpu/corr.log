@@ -1,0 +1,16 @@
+choose_num_access_limit: 0
+
+####  mean_kernel memory_footprint:16801800  ####
+
+####  std_kernel memory_footprint:16809996  ####
+
+####  reduce_kernel memory_footprint:16809996  ####
+####  TraceGenerator::initialize: Start Generating trace for mean_kernel  ####
+####  TraceGenerator::initialize: Start Generating trace for std_kernel  ####
+####  TraceGenerator::initialize: Start Generating trace for reduce_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 16128(out of 16384) blocks are still running ####
+####  TraceGenerator::initialize: Start Generating trace for corr_kernel  ####
+####  TraceGenerator::initialize: corr_kernel encountered  ####
+####  TraceGenerator::initialize: Program exiting ####
+#### TraceGenerator::force_exit: Force Exit ####

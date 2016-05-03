@@ -1,0 +1,7 @@
+choose_num_access_limit: 0
+
+####  gesummv_kernel memory_footprint:527360  ####
+####  TraceGenerator::initialize: Start Generating trace for gesummv_kernel  ####
+GPU Runtime: 0.130121s
+CPU Runtime: 0.000394s
+Non-Matching CPU-GPU Outputs Beyond Error Threshold of 0.05 Percent: 14

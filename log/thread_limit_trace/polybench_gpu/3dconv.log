@@ -1,0 +1,10 @@
+choose_num_access_limit: 0
+
+####  convolution3D_kernel memory_footprint:134217728  ####
+####  TraceGenerator::initialize: Start Generating trace for convolution3D_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 224(out of 256) blocks are still running ####
+####  TraceGenerator::initialize: Start Generating trace for convolution3D_kernel  ####
+####  TraceGenerator::initialize: Repeated convolution3D_kernel encountered  ####
+####  TraceGenerator::initialize: Program exiting ####
+#### TraceGenerator::force_exit: Force Exit ####

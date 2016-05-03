@@ -1,0 +1,27 @@
+choose_num_access_limit: 0
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+####  TraceGenerator::initialize: Start Generating trace for histo_prescan_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 48(out of 64) blocks are still running ####
+
+####  histo_intermediates_kernel memory_footprint:8286720  ####
+####  TraceGenerator::initialize: Start Generating trace for histo_intermediates_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 49(out of 65) blocks are still running ####
+
+####  histo_main_kernel memory_footprint:257079552  ####
+####  TraceGenerator::initialize: Start Generating trace for histo_main_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 72(out of 84) blocks are still running ####
+
+####  histo_final_kernel memory_footprint:257015808  ####
+####  TraceGenerator::initialize: Start Generating trace for histo_final_kernel  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 26(out of 42) blocks are still running ####
+
+####  histo_prescan_kernel memory_footprint:4143368  ####
+####  TraceGenerator::initialize: Start Generating trace for histo_prescan_kernel  ####
+####  TraceGenerator::initialize: Repeated histo_prescan_kernel encountered  ####
+####  TraceGenerator::initialize: Program exiting ####
+#### TraceGenerator::force_exit: Force Exit ####

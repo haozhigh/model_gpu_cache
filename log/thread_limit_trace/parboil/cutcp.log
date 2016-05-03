@@ -1,0 +1,19 @@
+choose_num_access_limit: 0
+read 5943 atoms from file '../datasets/parboil/cutcp/small/input/watbox.sl40.pqr'
+extent of domain is:
+  minimum -19.998 -19.941 -19.961
+  maximum 19.974 20 19.974
+padding domain by 0.5 Angstroms
+domain lengths are 40.972 by 40.941 by 40.935
+Invoking CUDA kernel on 11 region planes...
+  computing plane 0
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+####  TraceGenerator::initialize: Start Generating trace for cuda_cutoff_potential_lattice6overlap  ####
+####  TraceGenerator::event: Total number of threads exceeds 8192  ####
+####  TraceGenerator::event: Please wait while 55(out of 121) blocks are still running ####
+  computing plane 1
+####  cuda_cutoff_potential_lattice6overlap memory_footprint:3354752  ####
+####  TraceGenerator::initialize: Start Generating trace for cuda_cutoff_potential_lattice6overlap  ####
+####  TraceGenerator::initialize: Repeated cuda_cutoff_potential_lattice6overlap encountered  ####
+####  TraceGenerator::initialize: Program exiting ####
+#### TraceGenerator::force_exit: Force Exit ####
